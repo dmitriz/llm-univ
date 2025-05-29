@@ -1,0 +1,25 @@
+{
+  "name": "llm-univ",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn jest",
+    "test:watch": "yarn jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/__tests__/**/*.test.js", "**/?(*.)+(spec|test).js"]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "zod": "^3.25.36"
+  }
+}
