@@ -605,13 +605,168 @@ describe('create_request', () => {
         url: 'https://api.together.xyz/v1/batches',
         data: {
           requests: [{
+        custom_id: expect.any(String),
+        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: 'Hello' }]
+          }],
+          batch_size: 10, // Default value
+          timeout: 300    // Default value
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer together_test123'
+        }
+      });
+        });
+
+        it('should create Together AI batch request with custom batch size and timeout', () => {
+      const inputData = {
+        provider: 'together',
+        apiKey: 'together_test123',
+        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          batchSize: 20,
+          timeout: 500
+        }
+      };
+
+      const options = { url: 'https://api.together.xyz/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.together.xyz/v1/batches',
+        data: {
+          requests: [{
             custom_id: expect.any(String),
             model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
             max_tokens: 1024,
             messages: [{ role: 'user', content: 'Hello' }]
           }],
-          batch_size: 10,
-          timeout: 300
+          batch_size: 20,
+          timeout: 500
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer together_test123'
+        }
+      });
+    });
+    it('should create Anthropic batch request with explicit requests array', () => {
+      const inputData = {
+        provider: 'anthropic',
+        apiKey: 'sk-ant-test123',
+        model: 'claude-3-sonnet-20240229',
+        messages: [{ role: 'user', content: 'Fallback message' }],
+        batch: {
+          enabled: true,
+          requests: [
+            {
+              customId: 'req-001',
+              model: 'claude-3-sonnet-20240229',
+              messages: [{ role: 'user', content: 'First request' }],
+              maxTokens: 500,
+              temperature: 0.7
+            },
+            {
+              customId: 'req-002',
+              model: 'claude-3-sonnet-20240229',
+              messages: [{ role: 'user', content: 'Second request' }],
+              maxTokens: 1000,
+              temperature: 0.3
+            }
+          ]
+        }
+      };
+
+      const options = { url: 'https://api.anthropic.com/v1/messages/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.anthropic.com/v1/messages/batches',
+        data: {
+          requests: [
+            {
+              customId: 'req-001',
+              model: 'claude-3-sonnet-20240229',
+              messages: [{ role: 'user', content: 'First request' }],
+              maxTokens: 500,
+              temperature: 0.7
+            },
+            {
+              customId: 'req-002',
+              model: 'claude-3-sonnet-20240229',
+              messages: [{ role: 'user', content: 'Second request' }],
+              maxTokens: 1000,
+              temperature: 0.3
+            }
+          ]
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'sk-ant-test123',
+          'anthropic-version': '2025-05-22',
+          'anthropic-beta': 'message-batches-2024-09-24'
+        }
+      });
+    });
+
+    it('should create Together AI batch request with explicit requests array', () => {
+      const inputData = {
+        provider: 'together',
+        apiKey: 'together_test123',
+        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+        messages: [{ role: 'user', content: 'Fallback message' }],
+        batch: {
+          enabled: true,
+          batchSize: 5,
+          timeout: 600,
+          requests: [
+            {
+              customId: 'together-001',
+              model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+              messages: [{ role: 'user', content: 'Process this text' }],
+              maxTokens: 200
+            },
+            {
+              customId: 'together-002',
+              model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+              messages: [{ role: 'user', content: 'Analyze this data' }],
+              maxTokens: 300,
+              temperature: 0.5
+            }
+          ]
+        }
+      };
+
+      const options = { url: 'https://api.together.xyz/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.together.xyz/v1/batches',
+        data: {
+          requests: [
+            {
+              customId: 'together-001',
+              model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+              messages: [{ role: 'user', content: 'Process this text' }],
+              maxTokens: 200
+            },
+            {
+              customId: 'together-002',
+              model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+              messages: [{ role: 'user', content: 'Analyze this data' }],
+              maxTokens: 300,
+              temperature: 0.5
+            }
+          ],
+          batch_size: 5,
+          timeout: 600
         },
         headers: {
           'Content-Type': 'application/json',

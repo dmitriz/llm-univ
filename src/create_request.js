@@ -141,6 +141,35 @@ const get_default_url = (provider) => {
   }
 };
 
+// API version constants for maintainability
+const API_VERSIONS = {
+  anthropic: '2025-05-22',
+  anthropicBeta: 'message-batches-2024-09-24'
+};
+
+/**
+ * Creates OpenAI-compatible batch request for providers that use the same format
+ * @param {Object} data - The validated input data
+ * @param {string} baseUrl - The base URL for the provider
+ * @returns {Object} OpenAI-compatible batch request configuration
+ */
+const create_openai_compatible_batch = (data, baseUrl) => {
+  return {
+    method: 'POST',
+    url: `${baseUrl}/batches`,
+    data: {
+      input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
+      endpoint: '/v1/chat/completions',
+      completion_window: data.batch.completionWindow || '24h',
+      ...(data.batch.metadata && { metadata: data.batch.metadata })
+    },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${data.apiKey}`
+    }
+  };
+};
+
 /**
  * Handles batch processing request creation for supported providers
  * @param {Object} data - The validated input data with batch configuration
@@ -153,20 +182,13 @@ const create_batch_request = (data) => {
 
   switch (data.provider) {
     case 'openai':
-      return {
-        method: 'POST',
-        url: 'https://api.openai.com/v1/batches',
-        data: {
-          input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
-          endpoint: '/v1/chat/completions',
-          completion_window: data.batch.completionWindow || '24h',
-          ...(data.batch.metadata && { metadata: data.batch.metadata })
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${data.apiKey}`
-        }
-      };
+      return create_openai_compatible_batch(data, 'https://api.openai.com/v1');
+    
+    case 'groq':
+      return create_openai_compatible_batch(data, 'https://api.groq.com/openai/v1');
+    
+    case 'siliconflow':
+      return create_openai_compatible_batch(data, 'https://api.siliconflow.cn/v1');
     
     case 'anthropic':
       return {
@@ -187,8 +209,8 @@ const create_batch_request = (data) => {
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': data.apiKey,
-          'anthropic-version': '2025-05-22',
-          'anthropic-beta': 'message-batches-2024-09-24'
+          'anthropic-version': API_VERSIONS.anthropic,
+          'anthropic-beta': API_VERSIONS.anthropicBeta
         }
       };
     
@@ -207,39 +229,6 @@ const create_batch_request = (data) => {
           }],
           batch_size: data.batch.batchSize || 10,
           timeout: data.batch.timeout || 300
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${data.apiKey}`
-        }
-      };
-    
-    case 'groq':
-      return {
-        url: 'https://api.groq.com/openai/v1/batches',
-        method: 'POST',
-        data: {
-          input_file_id: data.batch.inputFileId,
-          endpoint: '/v1/chat/completions',
-          completion_window: data.batch.completionWindow || '24h',
-          ...(data.batch.metadata && { metadata: data.batch.metadata })
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${data.apiKey}`
-        }
-      };
-    
-    case 'siliconflow':
-      // SiliconFlow uses OpenAI-compatible batch API format
-      return {
-        method: 'POST',
-        url: 'https://api.siliconflow.cn/v1/batches',
-        data: {
-          input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
-          endpoint: '/v1/chat/completions',
-          completion_window: data.batch.completionWindow || '24h',
-          ...(data.batch.metadata && { metadata: data.batch.metadata })
         },
         headers: {
           'Content-Type': 'application/json',

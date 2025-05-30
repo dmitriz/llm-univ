@@ -399,7 +399,23 @@ const llm_input_schema = z.object({
      * Optional metadata to associate with the batch
      * Useful for tracking and organization
      */
-    metadata: z.record(z.string()).optional()
+    metadata: z.record(z.string()).optional(),
+    
+    /**
+     * Batch size for Together AI batch processing
+     * Controls how many requests are processed together
+     * Default: 10
+     * Provider: Together AI only
+     */
+    batchSize: z.number().min(1).max(100).optional(),
+    
+    /**
+     * Timeout in seconds for Together AI batch processing
+     * Maximum time to wait for batch completion
+     * Default: 300 seconds (5 minutes)
+     * Provider: Together AI only
+     */
+    timeout: z.number().min(60).max(3600).optional()
   }).optional()
 });
 
