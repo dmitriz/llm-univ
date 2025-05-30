@@ -6,7 +6,7 @@ const axios = require('axios');
  * @param {Object} data - The validated input data
  * @returns {Object} Provider-specific headers
  */
-function createProviderHeaders(data) {
+const createProviderHeaders = (data) => {
   const baseHeaders = {
     'Content-Type': 'application/json'
   };
@@ -40,7 +40,7 @@ function createProviderHeaders(data) {
     default:
       return baseHeaders;
   }
-}
+};
 
 /**
  * Creates an axios request configuration from a Zod schema and input data
@@ -52,7 +52,7 @@ function createProviderHeaders(data) {
  * @param {Object} options.headers - Additional headers (will override provider headers)
  * @returns {Object} Axios request configuration object
  */
-function createRequest(schema, data, options = {}) {
+const createRequest = (schema, data, options = {}) => {
   // Validate input data against schema
   const validatedData = schema.parse(data);
   
@@ -71,7 +71,7 @@ function createRequest(schema, data, options = {}) {
   };
   
   return requestConfig;
-}
+};
 
 /**
  * Creates and executes an axios request from a schema
@@ -80,10 +80,10 @@ function createRequest(schema, data, options = {}) {
  * @param {Object} options - Request options (url, method, headers, etc.)
  * @returns {Promise} Axios response promise
  */
-async function executeRequest(schema, data, options = {}) {
+const executeRequest = async (schema, data, options = {}) => {
   const requestConfig = createRequest(schema, data, options);
   return axios(requestConfig);
-}
+};
 
 module.exports = {
   createRequest,
