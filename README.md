@@ -182,6 +182,7 @@ const batchRequest = {
 #### Anthropic
 
 #### Anthropic (✅ Recommended - 50% Cost Savings)
+
 - Support: All Claude models via `/v1/messages/batches` endpoint
 - Format: JSON array of requests with custom IDs
 - Status: Available in public beta with stable performance

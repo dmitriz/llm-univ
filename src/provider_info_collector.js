@@ -580,14 +580,12 @@ async function collectHuggingFaceModels() {
   }
   
   // Remove duplicates
-  const uniqueModels = models.reduce((acc, model) => {
+  return models.reduce((acc, model) => {
     if (!acc.find(m => m.id === model.id)) {
       acc.push(model);
     }
     return acc;
   }, []);
-  
-  return uniqueModels;
 }
 
 /**
@@ -663,7 +661,7 @@ async function scrapeProviderInfo(provider, url) {
       case 'anthropic':
         // Extract Claude model information
         if (url.includes('pricing') || url.includes('claude')) {
-          const claudeMatches = html.match(/claude[^"\s<>]*[0-9][^"\s<>]*/gi);
+          const claudeMatches = html.match(/claude[^"\\s<>]*[0-9][^"\\s<>]*/gi);
           if (claudeMatches) {
             models = [...new Set(claudeMatches)].map(model => ({
               id: model.toLowerCase(),
@@ -680,9 +678,9 @@ async function scrapeProviderInfo(provider, url) {
         if (url.includes('docs') || url.includes('pricing')) {
           // Look for model names in documentation
           const modelPatterns = [
-            /llama[^"\s<>]*[0-9][^"\s<>]*/gi,
-            /sonar[^"\s<>]*[0-9][^"\s<>]*/gi,
-            /perplexity[^"\s<>]*[0-9][^"\s<>]*/gi
+            /llama[^"\\s<>]*[0-9][^"\\s<>]*/gi,
+            /sonar[^"\\s<>]*[0-9][^"\\s<>]*/gi,
+            /perplexity[^"\\s<>]*[0-9][^"\\s<>]*/gi
           ];
           
           modelPatterns.forEach(pattern => {
@@ -705,7 +703,7 @@ async function scrapeProviderInfo(provider, url) {
       case 'grok':
         // Extract Grok model information
         if (url.includes('pricing') || url.includes('docs')) {
-          const grokMatches = html.match(/grok[^"\s<>]*[0-9][^"\s<>]*/gi);
+          const grokMatches = html.match(/grok[^"\\s<>]*[0-9][^"\\s<>]*/gi);
           if (grokMatches) {
             models = [...new Set(grokMatches)].map(model => ({
               id: model.toLowerCase(),
@@ -718,7 +716,7 @@ async function scrapeProviderInfo(provider, url) {
         }
         break;
 
-      default:
+      default: {
         // Generic extraction for other providers
         const genericPatterns = [
           new RegExp(`${provider}[^"\\s<>]*[0-9][^"\\s<>]*`, 'gi'),
@@ -738,19 +736,21 @@ async function scrapeProviderInfo(provider, url) {
             });
           }
         });
+        break;
+      }
     }
 
     // Remove duplicates
-    const uniqueModels = models.reduce((acc, model) => {
+    const result = models.reduce((acc, model) => {
       if (!acc.find(m => m.id === model.id)) {
         acc.push(model);
       }
       return acc;
     }, []);
 
-    console.log(`  ✅ Scraped ${uniqueModels.length} models from ${provider}`);
-    return uniqueModels;
-
+    console.log(`  ✅ Scraped ${result.length} models from ${provider}`);
+    return result;
+    
   } catch (error) {
     console.log(`  ❌ Error scraping ${provider}: ${error.message}`);
     return null;
