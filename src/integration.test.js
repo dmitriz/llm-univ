@@ -233,7 +233,8 @@ describe('Integration Tests', () => {
         await execute_request(llm_input_schema, invalidInput, options);
         fail('Should have thrown an error');
       } catch (error) {
-        expect(['ENOTFOUND', 'ECONNREFUSED']).toContain(error.code);
+        // Our error handling now sanitizes network errors
+        expect(error.message).toBe('Network error: Unable to reach the API endpoint');
       }
     });
 

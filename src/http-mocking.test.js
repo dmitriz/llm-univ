@@ -248,9 +248,7 @@ describe('HTTP Mocking Tests', () => {
         apiKey: 'test-key'
       };
 
-      await expect(execute_request(llm_input_schema, input)).rejects.toMatchObject({
-        code: 'ECONNREFUSED'
-      });
+      await expect(execute_request(llm_input_schema, input)).rejects.toThrow('Network error: Unable to reach the API endpoint');
     });
   });
 

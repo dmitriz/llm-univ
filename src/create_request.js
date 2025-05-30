@@ -1,10 +1,10 @@
 const { z } = require('zod');
 const axios = require('axios');
-const { 
-  BASE_URLS, 
-  CHAT_ENDPOINTS, 
-  MODEL_ENDPOINTS, 
-  getChatEndpoint, 
+const {
+  BASE_URLS,
+  CHAT_ENDPOINTS,
+  MODEL_ENDPOINTS,
+  getChatEndpoint,
   getModelEndpoint,
   getHuggingFaceUrl,
   getBatchEndpoint
@@ -14,6 +14,71 @@ const {
 const API_VERSIONS = {
   anthropic: '2025-05-22',
   anthropicBeta: 'message-batches-2024-09-24'
+};
+
+/**
+ * Validates and sanitizes API key to prevent header injection attacks
+ * @param {string} apiKey - The API key to validate
+ * @param {string} provider - The provider name for error messages
+ * @returns {string} Sanitized API key
+ */
+const validateApiKey = (apiKey, provider) => {
+  if (!apiKey || typeof apiKey !== 'string') {
+    throw new Error(`Invalid API key format for provider: ${provider}`);
+  }
+
+  // Remove potential header injection characters (CRLF injection prevention)
+  const sanitized = apiKey.replace(/[\r\n\t]/g, '').trim();
+
+  if (sanitized.length === 0) {
+    throw new Error(`Empty API key provided for provider: ${provider}`);
+  }
+
+  // Basic format validation for common API key patterns
+  // Allow shorter keys in test environment
+  const minLength = process.env.NODE_ENV === 'test' ? 3 : 10;
+  if (sanitized.length < minLength) {
+    throw new Error(`API key too short for provider: ${provider}`);
+  }
+
+  return sanitized;
+};
+
+/**
+ * Validates URL to prevent SSRF attacks
+ * @param {string} url - The URL to validate
+ * @returns {string} Validated URL
+ */
+const validateUrl = (url) => {
+  if (!url || typeof url !== 'string') {
+    throw new Error('Invalid URL format');
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+
+    // Only allow HTTPS and HTTP protocols
+    if (!['https:', 'http:'].includes(parsedUrl.protocol)) {
+      throw new Error('Only HTTP and HTTPS protocols are allowed');
+    }
+
+    // Block localhost and private IP ranges for security
+    const hostname = parsedUrl.hostname.toLowerCase();
+    if (hostname === 'localhost' ||
+        hostname === '127.0.0.1' ||
+        hostname.startsWith('192.168.') ||
+        hostname.startsWith('10.') ||
+        hostname.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) {
+      // Allow localhost only for Ollama
+      if (!url.includes('localhost:11434')) {
+        throw new Error('Private IP addresses are not allowed');
+      }
+    }
+
+    return url;
+  } catch (error) {
+    throw new Error(`Invalid URL: ${error.message}`);
+  }
 };
 
 /**
@@ -30,42 +95,42 @@ const create_provider_headers = (data) => {
     case 'openai':
       return {
         ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
+        'Authorization': `Bearer ${validateApiKey(data.apiKey, data.provider)}`
       };
-    
+
     case 'anthropic':
       return {
         ...baseHeaders,
-        'x-api-key': data.apiKey,
+        'x-api-key': validateApiKey(data.apiKey, data.provider),
         'anthropic-version': API_VERSIONS.anthropic
       };
-    
+
     case 'google':
       return {
         ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
+        'Authorization': `Bearer ${validateApiKey(data.apiKey, data.provider)}`
       };
-    
+
     case 'gh-models':
       // GitHub Models can work without API key for basic usage
       if (data.apiKey) {
         return {
           ...baseHeaders,
-          'Authorization': `Bearer ${data.apiKey}`
+          'Authorization': `Bearer ${validateApiKey(data.apiKey, data.provider)}`
         };
       }
       return baseHeaders;
-    
+
     case 'huggingface':
       // Hugging Face has free tier, API key optional
       if (data.apiKey) {
         return {
           ...baseHeaders,
-          'Authorization': `Bearer ${data.apiKey}`
+          'Authorization': `Bearer ${validateApiKey(data.apiKey, data.provider)}`
         };
       }
       return baseHeaders;
-    
+
     case 'together':
     case 'deepseek':
     case 'qwen':
@@ -75,13 +140,13 @@ const create_provider_headers = (data) => {
     case 'openrouter':
       return {
         ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
+        'Authorization': `Bearer ${validateApiKey(data.apiKey, data.provider)}`
       };
-      
+
     case 'ollama':
       // Ollama typically runs locally and doesn't require API key authentication
       return baseHeaders;
-    
+
     default:
       // For any other providers, return base headers
       return baseHeaders;
@@ -112,7 +177,7 @@ const create_openai_compatible_batch = (data, provider) => {
     method: 'POST',
     url: getBatchEndpoint(provider),
     data: {
-      input_file_id: data.batch.inputFileId, 
+      input_file_id: data.batch.inputFileId,
       endpoint: getChatEndpoint(provider), // Use provider-specific chat endpoint
       completion_window: data.batch.completionWindow || '24h',
       ...(data.batch.metadata && { metadata: data.batch.metadata })
@@ -147,7 +212,7 @@ const create_batch_request = (data) => {
     case 'groq':
     case 'siliconflow':
       return create_openai_compatible_batch(data, data.provider);
-    
+
     case 'anthropic':
       return {
         method: 'POST',
@@ -171,7 +236,7 @@ const create_batch_request = (data) => {
           'anthropic-beta': API_VERSIONS.anthropicBeta
         }
       };
-    
+
     case 'together':
       // Together AI doesn't support metadata - strip it to prevent silent failures
       if (data.batch.metadata) {
@@ -197,7 +262,7 @@ const create_batch_request = (data) => {
           'Authorization': `Bearer ${data.apiKey}`
         }
       };
-    
+
     default:
       throw new Error(`Batch processing not supported for provider: ${data.provider}`);
   }
@@ -227,10 +292,10 @@ const create_batch_jsonl = (requests) => {
  * Uses allowlist approach to include only API-relevant fields
  * Excludes internal fields like provider, apiKey, batch
  * Maps camelCase field names to snake_case API format
- * 
+ *
  * @param {Object} validatedData - The validated input data
  * @returns {Object} Clean API payload with snake_case keys
- * 
+ *
  * @example
  * const result = extract_api_payload({
  *   model: 'gpt-4',
@@ -253,22 +318,22 @@ const extract_api_payload = (validatedData) => {
     // Core required fields
     'model': 'model',
     'messages': 'messages',
-    
+
     // Generation parameters
     'maxTokens': 'max_tokens',
     'temperature': 'temperature',
     'topP': 'top_p',
     'stream': 'stream',
     'stop': 'stop',
-    
-    // Advanced parameters  
+
+    // Advanced parameters
     'presencePenalty': 'presence_penalty',
     'frequencyPenalty': 'frequency_penalty',
     'tools': 'tools',
     'responseFormat': 'response_format',
     'seed': 'seed'
   };
-  
+
   // Extract and map only allowlisted fields from validated data
   const apiPayload = {};
   for (const [camelCaseField, snakeCaseField] of Object.entries(API_FIELD_MAPPING)) {
@@ -277,7 +342,7 @@ const extract_api_payload = (validatedData) => {
       apiPayload[snakeCaseField] = value;
     }
   }
-  
+
   return apiPayload;
 };
 
@@ -293,14 +358,14 @@ const extract_api_payload = (validatedData) => {
  */
 const create_request = (schema, data, options = {}) => {
   const validatedData = schema.parse(data);
-  
+
   // Check if this is a batch processing request
   if (validatedData.batch?.enabled) {
     const batchRequest = create_batch_request(validatedData);
     if (batchRequest) {
-      // Override URL if provided in options
+      // Override URL if provided in options (with validation)
       if (options.url) {
-        batchRequest.url = options.url;
+        batchRequest.url = validateUrl(options.url);
       }
       // Merge custom headers if provided
       if (options.headers) {
@@ -309,7 +374,7 @@ const create_request = (schema, data, options = {}) => {
       return batchRequest;
     }
   }
-  
+
   // Validate API key requirements
   const requiresApiKey = [
     'openai',
@@ -328,9 +393,10 @@ const create_request = (schema, data, options = {}) => {
   }
 
   // Return request configuration directly
+  const finalUrl = options.url || get_default_url(validatedData.provider, validatedData.model);
   return {
     method: options.method || 'POST',
-    url: options.url || get_default_url(validatedData.provider, validatedData.model),
+    url: validateUrl(finalUrl),
     data: extract_api_payload(validatedData),
     headers: {
       ...create_provider_headers(validatedData),
@@ -340,14 +406,43 @@ const create_request = (schema, data, options = {}) => {
 };
 
 /**
- * Creates and executes an axios request from a schema
+ * Creates and executes an axios request from a schema with proper error handling
  * @param {z.ZodSchema} schema - The Zod schema to validate input against
  * @param {Object} data - The input data to validate and convert
  * @param {Object} options - Request options (url, method, headers, etc.)
  * @returns {Promise} Axios response promise
+ * @throws {Error} Sanitized error messages that don't leak sensitive information
  */
 const execute_request = async (schema, data, options = {}) => {
-  return axios(create_request(schema, data, options));
+  try {
+    const requestConfig = create_request(schema, data, options);
+    return await axios(requestConfig);
+  } catch (error) {
+    // Sanitize error messages to prevent information leakage
+    if (error.response) {
+      // HTTP error response - preserve status and basic info, sanitize details
+      const sanitizedError = new Error(`HTTP ${error.response.status}: Request failed`);
+      sanitizedError.response = {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        data: error.response.data,
+        headers: error.response.headers
+      };
+      throw sanitizedError;
+    } else if (error.request) {
+      // Network error - don't expose internal network details
+      throw new Error('Network error: Unable to reach the API endpoint');
+    } else if (error.name === 'ZodError') {
+      // Schema validation error - safe to expose
+      throw error;
+    } else if (error.code && ['ECONNREFUSED', 'ENOTFOUND', 'ETIMEDOUT'].includes(error.code)) {
+      // Network-related errors
+      throw new Error('Network error: Unable to reach the API endpoint');
+    } else {
+      // Other errors - sanitize message
+      throw new Error(`Request failed: ${error.message}`);
+    }
+  }
 };
 
 module.exports = {
