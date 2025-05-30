@@ -184,7 +184,20 @@ const llm_input_schema = z.object({
       maxTokens: z.number().optional(),
       temperature: z.number().optional(),
       // Additional parameters can be added as needed
-    })).optional()
+    })).optional(),
+    
+    /**
+     * File ID for uploaded JSONL batch file
+     * Required for Groq and OpenAI batch processing
+     * File must be uploaded via Files API before creating batch
+     */
+    inputFileId: z.string().optional(),
+    
+    /**
+     * Optional metadata to associate with the batch
+     * Useful for tracking and organization
+     */
+    metadata: z.record(z.string()).optional()
   }).optional()
 });
 

@@ -85,7 +85,7 @@ The following providers offer batch processing capabilities:
 
 1. **OpenAI** - Comprehensive batch API via file uploads
 2. **Anthropic** - Supports batched requests with custom IDs
-3. **Groq** - Support for batch processing similar to OpenAI
+3. **Groq** - ✅ Dedicated batch API via `/v1/batches` endpoint (25% discount)
 4. **Together AI** - Supports batch processing for cost optimization (50% savings)
 5. **Cohere** - Limited batch processing support
 

@@ -28,4 +28,16 @@ Information was collected through:
 4. Memory MCP for storing and retrieving research findings
 5. Fetch MCP for web-based verification and additional research
 
+## Recent Updates
+
+### May 30, 2025 - Batch Processing Verification
+- **Groq Batch API Confirmed**: Verified that Groq does support dedicated batch processing via `/v1/batches` endpoint
+- **Endpoint Correction**: Updated from "async requests recommended" to full batch API support
+- **Documentation Source**: Context7 MCP research confirmed official Groq Cloud documentation
+- **Implementation Updated**: `create_request.js` now properly implements Groq batch processing with:
+  - File upload via Files API
+  - Batch creation with completion windows (24h-7d)
+  - JSONL format support
+  - Metadata and custom ID support
+
 Last updated: May 30, 2025

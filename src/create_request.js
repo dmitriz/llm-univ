@@ -214,9 +214,20 @@ const create_batch_request = (data) => {
       };
     
     case 'groq':
-      // Groq currently doesn't support a dedicated batch API
-      // They recommend using their async API for batch-like processing
-      throw new Error('Batch processing is not currently supported by Groq. Consider using async requests instead.');
+      return {
+        url: 'https://api.groq.com/openai/v1/batches',
+        method: 'POST',
+        data: {
+          input_file_id: data.batch.inputFileId,
+          endpoint: '/v1/chat/completions',
+          completion_window: data.batch.completionWindow || '24h',
+          ...(data.batch.metadata && { metadata: data.batch.metadata })
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.apiKey}`
+        }
+      };
     
     default:
       throw new Error(`Batch processing not supported for provider: ${data.provider}`);
@@ -299,5 +310,7 @@ module.exports = {
   create_request,
   execute_request,
   create_provider_headers,
-  get_default_url
+  get_default_url,
+  create_batch_request,
+  create_batch_jsonl
 };
