@@ -346,7 +346,7 @@ describe('create_request', () => {
         url: 'https://api.openai.com/v1/batches',
         data: {
           input_file_id: 'file-abc123',
-          endpoint: '/v1/chat/completions',
+          endpoint: 'https://api.openai.com/v1/chat/completions',
           completion_window: '24h',
           metadata: { project: 'test' }
         },
@@ -409,7 +409,7 @@ describe('create_request', () => {
         url: 'https://api.groq.com/openai/v1/batches',
         data: {
           input_file_id: 'file-groq123',
-          endpoint: '/v1/chat/completions',
+          endpoint: 'https://api.groq.com/openai/v1/chat/completions',
           completion_window: '24h'
         },
         headers: {
@@ -438,7 +438,7 @@ describe('create_request', () => {
         url: 'https://api.siliconflow.cn/v1/batches',
         data: {
           input_file_id: 'file-silicon456',
-          endpoint: '/v1/chat/completions',
+          endpoint: 'https://api.siliconflow.cn/v1/chat/completions',
           completion_window: '24h',
           metadata: { environment: 'test' }
         },
@@ -466,7 +466,7 @@ describe('create_request', () => {
         url: 'https://api.siliconflow.cn/v1/batches',
         data: {
           input_file_id: 'file-silicon-minimal',
-          endpoint: '/v1/chat/completions',
+          endpoint: 'https://api.siliconflow.cn/v1/chat/completions',
           completion_window: '24h'
         },
         headers: {

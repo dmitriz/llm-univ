@@ -113,7 +113,7 @@ const create_openai_compatible_batch = (data, provider) => {
     url: getBatchEndpoint(provider),
     data: {
       input_file_id: data.batch.inputFileId, 
-      endpoint: '/v1/chat/completions', // Use full path for batch endpoint
+      endpoint: getChatEndpoint(provider), // Use provider-specific chat endpoint
       completion_window: data.batch.completionWindow || '24h',
       ...(data.batch.metadata && { metadata: data.batch.metadata })
     },
