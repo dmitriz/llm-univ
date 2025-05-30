@@ -43,34 +43,46 @@ const create_provider_headers = (data) => {
 };
 
 /**
+ * Gets the default URL for a provider
+ * @param {string} provider - The provider name
+ * @returns {string} Default URL for the provider
+ */
+const get_default_url = (provider) => {
+  switch (provider) {
+    case 'openai':
+      return 'https://api.openai.com/v1/chat/completions';
+    case 'anthropic':
+      return 'https://api.anthropic.com/v1/messages';
+    case 'google':
+      return 'https://generativelanguage.googleapis.com/v1/models';
+    default:
+      return undefined;
+  }
+};
+
+/**
  * Creates an axios request configuration from a Zod schema and input data
  * @param {z.ZodSchema} schema - The Zod schema to validate input against
  * @param {Object} data - The input data to validate and convert
  * @param {Object} options - Additional request options
- * @param {string} options.url - The request URL
+ * @param {string} options.url - The request URL (optional, will use provider default if not specified)
  * @param {string} options.method - HTTP method (default: 'POST')
  * @param {Object} options.headers - Additional headers (will override provider headers)
  * @returns {Object} Axios request configuration object
  */
 const create_request = (schema, data, options = {}) => {
-  // Validate input data against schema
   const validatedData = schema.parse(data);
   
-  // Create provider-specific headers
-  const providerHeaders = create_provider_headers(validatedData);
-  
-  // Create base request configuration
-  const requestConfig = {
+  // Return request configuration directly
+  return {
     method: options.method || 'POST',
-    url: options.url,
+    url: options.url || get_default_url(validatedData.provider),
     data: validatedData,
     headers: {
-      ...providerHeaders,
+      ...create_provider_headers(validatedData),
       ...options.headers // Allow overriding provider headers
     }
   };
-  
-  return requestConfig;
 };
 
 /**
@@ -81,12 +93,12 @@ const create_request = (schema, data, options = {}) => {
  * @returns {Promise} Axios response promise
  */
 const execute_request = async (schema, data, options = {}) => {
-  const requestConfig = create_request(schema, data, options);
-  return axios(requestConfig);
+  return axios(create_request(schema, data, options));
 };
 
 module.exports = {
   create_request,
   execute_request,
-  create_provider_headers
+  create_provider_headers,
+  get_default_url
 };
