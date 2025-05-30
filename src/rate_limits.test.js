@@ -109,21 +109,27 @@ describe('Rate Limits Module', () => {
     });
 
     describe('cleanOldEntries', () => {
-      it('should remove old entries outside time windows', (done) => {
+    describe('cleanOldEntries', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+      
+      afterEach(() => {
+        jest.useRealTimers();
+      });
+      
+      it('should remove old entries outside time windows', () => {
         tracker.recordRequest('openai', 100);
-        
-        // Mock old timestamp
+
         const usage = tracker.usage.get('openai');
-        const oldTime = Date.now() - 70000; // 70 seconds ago
+        const oldTime = Date.now() - 70000;
         usage.minute[0] = oldTime;
         usage.day[0] = oldTime;
 
-        setTimeout(() => {
-          tracker.cleanOldEntries('openai');
-          const updatedUsage = tracker.usage.get('openai');
-          expect(updatedUsage.minute).toHaveLength(0);
-          done();
-        }, 10);
+        jest.advanceTimersByTime(70000);
+        tracker.cleanOldEntries('openai');
+        const updatedUsage = tracker.usage.get('openai');
+        expect(updatedUsage.minute).toHaveLength(0);
       });
     });
 

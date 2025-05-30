@@ -116,7 +116,8 @@ describe('URL Configuration', () => {
     });
 
     it('should handle unknown providers gracefully', () => {
-      expect(() => getChatEndpoint('unknown-provider')).not.toThrow();
+      // Should return undefined for unknown providers rather than concatenating undefined values
+      expect(getChatEndpoint('unknown-provider')).toBeUndefined();
     });
   });
 

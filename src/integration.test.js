@@ -102,7 +102,7 @@ describe('Integration Tests', () => {
               const response = await execute_request(llm_input_schema, modelInput);
               expect(response.status).toBe(200);
 
-              console.log(`✅ Model ${model} works with GitHub token`);
+              console.log(`✅ Model ${model} authentication successful`);
 
             } catch (error) {
               if (error.response?.status === 404) {
