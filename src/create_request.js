@@ -1,5 +1,20 @@
 const { z } = require('zod');
 const axios = require('axios');
+const { 
+  BASE_URLS, 
+  CHAT_ENDPOINTS, 
+  MODEL_ENDPOINTS, 
+  getChatEndpoint, 
+  getModelEndpoint,
+  getHuggingFaceUrl,
+  getBatchEndpoint
+} = require('./config/url_config');
+
+// API version constants for maintainability
+const API_VERSIONS = {
+  anthropic: '2025-05-22',
+  anthropicBeta: 'message-batches-2024-09-24'
+};
 
 /**
  * Creates provider-specific headers based on the input data
@@ -22,7 +37,7 @@ const create_provider_headers = (data) => {
       return {
         ...baseHeaders,
         'x-api-key': data.apiKey,
-        'anthropic-version': '2025-05-22'
+        'anthropic-version': API_VERSIONS.anthropic
       };
     
     case 'google':
@@ -52,41 +67,11 @@ const create_provider_headers = (data) => {
       return baseHeaders;
     
     case 'together':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'deepseek':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'qwen':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'siliconflow':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'groq':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-      
     case 'grok':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-      
     case 'openrouter':
       return {
         ...baseHeaders,
@@ -106,60 +91,29 @@ const create_provider_headers = (data) => {
 /**
  * Gets the default URL for a provider
  * @param {string} provider - The provider name
+ * @param {string} model - The model name (required for some providers like Hugging Face)
  * @returns {string} Default URL for the provider
  */
-const get_default_url = (provider) => {
-  switch (provider) {
-    case 'openai':
-      return 'https://api.openai.com/v1/chat/completions';
-    case 'anthropic':
-      return 'https://api.anthropic.com/v1/messages';
-    case 'google':
-      return 'https://generativelanguage.googleapis.com/v1/models';
-    case 'gh-models':
-      return 'https://models.inference.ai.azure.com/chat/completions';
-    case 'huggingface':
-      return 'https://api-inference.huggingface.co/models';
-    case 'together':
-      return 'https://api.together.xyz/v1/chat/completions';
-    case 'deepseek':
-      return 'https://api.deepseek.com/chat/completions';
-    case 'qwen':
-      return 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
-    case 'siliconflow':
-      return 'https://api.siliconflow.cn/v1/chat/completions';
-    case 'groq':
-      return 'https://api.groq.com/openai/v1/chat/completions';
-    case 'grok':
-      return 'https://api.x.ai/v1/chat/completions';
-    case 'openrouter':
-      return 'https://openrouter.ai/api/v1/chat/completions';
-    case 'ollama':
-      return 'http://localhost:11434/api/chat';
-    default:
-      return undefined;
+const get_default_url = (provider, model) => {
+  if (provider === 'huggingface') {
+    return getHuggingFaceUrl(model);
   }
-};
-
-// API version constants for maintainability
-const API_VERSIONS = {
-  anthropic: '2025-05-22',
-  anthropicBeta: 'message-batches-2024-09-24'
+  return getChatEndpoint(provider);
 };
 
 /**
  * Creates OpenAI-compatible batch request for providers that use the same format
  * @param {Object} data - The validated input data
- * @param {string} baseUrl - The base URL for the provider
+ * @param {string} provider - The provider name
  * @returns {Object} OpenAI-compatible batch request configuration
  */
-const create_openai_compatible_batch = (data, baseUrl) => {
+const create_openai_compatible_batch = (data, provider) => {
   return {
     method: 'POST',
-    url: `${baseUrl}/batches`,
+    url: getBatchEndpoint(provider),
     data: {
-      input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
-      endpoint: '/v1/chat/completions',
+      input_file_id: data.batch.inputFileId, 
+      endpoint: getChatEndpoint(provider), // Use provider-specific chat endpoint
       completion_window: data.batch.completionWindow || '24h',
       ...(data.batch.metadata && { metadata: data.batch.metadata })
     },
@@ -181,42 +135,23 @@ const create_batch_request = (data) => {
   }
 
   // Provider-specific validation for required batch fields
-  switch (data.provider) {
-    case 'siliconflow':
-      if (!data.batch.inputFileId) {
-        throw new Error('SiliconFlow batch processing requires inputFileId');
-      }
-      break;
-    case 'openai':
-    case 'groq':
-      if (!data.batch.inputFileId) {
-        throw new Error(`${data.provider} batch processing requires inputFileId`);
-      }
-      break;
-    case 'together':
-      // Together AI can work with either explicit requests array or fallback to single request
-      // No strict validation needed as fallback is supported
-      break;
-    case 'anthropic':
-      // Anthropic can work with either explicit requests array or fallback to single request
-      // No strict validation needed as fallback is supported
-      break;
+  const requiresInputFileId = ['siliconflow', 'openai', 'groq'];
+  if (requiresInputFileId.includes(data.provider) && data.batch && !data.batch.inputFileId) {
+    // Capitalize first letter for better error message formatting
+    const providerName = data.provider.charAt(0).toUpperCase() + data.provider.slice(1);
+    throw new Error(`${providerName} batch processing requires inputFileId`);
   }
 
   switch (data.provider) {
     case 'openai':
-      return create_openai_compatible_batch(data, 'https://api.openai.com/v1');
-    
     case 'groq':
-      return create_openai_compatible_batch(data, 'https://api.groq.com/openai/v1');
-    
     case 'siliconflow':
-      return create_openai_compatible_batch(data, 'https://api.siliconflow.cn/v1');
+      return create_openai_compatible_batch(data, data.provider);
     
     case 'anthropic':
       return {
         method: 'POST',
-        url: 'https://api.anthropic.com/v1/messages/batches',
+        url: getBatchEndpoint('anthropic'),
         data: {
           requests: data.batch.requests || [{
             custom_id: data.batch.customId || `req-${Date.now()}`,
@@ -244,7 +179,7 @@ const create_batch_request = (data) => {
       }
       return {
         method: 'POST',
-        url: 'https://api.together.xyz/v1/batches',
+        url: getBatchEndpoint('together'),
         data: {
           requests: data.batch.requests || [{
             customId: data.batch.customId || `batch-${Date.now()}`,
@@ -277,7 +212,7 @@ const create_batch_jsonl = (requests) => {
   return requests.map(req => JSON.stringify({
     custom_id: req.customId,
     method: 'POST',
-    url: '/v1/chat/completions',
+    url: CHAT_ENDPOINTS[req.provider] || '/v1/chat/completions',
     body: {
       model: req.model,
       messages: req.messages,
@@ -285,6 +220,65 @@ const create_batch_jsonl = (requests) => {
       ...(req.temperature && { temperature: req.temperature })
     }
   })).join('\n');
+};
+
+/**
+ * Extracts only the API payload fields from validated data
+ * Uses allowlist approach to include only API-relevant fields
+ * Excludes internal fields like provider, apiKey, batch
+ * Maps camelCase field names to snake_case API format
+ * 
+ * @param {Object} validatedData - The validated input data
+ * @returns {Object} Clean API payload with snake_case keys
+ * 
+ * @example
+ * const result = extract_api_payload({
+ *   model: 'gpt-4',
+ *   messages: [{role: 'user', content: 'Hello'}],
+ *   maxTokens: 1000,
+ *   provider: 'openai', // excluded from output
+ *   apiKey: 'sk-...'    // excluded from output
+ * });
+ * // Returns: { model: 'gpt-4', messages: [...], max_tokens: 1000 }
+ */
+const extract_api_payload = (validatedData) => {
+  if (!validatedData || typeof validatedData !== 'object') {
+    throw new Error('extract_api_payload: validatedData must be a non-null object');
+  }
+
+  // Define comprehensive allowlist mapping from camelCase to snake_case
+  // This explicit allowlist approach prevents data leakage if new internal
+  // fields are added to the schema in the future
+  const API_FIELD_MAPPING = {
+    // Core required fields
+    'model': 'model',
+    'messages': 'messages',
+    
+    // Generation parameters
+    'maxTokens': 'max_tokens',
+    'temperature': 'temperature',
+    'topP': 'top_p',
+    'stream': 'stream',
+    'stop': 'stop',
+    
+    // Advanced parameters  
+    'presencePenalty': 'presence_penalty',
+    'frequencyPenalty': 'frequency_penalty',
+    'tools': 'tools',
+    'responseFormat': 'response_format',
+    'seed': 'seed'
+  };
+  
+  // Extract and map only allowlisted fields from validated data
+  const apiPayload = {};
+  for (const [camelCaseField, snakeCaseField] of Object.entries(API_FIELD_MAPPING)) {
+    const value = validatedData[camelCaseField];
+    if (value !== undefined && value !== null) {
+      apiPayload[snakeCaseField] = value;
+    }
+  }
+  
+  return apiPayload;
 };
 
 /**
@@ -302,22 +296,17 @@ const create_request = (schema, data, options = {}) => {
   
   // Check if this is a batch processing request
   if (validatedData.batch?.enabled) {
-    try {
-      const batchRequest = create_batch_request(validatedData);
-      if (batchRequest) {
-        // Override URL if provided in options
-        if (options.url) {
-          batchRequest.url = options.url;
-        }
-        // Merge custom headers if provided
-        if (options.headers) {
-          batchRequest.headers = { ...batchRequest.headers, ...options.headers };
-        }
-        return batchRequest;
+    const batchRequest = create_batch_request(validatedData);
+    if (batchRequest) {
+      // Override URL if provided in options
+      if (options.url) {
+        batchRequest.url = options.url;
       }
-    } catch (error) {
-      console.error(`Batch processing error for provider ${validatedData.provider}:`, error.message);
-      throw new Error(`Failed to create batch request: ${error.message}`);
+      // Merge custom headers if provided
+      if (options.headers) {
+        batchRequest.headers = { ...batchRequest.headers, ...options.headers };
+      }
+      return batchRequest;
     }
   }
   
@@ -341,8 +330,8 @@ const create_request = (schema, data, options = {}) => {
   // Return request configuration directly
   return {
     method: options.method || 'POST',
-    url: options.url || get_default_url(validatedData.provider),
-    data: validatedData,
+    url: options.url || get_default_url(validatedData.provider, validatedData.model),
+    data: extract_api_payload(validatedData),
     headers: {
       ...create_provider_headers(validatedData),
       ...options.headers // Allow overriding provider headers
@@ -367,5 +356,6 @@ module.exports = {
   create_provider_headers,
   get_default_url,
   create_batch_request,
-  create_batch_jsonl
+  create_batch_jsonl,
+  extract_api_payload
 };
