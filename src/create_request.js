@@ -136,7 +136,7 @@ const create_batch_request = (data) => {
 
   // Provider-specific validation for required batch fields
   const requiresInputFileId = ['siliconflow', 'openai', 'groq'];
-  if (requiresInputFileId.includes(data.provider) && !data.batch.inputFileId) {
+  if (requiresInputFileId.includes(data.provider) && data.batch && !data.batch.inputFileId) {
     // Capitalize first letter for better error message formatting
     const providerName = data.provider.charAt(0).toUpperCase() + data.provider.slice(1);
     throw new Error(`${providerName} batch processing requires inputFileId`);
