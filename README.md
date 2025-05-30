@@ -1,6 +1,13 @@
 # LLM Universal Wrapper
 
-A minimalistic universal wrapper for different LLM API providers.
+A minimalistic universal wrapper for different LLM API providers with comprehensive batch processing and rate limit handling.
+
+## Latest Updates (May 30, 2025)
+
+- **✅ Fixed Groq Batch Processing**: Implemented proper support for Groq batch API via `/v1/batches`
+- **✅ Provider Information Collection**: Expanded collector to 20 providers, 405 models
+- **✅ Comprehensive Documentation**: Added detailed provider_summary.md with capabilities matrix
+- **📋 Future Tasks**: Created FUTURE_TASKS.md to document pending research and implementation
 
 ## Purpose
 
@@ -42,6 +49,26 @@ Several providers offer batch processing capabilities that can significantly red
 **🟢 OpenAI Batch API** *(✅ Recommended)*
 
 - **💰 Cost Savings**: 50% discount on eligible endpoints
+- **Method**: Upload JSONL file → Create batch → Monitor status → Download results
+- **Implementation**: Fully integrated via `create_batch_request` and `create_batch_jsonl`
+
+**🟢 Groq Batch API** *(✅ New Implementation)*
+
+- **💰 Cost Savings**: 25% discount on eligible endpoints  
+- **Method**: Similar to OpenAI, uses file upload and batch creation
+- **Documentation**: https://console.groq.com/docs/docs/batch
+- **Implementation**: Added in May 30 update
+
+**🟢 Anthropic Batch API**
+
+- **💰 Cost Savings**: 50% discount on eligible endpoints
+- **Method**: Uses `requests` array with multiple message sets
+- **Implementation**: Fully supported via `create_batch_request`
+
+**🟢 Together AI Batch API**
+
+- **Method**: Uses `requests` array with multiple completion requests
+- **Implementation**: Fully supported via `create_batch_request`
 - **⏱️ Processing Window**: 24 hours
 - **🎯 Support**: `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`
 - **📄 Format**: JSONL file upload with custom IDs for tracking

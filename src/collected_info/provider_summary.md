@@ -130,3 +130,19 @@ For comprehensive research, multiple MCP servers were utilized:
 - Memory MCP for storing and retrieving research findings
 - Fetch MCP for web-based verification and additional research
 - Regular tools for data collection and processing
+
+## Recent Verifications
+
+### Batch Processing Support
+- ✅ **Groq**: Verified batch API support via `/v1/batches` endpoint with 25% discount
+- ✅ **Together AI**: Confirmed batch API support via `/v1/batches` with cost savings
+- ✅ **OpenAI**: Comprehensive batch API support with file uploads
+- ✅ **Anthropic**: Message batches API with custom IDs
+- ❓ **Fireworks AI**: Likely supports batch processing (needs verification)
+- ❓ **Mistral AI**: Likely supports batch processing (needs verification)
+
+### Implementation Status
+- ✅ Implemented in codebase: OpenAI, Anthropic, Together AI, Groq
+- 📋 Planned implementation: Fireworks AI, Mistral AI, Cohere (see FUTURE_TASKS.md)
+
+For additional details on pending research and implementation tasks, please refer to the FUTURE_TASKS.md file.
