@@ -12,8 +12,12 @@ describe('Integration Tests', () => {
   skipIfNoIntegration('Real API Integration', () => {
     // Test with providers that have free tiers or no API key required
 
-    describe('GitHub Models (No API Key Required)', () => {
-      const testInput = {
+    describe('GitHub Models', () => {
+      // Check if GitHub token is available
+      const githubToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+      const hasGitHubToken = !!githubToken;
+
+      const baseTestInput = {
         provider: 'gh-models',
         model: 'gpt-4o-mini',
         messages: [{ role: 'user', content: 'Say "Hello World" and nothing else.' }],
@@ -21,8 +25,13 @@ describe('Integration Tests', () => {
         temperature: 0
       };
 
+      const testInputWithToken = {
+        ...baseTestInput,
+        apiKey: githubToken
+      };
+
       it('should create valid request for GitHub Models', () => {
-        const requestConfig = create_request(llm_input_schema, testInput);
+        const requestConfig = create_request(llm_input_schema, baseTestInput);
 
         expect(requestConfig.method).toBe('POST');
         expect(requestConfig.url).toBe('https://models.inference.ai.azure.com/chat/completions');
@@ -30,37 +39,112 @@ describe('Integration Tests', () => {
         expect(requestConfig.headers['Content-Type']).toBe('application/json');
       });
 
-      it('should make well-formed request to GitHub Models', async () => {
-        try {
-          const response = await execute_request(llm_input_schema, testInput);
+      if (hasGitHubToken) {
+        it('should make successful authenticated request to GitHub Models', async () => {
+          console.log('🔑 Using GitHub token for authenticated test');
 
-          // If we get a successful response, validate it
-          expect(response.status).toBe(200);
-          expect(response.data).toHaveProperty('choices');
-          expect(response.data.choices).toHaveLength(1);
-          expect(response.data.choices[0]).toHaveProperty('message');
-        } catch (error) {
-          // Test that we get expected error responses (proves request format is correct)
-          if (error.response?.status === 401) {
-            // Auth required - but this proves our request format was understood
-            expect(error.response.status).toBe(401);
-            expect(error.response.data).toBeDefined();
-            console.log('✓ GitHub Models requires authentication (request format validated)');
-          } else if (error.response?.status === 429) {
-            // Rate limited - proves request was valid
-            expect(error.response.status).toBe(429);
-            console.log('✓ Rate limited (request format validated)');
-          } else if (error.response?.status === 503) {
-            // Service unavailable - temporary issue
-            expect(error.response.status).toBe(503);
-            console.log('✓ Service temporarily unavailable');
-          } else {
-            // Unexpected error - this would indicate a real problem
-            console.error('Unexpected error:', error.message);
+          try {
+            const response = await execute_request(llm_input_schema, testInputWithToken);
+
+            // Test our code's responsibility: HTTP request/response handling
+            expect(response.status).toBe(200);
+            expect(response.data).toBeDefined();
+            expect(typeof response.data).toBe('object');
+
+            // Test that we get a response in expected format (OpenAI-compatible)
+            expect(response.data).toHaveProperty('choices');
+            expect(Array.isArray(response.data.choices)).toBe(true);
+
+            console.log('✅ GitHub Models authenticated request successful');
+            console.log('� Response structure validated');
+
+          } catch (error) {
+            console.error('❌ GitHub Models authenticated request failed:', error.response?.status, error.message);
             throw error;
           }
-        }
-      }, 30000); // 30 second timeout for API calls
+        }, 30000);
+
+        it('should handle streaming request to GitHub Models', async () => {
+          console.log('🔄 Testing streaming with GitHub token');
+
+          const streamingInput = {
+            ...testInputWithToken,
+            stream: true
+          };
+
+          try {
+            const response = await execute_request(llm_input_schema, streamingInput);
+
+            expect(response.status).toBe(200);
+            // For streaming, we expect either SSE data or a different response format
+            expect(response.data).toBeDefined();
+
+            console.log('✅ GitHub Models streaming request successful');
+
+          } catch (error) {
+            console.error('❌ GitHub Models streaming failed:', error.response?.status, error.message);
+            throw error;
+          }
+        }, 30000);
+
+        it('should handle different models with GitHub token', async () => {
+          const models = ['gpt-4o-mini', 'gpt-4o'];
+
+          for (const model of models) {
+            try {
+              const modelInput = {
+                ...testInputWithToken,
+                model,
+                messages: [{ role: 'user', content: 'Hi' }],
+                maxTokens: 5
+              };
+
+              const response = await execute_request(llm_input_schema, modelInput);
+              expect(response.status).toBe(200);
+
+              console.log(`✅ Model ${model} works with GitHub token`);
+
+            } catch (error) {
+              if (error.response?.status === 404) {
+                console.log(`⚠️ Model ${model} not available (404)`);
+              } else {
+                console.error(`❌ Model ${model} failed:`, error.response?.status);
+                throw error;
+              }
+            }
+          }
+        }, 60000);
+
+      } else {
+        it('should handle unauthenticated request gracefully', async () => {
+          console.log('🔓 No GitHub token found, testing unauthenticated request');
+
+          try {
+            const response = await execute_request(llm_input_schema, baseTestInput);
+
+            // If somehow it works without auth, that's great
+            expect(response.status).toBe(200);
+            console.log('✅ GitHub Models works without authentication');
+
+          } catch (error) {
+            // Expected errors without authentication
+            if (error.response?.status === 401) {
+              expect(error.response.status).toBe(401);
+              expect(error.response.data).toBeDefined();
+              console.log('✓ GitHub Models requires authentication (request format validated)');
+            } else if (error.response?.status === 429) {
+              expect(error.response.status).toBe(429);
+              console.log('✓ Rate limited (request format validated)');
+            } else if (error.response?.status === 503) {
+              expect(error.response.status).toBe(503);
+              console.log('✓ Service temporarily unavailable');
+            } else {
+              console.error('Unexpected error:', error.message);
+              throw error;
+            }
+          }
+        }, 30000);
+      }
     });
 
     describe('Ollama (Local)', () => {
