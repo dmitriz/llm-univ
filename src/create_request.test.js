@@ -74,12 +74,13 @@ describe('create_request', () => {
     it('should create Hugging Face-compatible request (with API key)', () => {
       const requestConfig = create_request(llm_input_schema, {
         ...baseWithApiKey,
-        provider: 'huggingface'
+        provider: 'huggingface',
+        model: 'gpt-4'  // Using the model from basePayload
       });
 
       expect(requestConfig).toEqual({
         method: 'POST',
-        url: 'https://api-inference.huggingface.co/models',
+        url: 'https://api-inference.huggingface.co/models/gpt-4',
         data: basePayload,
         headers: {
           'Content-Type': 'application/json',
