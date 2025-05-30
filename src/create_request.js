@@ -292,6 +292,10 @@ const create_request = (schema, data, options = {}) => {
       if (options.url) {
         batchRequest.url = options.url;
       }
+      // Merge custom headers if provided
+      if (options.headers) {
+        batchRequest.headers = { ...batchRequest.headers, ...options.headers };
+      }
       return batchRequest;
     }
   }
