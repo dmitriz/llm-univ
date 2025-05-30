@@ -1,0 +1,61 @@
+[
+  {
+    "provider": "ollama",
+    "timestamp": "2025-05-30T10:05:07.737Z",
+    "base_url": "http://localhost:11434",
+    "chat_endpoint": "/api/chat",
+    "inference_url": "http://localhost:11434/api/chat",
+    "tests": [
+      {
+        "url": "http://localhost:11434/api/chat",
+        "testName": "ollama chat completions",
+        "method": "POST",
+        "statusCode": 404,
+        "success": false,
+        "accessible": false,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8"
+      },
+      {
+        "url": "http://localhost:11434/api/tags",
+        "testName": "ollama models",
+        "method": "GET",
+        "statusCode": 200,
+        "success": true,
+        "accessible": true,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8",
+        "itemCount": 0
+      },
+      {
+        "url": "http://localhost:11434/api/version",
+        "testName": "ollama version",
+        "method": "GET",
+        "statusCode": 200,
+        "success": true,
+        "accessible": true,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8"
+      },
+      {
+        "url": "http://localhost:11434/api/ps",
+        "testName": "ollama status",
+        "method": "GET",
+        "statusCode": 200,
+        "success": true,
+        "accessible": true,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8",
+        "itemCount": 0
+      }
+    ]
+  }
+]
