@@ -288,6 +288,18 @@ const create_batch_jsonl = (requests) => {
 };
 
 /**
+ * Extracts only the API payload fields from validated data
+ * Excludes internal fields like provider, apiKey, batch
+ * @param {Object} validatedData - The validated input data
+ * @returns {Object} Clean API payload
+ */
+const extract_api_payload = (validatedData) => {
+  // Extract only the fields that should be sent to the API
+  const { provider, apiKey, batch, ...apiPayload } = validatedData;
+  return apiPayload;
+};
+
+/**
  * Creates an axios request configuration from a Zod schema and input data
  * @param {z.ZodSchema} schema - The Zod schema to validate input against
  * @param {Object} data - The input data to validate and convert
@@ -342,7 +354,7 @@ const create_request = (schema, data, options = {}) => {
   return {
     method: options.method || 'POST',
     url: options.url || get_default_url(validatedData.provider),
-    data: validatedData,
+    data: extract_api_payload(validatedData),
     headers: {
       ...create_provider_headers(validatedData),
       ...options.headers // Allow overriding provider headers
@@ -367,5 +379,6 @@ module.exports = {
   create_provider_headers,
   get_default_url,
   create_batch_request,
-  create_batch_jsonl
+  create_batch_jsonl,
+  extract_api_payload
 };
