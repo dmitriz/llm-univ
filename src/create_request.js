@@ -226,31 +226,32 @@ const create_batch_jsonl = (requests) => {
  * Extracts only the API payload fields from validated data
  * Uses allowlist approach to include only API-relevant fields
  * Excludes internal fields like provider, apiKey, batch
+ * Maps camelCase field names to snake_case API format
  * @param {Object} validatedData - The validated input data
- * @returns {Object} Clean API payload
+ * @returns {Object} Clean API payload with snake_case keys
  */
 const extract_api_payload = (validatedData) => {
-  // Define allowlist of fields that should be sent to the API
-  const allowedFields = [
-    'model',
-    'messages', 
-    'maxTokens',
-    'temperature',
-    'topP',
-    'stream',
-    'stop',
-    'presencePenalty',
-    'frequencyPenalty',
-    'tools',
-    'responseFormat',
-    'seed'
-  ];
+  // Define mapping from camelCase internal fields to snake_case API fields
+  const fieldMapping = {
+    'model': 'model',
+    'messages': 'messages', 
+    'maxTokens': 'max_tokens',
+    'temperature': 'temperature',
+    'topP': 'top_p',
+    'stream': 'stream',
+    'stop': 'stop',
+    'presencePenalty': 'presence_penalty',
+    'frequencyPenalty': 'frequency_penalty',
+    'tools': 'tools',
+    'responseFormat': 'response_format',
+    'seed': 'seed'
+  };
   
-  // Extract only allowed fields from validated data
+  // Extract and map fields from validated data
   const apiPayload = {};
-  for (const field of allowedFields) {
-    if (validatedData[field] !== undefined) {
-      apiPayload[field] = validatedData[field];
+  for (const [camelCaseField, snakeCaseField] of Object.entries(fieldMapping)) {
+    if (validatedData[camelCaseField] !== undefined) {
+      apiPayload[snakeCaseField] = validatedData[camelCaseField];
     }
   }
   

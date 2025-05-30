@@ -2,18 +2,22 @@ const { z } = require('zod');
 const { create_request, extract_api_payload } = require('./create_request');
 const { llm_input_schema } = require('./llm_schema');
 
-// Base API payload (what gets sent to APIs)
+// Base API payload (what gets sent to APIs) - now in correct snake_case format
 const basePayload = {
   model: 'gpt-4',
   messages: [{ role: 'user', content: 'Hello, how are you?' }],
-  maxTokens: 1000,
+  max_tokens: 1000,
   temperature: 0.7,
   stream: false
 };
 
-// Base payload with API key (what we pass to create_request)
+// Base payload with API key (what we pass to create_request) - still in camelCase for internal use
 const baseWithApiKey = {
-  ...basePayload,
+  model: 'gpt-4',
+  messages: [{ role: 'user', content: 'Hello, how are you?' }],
+  maxTokens: 1000,
+  temperature: 0.7,
+  stream: false,
   apiKey: 'test-key-123'
 };
 
@@ -57,7 +61,11 @@ describe('create_request', () => {
 
     it('should create GitHub Models-compatible request (without API key)', () => {
       const requestConfig = create_request(llm_input_schema, {
-        ...basePayload,
+        model: 'gpt-4',
+        messages: [{ role: 'user', content: 'Hello, how are you?' }],
+        maxTokens: 1000,
+        temperature: 0.7,
+        stream: false,
         provider: 'gh-models'
       });
 
@@ -241,8 +249,36 @@ describe('create_request', () => {
 
       const requestConfig = create_request(llm_input_schema, fullRequestData);
 
-      // Extract expected payload (without provider and apiKey)
-      const { provider, apiKey, ...expectedFullPayload } = fullRequestData;
+      // Expected payload with snake_case keys (as API expects)
+      const expectedFullPayload = {
+        model: 'gpt-4',
+        messages: [
+          { role: 'system', content: 'You are helpful.' },
+          { role: 'user', content: 'Hello' }
+        ],
+        max_tokens: 2000,
+        temperature: 0.8,
+        top_p: 0.9,
+        stream: true,
+        stop: ['\\n', 'END'],
+        presence_penalty: 0.1,
+        frequency_penalty: -0.1,
+        tools: [{
+          type: 'function',
+          function: {
+            name: 'get_weather',
+            description: 'Get current weather',
+            parameters: {
+              type: 'object',
+              properties: {
+                location: { type: 'string' }
+              }
+            }
+          }
+        }],
+        response_format: { type: 'json_object' },
+        seed: 42
+      };
       expect(requestConfig.data).toEqual(expectedFullPayload);
     });
   });
@@ -842,19 +878,19 @@ describe('extract_api_payload', () => {
 
       const result = extract_api_payload(inputData);
 
-      // Should include all API fields
+      // Should include all API fields with snake_case keys
       expect(result).toEqual({
         model: 'gpt-4',
         messages: [{ role: 'user', content: 'Hello' }],
-        maxTokens: 1000,
+        max_tokens: 1000,
         temperature: 0.7,
-        topP: 0.9,
+        top_p: 0.9,
         stream: false,
         stop: ['END'],
-        presencePenalty: 0.5,
-        frequencyPenalty: 0.3,
+        presence_penalty: 0.5,
+        frequency_penalty: 0.3,
         tools: [{ type: 'function', function: { name: 'test' } }],
-        responseFormat: { type: 'json_object' },
+        response_format: { type: 'json_object' },
         seed: 12345
       });
 
@@ -899,7 +935,7 @@ describe('extract_api_payload', () => {
       expect(result).toEqual({
         model: 'claude-3-haiku',
         messages: [{ role: 'user', content: 'Test' }],
-        maxTokens: 500
+        max_tokens: 500
       });
 
       // Should not include undefined fields
