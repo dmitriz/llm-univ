@@ -5,47 +5,55 @@
 
 ## Urgent Provider Implementations
 
-### SiliconFlow Implementation
+The following providers need implementation in `create_request.js`:
+
+### High Priority Providers
+
+#### SiliconFlow
 
 - [ ] Complete API documentation research
 - [ ] Add batch processing support
 - [ ] Update rate limiting information
-- [ ] Implement in create_request.js
 
-### Fireworks AI Implementation
+#### Fireworks AI
 
 - [ ] Verify batch API endpoint: `https://api.fireworks.ai/v1/batches`
 - [ ] Research JSONL format requirements
 - [ ] Document rate limits and pricing
-- [ ] Implement in create_request.js
 
-### Mistral AI Implementation
+#### Mistral AI
 
 - [ ] Verify batch API endpoint: `https://api.mistral.ai/v1/batches`
 - [ ] Research function calling capabilities
 - [ ] Document rate limits
-- [ ] Implement batch processing
 
-### Replicate Implementation
+### Research Required Providers
+
+#### Replicate
 
 - [ ] Research complete API structure
 - [ ] Investigate batch processing compatibility
 - [ ] Document unique pricing model
-- [ ] Determine if compatible with universal schema
+- [ ] Determine universal schema compatibility
 
-### Cohere Implementation
+#### Cohere
 
 - [ ] Research API endpoint structure
 - [ ] Investigate batch processing support
 - [ ] Document authentication requirements
-- [ ] Add to provider enum
 
-### AI21 Labs Implementation
+#### AI21 Labs
 
-- [ ] Research API structure
-- [ ] Document Jurassic model capabilities
+- [ ] Research API structure for Jurassic models
+- [ ] Document model capabilities
 - [ ] Investigate batch processing possibilities
-- [ ] Add to provider enum
+
+### Common Tasks for All Providers
+
+- [ ] Add to provider enum in schema
+- [ ] Implement in create_request.js
+- [ ] Add comprehensive test cases
+- [ ] Update documentation
 
 ## Rate Limiting Implementation
 

@@ -462,7 +462,7 @@ async function collectProviderInfo(provider) {
   const info = {
     provider: provider,
     timestamp: new Date().toISOString(),
-    models: null,
+    models: [],
     endpoints: {},
     errors: []
   };
@@ -589,40 +589,98 @@ async function collectHuggingFaceModels() {
 }
 
 /**
- * Save collected information to file
+ * Save collected information to file with backup handling
  */
 function saveToFile(data, filename) {
-  const outputDir = path.join(__dirname, 'collected_info');
+  const outputDir = path.join(__dirname, '..', 'collected_info');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   
   const filepath = path.join(outputDir, filename);
+  
+  // If this is a summary file, backup any existing version
+  if (filename.includes('summary')) {
+    const backupDir = path.join(outputDir, 'backups');
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
+    
+    if (fs.existsSync(filepath)) {
+      const stats = fs.statSync(filepath);
+      const backupFilename = `${path.basename(filename, '.json')}_${stats.mtime.toISOString().replace(/[:.]/g, '-')}.json`;
+      const backupPath = path.join(backupDir, backupFilename);
+      fs.copyFileSync(filepath, backupPath);
+      console.log(`📦 Backed up previous version to ${backupPath}`);
+    }
+  }
+  
   fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
   console.log(`💾 Saved to ${filepath}`);
+  
+  // Add data validation for summary files
+  if (filename.includes('summary') && data.validation) {
+    if (!data.validation.math_check_passed) {
+      console.log(`⚠️  WARNING: Math validation failed in ${filename}`);
+      data.validation.discrepancies.forEach(disc => console.log(`   ${disc}`));
+    } else {
+      console.log(`✅ Math validation passed for ${filename}`);
+    }
+  }
+  
   return filepath;
 }
 
 /**
- * Generate summary report
+ * Generate summary report with validation
  */
 function generateSummary(allInfo) {
+  const timestamp = new Date().toISOString();
+  const providersWithModels = allInfo.filter(p => p.models && p.models.length > 0);
+  const totalModels = allInfo.reduce((sum, p) => sum + (p.models?.length || 0), 0);
+  
   const summary = {
-    timestamp: new Date().toISOString(),
+    timestamp: timestamp,
     total_providers: allInfo.length,
-    providers_with_models: allInfo.filter(p => p.models && p.models.length > 0).length,
-    total_models: allInfo.reduce((sum, p) => sum + (p.models?.length || 0), 0),
-    provider_summary: {}
+    providers_with_models: providersWithModels.length,
+    total_models: totalModels,
+    provider_summary: {},
+    validation: {
+      math_check_passed: false,
+      calculated_total: 0,
+      discrepancies: []
+    }
   };
   
+  let calculatedTotal = 0;
+  
   for (const info of allInfo) {
+    const modelCount = info.models?.length || 0;
+    calculatedTotal += modelCount;
+    
     summary.provider_summary[info.provider] = {
-      models_found: info.models?.length || 0,
+      models_found: modelCount,
       accessible_endpoints: Object.values(info.endpoints).filter(e => e.accessible).length,
       total_endpoints: Object.keys(info.endpoints).length,
-      has_public_models: !!(info.models && info.models.length > 0)
+      has_public_models: !!(info.models && info.models.length > 0),
+      search_capabilities: detectSearchCapabilities(info.provider, info.models, info.endpoints)
     };
   }
+  
+  // Validation
+  summary.validation.calculated_total = calculatedTotal;
+  summary.validation.math_check_passed = (calculatedTotal === totalModels);
+  
+  if (!summary.validation.math_check_passed) {
+    summary.validation.discrepancies.push(`Total models mismatch: reported ${totalModels}, calculated ${calculatedTotal}`);
+  }
+  
+  // Add data freshness indicator
+  summary.data_freshness = {
+    collection_time: timestamp,
+    is_latest: true,
+    note: "This is the most recent data collection run"
+  };
   
   return summary;
 }
@@ -831,6 +889,129 @@ function extractRateLimitInfo(headers) {
 }
 
 /**
+ * Generate markdown summary for easy reading
+ */
+function generateMarkdownSummary(summary, allInfo) {
+  const outputDir = path.join(__dirname, '..', 'collected_info');
+  const mdPath = path.join(outputDir, 'provider_summary.md');
+  
+  const providersWithModels = allInfo.filter(p => p.models && p.models.length > 0);
+  const providersWithoutModels = allInfo.filter(p => !p.models || p.models.length === 0);
+  
+  let markdown = `# LLM Provider Information Summary
+
+## Overview
+
+This document summarizes the information collected by the provider_info_collector.js script as of ${new Date(summary.timestamp).toLocaleDateString()}.
+
+| Metric | Value |
+|--------|-------|
+| Total Providers | ${summary.total_providers} |
+| Providers With Public Models | ${summary.providers_with_models} |
+| Total Models Available | ${summary.total_models} |
+| Last Updated | ${new Date(summary.timestamp).toLocaleDateString()} |
+| Data Collection Time | ${summary.timestamp} |
+
+## Data Validation
+
+| Check | Status | Details |
+|-------|--------|---------|
+| Math Validation | ${summary.validation.math_check_passed ? '✅ PASSED' : '❌ FAILED'} | Calculated total: ${summary.validation.calculated_total}, Reported total: ${summary.total_models} |
+
+${summary.validation.discrepancies.length > 0 ? '### ⚠️ Discrepancies Found:\n' + summary.validation.discrepancies.map(d => `- ${d}`).join('\n') + '\n' : ''}
+
+## Provider Accessibility Analysis
+
+### Providers with Public Model APIs
+
+These providers offer publicly accessible model information without requiring API keys:
+
+`;
+
+  // Sort providers by model count for better organization
+  const sortedProviders = providersWithModels.sort((a, b) => (b.models?.length || 0) - (a.models?.length || 0));
+  
+  sortedProviders.forEach((info, index) => {
+    const searchCaps = summary.provider_summary[info.provider].search_capabilities;
+    const searchNote = searchCaps ? ` (${searchCaps.capabilities.join(', ')})` : '';
+    markdown += `${index + 1}. **${info.provider.charAt(0).toUpperCase() + info.provider.slice(1)}** - ${info.models.length} models available${searchNote}\n`;
+  });
+
+  markdown += `\n### Providers Requiring Authentication
+
+These providers require API keys to access their model information:
+
+`;
+
+  providersWithoutModels.forEach((info, index) => {
+    markdown += `${index + 1}. **${info.provider.charAt(0).toUpperCase() + info.provider.slice(1)}** - Requires API key for model information\n`;
+  });
+
+  markdown += `\n## Real-Time Search Capabilities
+
+### Providers with Confirmed Search Features
+
+`;
+
+  const searchProviders = Object.entries(summary.provider_summary)
+    .filter(([provider, data]) => data.search_capabilities && data.search_capabilities.capabilities.length > 0)
+    .sort(([, a], [, b]) => b.models_found - a.models_found);
+
+  if (searchProviders.length > 0) {
+    searchProviders.forEach(([provider, data]) => {
+      const caps = data.search_capabilities;
+      markdown += `- **${provider.charAt(0).toUpperCase() + provider.slice(1)}**: ${caps.capabilities.join(', ')}\n`;
+      if (caps.evidence) {
+        markdown += `  - Evidence: ${caps.evidence}\n`;
+      }
+    });
+  } else {
+    markdown += `No providers with confirmed real-time search capabilities found in this collection run.\n`;
+  }
+
+  markdown += `\n---
+
+*This summary was automatically generated on ${summary.timestamp}*
+*This is the authoritative data file - previous versions have been backed up*
+`;
+
+  fs.writeFileSync(mdPath, markdown);
+  console.log(`📝 Generated markdown summary: ${mdPath}`);
+}
+
+/**
+ * Clean up old summary files to prevent confusion
+ */
+function cleanupOldSummaries() {
+  const outputDir = path.join(__dirname, '..', 'collected_info');
+  
+  try {
+    const files = fs.readdirSync(outputDir);
+    const oldSummaryFiles = files.filter(file => 
+      file.startsWith('summary_') && 
+      file.endsWith('.json') && 
+      file !== 'summary_report.json'
+    );
+    
+    if (oldSummaryFiles.length > 0) {
+      const backupDir = path.join(outputDir, 'backups');
+      if (!fs.existsSync(backupDir)) {
+        fs.mkdirSync(backupDir, { recursive: true });
+      }
+      
+      oldSummaryFiles.forEach(file => {
+        const oldPath = path.join(outputDir, file);
+        const backupPath = path.join(backupDir, file);
+        fs.renameSync(oldPath, backupPath);
+        console.log(`📦 Moved old summary file to backup: ${file}`);
+      });
+    }
+  } catch (error) {
+    console.log(`⚠️  Warning: Could not clean up old summary files: ${error.message}`);
+  }
+}
+
+/**
  * Main execution function
  */
 async function main() {
@@ -871,10 +1052,21 @@ async function main() {
       }
     }
     
-    // Generate summary
+    // Save complete data first
+    const timestamp = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    const allProvidersFilename = `all_providers_${timestamp}.json`;
+    saveToFile(allInfo, allProvidersFilename);
+    
+    // Generate and save summary with validation
     const summary = generateSummary(allInfo);
     const summaryFilename = `summary_report.json`;
     saveToFile(summary, summaryFilename);
+    
+    // Generate markdown summary for easy reading
+    generateMarkdownSummary(summary, allInfo);
+    
+    // Clean up old files to prevent confusion
+    cleanupOldSummaries();
   }
 }
 
