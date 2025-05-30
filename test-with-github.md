@@ -14,16 +14,19 @@
 ### 2. Set Environment Variable
 
 **Windows (PowerShell):**
+
 ```powershell
 $env:GITHUB_TOKEN="your_token_here"
 ```
 
 **Windows (Command Prompt):**
+
 ```cmd
 set GITHUB_TOKEN=your_token_here
 ```
 
 **macOS/Linux:**
+
 ```bash
 export GITHUB_TOKEN="your_token_here"
 ```
@@ -31,16 +34,19 @@ export GITHUB_TOKEN="your_token_here"
 ### 3. Run Tests
 
 **Run integration tests with GitHub token:**
+
 ```bash
 npm run test:integration
 ```
 
 **Run all tests:**
+
 ```bash
 npm run test:all
 ```
 
 **Run only GitHub Models tests:**
+
 ```bash
 RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 ```
@@ -48,6 +54,7 @@ RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 ## What the Tests Validate
 
 ### ✅ With GitHub Token
+
 - **Real API calls** to GitHub Models
 - **Successful response validation**
 - **Streaming support**
@@ -56,13 +63,15 @@ RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 - **Error scenarios**
 
 ### ✅ Without GitHub Token
+
 - **Request format validation**
 - **Authentication error handling**
 - **Graceful degradation**
 
 ## Expected Output
 
-### With Token:
+### With Token
+
 ```
 🔑 Using GitHub token for authenticated test
 ✅ GitHub Models authenticated request successful
@@ -73,7 +82,8 @@ RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 ✅ Model gpt-4o works with GitHub token
 ```
 
-### Without Token:
+### Without Token
+
 ```
 🔓 No GitHub token found, testing unauthenticated request
 ✓ GitHub Models requires authentication (request format validated)
@@ -82,14 +92,17 @@ RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 ## Troubleshooting
 
 ### Rate Limits
+
 - **Free tier**: 60 requests/hour
 - **With token**: 5,000 requests/hour
 - Tests handle rate limits gracefully
 
 ### Common Errors
+
 - **401 Unauthorized**: Token invalid or missing
 - **429 Rate Limited**: Too many requests
 - **503 Service Unavailable**: Temporary GitHub issue
 
 ### Model Availability
+
 Some models might return 404 - this is expected and handled in tests.

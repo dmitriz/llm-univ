@@ -9,6 +9,5 @@ describe('getRecommendedTier', () => {
     it('should handle unknown providers', () => {
       const tier = getRecommendedTier('unknown-provider', { rpm: 100 });
       expect(tier).toBe('unknown');
-    });
   });
 });
