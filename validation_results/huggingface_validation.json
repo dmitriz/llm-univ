@@ -1,0 +1,49 @@
+[
+  {
+    "provider": "huggingface",
+    "timestamp": "2025-05-30T10:05:25.202Z",
+    "base_url": "https://api-inference.huggingface.co",
+    "chat_endpoint": "/models/{model_id}",
+    "inference_url": "https://api-inference.huggingface.co/models/{model_id}",
+    "tests": [
+      {
+        "url": "https://api-inference.huggingface.co/models/{model_id}",
+        "testName": "huggingface chat completions",
+        "method": "POST",
+        "statusCode": 401,
+        "success": false,
+        "accessible": false,
+        "requiresAuth": true,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8"
+      },
+      {
+        "url": "https://huggingface.co/api/models",
+        "testName": "huggingface models",
+        "method": "GET",
+        "statusCode": 200,
+        "success": true,
+        "accessible": true,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8",
+        "itemCount": 1000
+      },
+      {
+        "url": "https://huggingface.co/api/models?filter=text-generation&sort=downloads&direction=-1&limit=10",
+        "testName": "huggingface search",
+        "method": "GET",
+        "statusCode": 200,
+        "success": true,
+        "accessible": true,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8",
+        "itemCount": 10
+      }
+    ]
+  }
+]

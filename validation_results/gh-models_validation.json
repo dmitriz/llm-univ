@@ -1,0 +1,36 @@
+[
+  {
+    "provider": "gh-models",
+    "timestamp": "2025-05-30T10:05:54.738Z",
+    "base_url": "https://models.github.ai",
+    "chat_endpoint": "/inference/chat/completions",
+    "inference_url": "https://models.github.ai/inference/chat/completions",
+    "tests": [
+      {
+        "url": "https://models.github.ai/inference/chat/completions",
+        "testName": "gh-models chat completions",
+        "method": "POST",
+        "statusCode": 401,
+        "success": false,
+        "accessible": false,
+        "requiresAuth": true,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "text/plain; charset=utf-8"
+      },
+      {
+        "url": "https://models.github.ai/catalog/models",
+        "testName": "gh-models models",
+        "method": "GET",
+        "statusCode": 200,
+        "success": true,
+        "accessible": true,
+        "requiresAuth": false,
+        "error": null,
+        "dataReceived": true,
+        "contentType": "application/json; charset=utf-8",
+        "itemCount": 58
+      }
+    ]
+  }
+]
