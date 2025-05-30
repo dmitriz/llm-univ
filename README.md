@@ -5,6 +5,7 @@ A minimalistic universal wrapper for different LLM API providers.
 ## Purpose
 
 This library provides a unified interface to interact with multiple LLM providers including:
+
 - OpenAI
 - Anthropic (Claude)
 - Google (Gemini)
