@@ -605,12 +605,12 @@ describe('create_request', () => {
         url: 'https://api.together.xyz/v1/batches',
         data: {
           requests: [{
-        custom_id: expect.any(String),
-        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-        max_tokens: 1024,
-        messages: [{ role: 'user', content: 'Hello' }]
+            customId: expect.any(String),
+            model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+            maxTokens: 1024,
+            messages: [{ role: 'user', content: 'Hello' }]
           }],
-          batch_size: 10, // Default value
+          batchSize: 10, // Default value
           timeout: 300    // Default value
         },
         headers: {
@@ -618,9 +618,9 @@ describe('create_request', () => {
           'Authorization': 'Bearer together_test123'
         }
       });
-        });
+    });
 
-        it('should create Together AI batch request with custom batch size and timeout', () => {
+    it('should create Together AI batch request with custom batch size and timeout', () => {
       const inputData = {
         provider: 'together',
         apiKey: 'together_test123',
@@ -641,12 +641,12 @@ describe('create_request', () => {
         url: 'https://api.together.xyz/v1/batches',
         data: {
           requests: [{
-            custom_id: expect.any(String),
+            customId: expect.any(String),
             model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-            max_tokens: 1024,
+            maxTokens: 1024,
             messages: [{ role: 'user', content: 'Hello' }]
           }],
-          batch_size: 20,
+          batchSize: 20,
           timeout: 500
         },
         headers: {
@@ -765,7 +765,7 @@ describe('create_request', () => {
               temperature: 0.5
             }
           ],
-          batch_size: 5,
+          batchSize: 5,
           timeout: 600
         },
         headers: {
@@ -773,6 +773,158 @@ describe('create_request', () => {
           'Authorization': 'Bearer together_test123'
         }
       });
+    });
+  });
+
+  describe('should validate batch processing requirements', () => {
+    it('should throw error when SiliconFlow batch lacks inputFileId', () => {
+      const inputData = {
+        provider: 'siliconflow',
+        apiKey: 'sk-silicon123',
+        model: 'Qwen/Qwen2-72B-Instruct',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true
+          // Missing inputFileId
+        }
+      };
+
+      const options = { url: 'https://api.siliconflow.cn/v1/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).toThrow('SiliconFlow batch processing requires inputFileId');
+    });
+
+    it('should throw error when OpenAI batch lacks inputFileId', () => {
+      const inputData = {
+        provider: 'openai',
+        apiKey: 'sk-test123',
+        model: 'gpt-4',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true
+          // Missing inputFileId
+        }
+      };
+
+      const options = { url: 'https://api.openai.com/v1/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).toThrow('openai batch processing requires inputFileId');
+    });
+
+    it('should throw error when Groq batch lacks inputFileId', () => {
+      const inputData = {
+        provider: 'groq',
+        apiKey: 'gsk_test123',
+        model: 'mixtral-8x7b-32768',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true
+          // Missing inputFileId
+        }
+      };
+
+      const options = { url: 'https://api.groq.com/openai/v1/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).toThrow('groq batch processing requires inputFileId');
+    });
+
+    it('should allow Together AI batch without inputFileId (uses fallback)', () => {
+      const inputData = {
+        provider: 'together',
+        apiKey: 'together_test123',
+        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true
+          // No inputFileId or requests - should use fallback
+        }
+      };
+
+      const options = { url: 'https://api.together.xyz/v1/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).not.toThrow();
+    });
+
+    it('should allow Anthropic batch without explicit requests (uses fallback)', () => {
+      const inputData = {
+        provider: 'anthropic',
+        apiKey: 'sk-ant-test123',
+        model: 'claude-3-sonnet-20240229',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true
+          // No explicit requests - should use fallback
+        }
+      };
+
+      const options = { url: 'https://api.anthropic.com/v1/messages/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).not.toThrow();
+    });
+  });
+
+  describe('should warn and strip metadata for Together AI (unsupported)', () => {
+    it('should warn and strip metadata for Together AI (unsupported)', () => {
+      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      
+      const inputData = {
+        provider: 'together',
+        apiKey: 'together_test123',
+        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          metadata: { project: 'test' } // This should be stripped and warn
+        }
+      };
+
+      const options = { url: 'https://api.together.xyz/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      // Should warn about unsupported metadata
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Together AI batch processing does not support metadata. Metadata will be ignored.'
+      );
+
+      // Should not include metadata in the request
+      expect(requestConfig.data.metadata).toBeUndefined();
+      
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe('should handle and log batch processing errors properly', () => {
+    it('should handle and log batch processing errors properly', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      
+      const inputData = {
+        provider: 'unsupported-provider', // This will cause an error
+        apiKey: 'test-key',
+        model: 'test-model',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-123'
+        }
+      };
+
+      const options = { url: 'https://api.test.com/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).toThrow(); // Should throw an error for unsupported provider
+
+      consoleErrorSpy.mockRestore();
     });
   });
 });

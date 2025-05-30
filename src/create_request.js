@@ -180,6 +180,29 @@ const create_batch_request = (data) => {
     return null; // Not a batch request
   }
 
+  // Provider-specific validation for required batch fields
+  switch (data.provider) {
+    case 'siliconflow':
+      if (!data.batch.inputFileId) {
+        throw new Error('SiliconFlow batch processing requires inputFileId');
+      }
+      break;
+    case 'openai':
+    case 'groq':
+      if (!data.batch.inputFileId) {
+        throw new Error(`${data.provider} batch processing requires inputFileId`);
+      }
+      break;
+    case 'together':
+      // Together AI can work with either explicit requests array or fallback to single request
+      // No strict validation needed as fallback is supported
+      break;
+    case 'anthropic':
+      // Anthropic can work with either explicit requests array or fallback to single request
+      // No strict validation needed as fallback is supported
+      break;
+  }
+
   switch (data.provider) {
     case 'openai':
       return create_openai_compatible_batch(data, 'https://api.openai.com/v1');
@@ -215,19 +238,23 @@ const create_batch_request = (data) => {
       };
     
     case 'together':
+      // Together AI doesn't support metadata - strip it to prevent silent failures
+      if (data.batch.metadata) {
+        console.warn('Together AI batch processing does not support metadata. Metadata will be ignored.');
+      }
       return {
         method: 'POST',
         url: 'https://api.together.xyz/v1/batches',
         data: {
           requests: data.batch.requests || [{
-            custom_id: data.batch.customId || `batch-${Date.now()}`,
+            customId: data.batch.customId || `batch-${Date.now()}`,
             model: data.model,
-            max_tokens: data.maxTokens || 1024,
+            maxTokens: data.maxTokens || 1024,
             messages: data.messages,
             ...(data.temperature && { temperature: data.temperature }),
-            ...(data.topP && { top_p: data.topP })
+            ...(data.topP && { topP: data.topP })
           }],
-          batch_size: data.batch.batchSize || 10,
+          batchSize: data.batch.batchSize || 10,
           timeout: data.batch.timeout || 300
         },
         headers: {
@@ -275,21 +302,22 @@ const create_request = (schema, data, options = {}) => {
   
   // Check if this is a batch processing request
   if (validatedData.batch?.enabled) {
-    const batchRequest = create_batch_request(validatedData);
-    if (batchRequest) {
-      // Override URL if provided in options
-      if (options.url) {
-        batchRequest.url = options.url;
+    try {
+      const batchRequest = create_batch_request(validatedData);
+      if (batchRequest) {
+        // Override URL if provided in options
+        if (options.url) {
+          batchRequest.url = options.url;
+        }
+        // Merge custom headers if provided
+        if (options.headers) {
+          batchRequest.headers = { ...batchRequest.headers, ...options.headers };
+        }
+        return batchRequest;
       }
-      // Merge custom headers if provided
-      if (options.headers) {
-        batchRequest.headers = { ...batchRequest.headers, ...options.headers };
-      }
-      // Merge custom headers if provided
-      if (options.headers) {
-        batchRequest.headers = { ...batchRequest.headers, ...options.headers };
-      }
-      return batchRequest;
+    } catch (error) {
+      console.error(`Batch processing error for provider ${validatedData.provider}:`, error.message);
+      throw new Error(`Failed to create batch request: ${error.message}`);
     }
   }
   
