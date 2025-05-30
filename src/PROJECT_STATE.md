@@ -167,15 +167,7 @@ The LLM Universal Wrapper is a comprehensive Node.js library that provides a uni
 
 ### Core Implementation Files
 
-src/
-├── llm_schema.js           # ✅ Complete - Universal schema with full documentation
-├── create_request.js       # 🚧 Partial - 10/14 providers implemented
-├── create_request.test.js  # 🚧 Partial - Basic tests, needs expansion
-├── rate_limits.js          # 📋 Pending - Research complete, implementation needed
-├── provider_info_collector.js # ✅ Complete - Provider research tool
-├── FUTURE_TASKS.md         # ✅ Complete - Comprehensive roadmap
-└── PROJECT_STATE.md        # ✅ Complete - This document
-```
+```bash
 src/
 ├── llm_schema.js           # ✅ Complete - Universal schema with full documentation
 ├── create_request.js       # 🚧 Partial - 10/14 providers implemented
@@ -188,7 +180,7 @@ src/
 
 ### Research & Documentation
 
-```
+```bash
 src/collected_info/
 ├── provider_summary.md     # ✅ Complete - Comprehensive provider analysis
 ├── all_providers_2025-05-30.json # ✅ Complete - Full provider data

@@ -45,10 +45,12 @@ These providers require API keys to access their model information:
 ## Authentication & Free Tier Options
 
 ### No API Key Required
+
 - **GitHub Models** - Free tier available without API key
 - **Ollama** - Free local deployment, no API key required
 
 ### Free Tiers/Credits Available
+
 - **OpenRouter** - Free credits available for testing
 - **Hugging Face** - Free tier for many models
 - **Qwen (Alibaba)** - Free tiers available for certain models
@@ -58,6 +60,7 @@ These providers require API keys to access their model information:
 - **Google/Gemini** - Free tier with limited usage
 
 ### Payment Required
+
 - **OpenAI** - Paid subscriptions only, minimum deposit required
 - **Anthropic** - Paid API access only
 - **DeepSeek** - Paid API access required
@@ -104,6 +107,7 @@ All providers implement rate limiting but with different approaches:
 ## Special Features
 
 ### Multimodal Capabilities
+
 - **OpenAI** - Text, vision, audio
 - **Google/Gemini** - Text, vision, audio integration
 - **Anthropic** - Text, vision (Claude 3)
@@ -111,6 +115,7 @@ All providers implement rate limiting but with different approaches:
 - **Perplexity** - Text and image understanding
 
 ### Function Calling
+
 - **OpenAI** - Advanced function calling and JSON mode
 - **Anthropic** - Tool use capabilities
 - **Google/Gemini** - Function calling
@@ -120,12 +125,14 @@ All providers implement rate limiting but with different approaches:
 ## Research Methodology
 
 This data was collected using the provider_info_collector.js script which:
+
 1. Attempts to access public API endpoints without authentication
 2. Scrapes documentation websites when direct API access isn't available
 3. Verifies endpoint accessibility and documents rate limitations
 4. Detects special capabilities like search and multimodal features
 
 For comprehensive research, multiple MCP servers were utilized:
+
 - Context7 for detailed API documentation research
 - Memory MCP for storing and retrieving research findings
 - Fetch MCP for web-based verification and additional research
@@ -134,6 +141,7 @@ For comprehensive research, multiple MCP servers were utilized:
 ## Recent Verifications
 
 ### Batch Processing Support
+
 - ✅ **Groq**: Verified batch API support via `/v1/batches` endpoint with 25% discount
 - ✅ **Together AI**: Confirmed batch API support via `/v1/batches` with cost savings
 - ✅ **OpenAI**: Comprehensive batch API support with file uploads
@@ -142,6 +150,7 @@ For comprehensive research, multiple MCP servers were utilized:
 - ❓ **Mistral AI**: Likely supports batch processing (needs verification)
 
 ### Implementation Status
+
 - ✅ Implemented in codebase: OpenAI, Anthropic, Together AI, Groq
 - 📋 Planned implementation: Fireworks AI, Mistral AI, Cohere (see FUTURE_TASKS.md)
 
