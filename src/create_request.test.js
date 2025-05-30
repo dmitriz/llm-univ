@@ -1,55 +1,8 @@
 const { z } = require('zod');
 const { create_request } = require('./create_request');
+const { llm_input_schema } = require('./llm_schema');
 
 describe('create_request', () => {
-  // Define the universal LLM input schema
-  const llmInputSchema = z.object({
-    // Universal provider field
-    provider: z.enum(['openai', 'anthropic', 'google', 'azure-openai']),
-    
-    // Authentication
-    apiKey: z.string(),
-    
-    // Model configuration
-    model: z.string(),
-    
-    // Messages (OpenAI/Anthropic style)
-    messages: z.array(z.object({
-      role: z.enum(['system', 'user', 'assistant', 'tool']),
-      content: z.string()
-    })),
-    
-    // Common parameters across providers
-    maxTokens: z.number().min(1).max(100000).optional(),
-    temperature: z.number().min(0).max(2).optional(),
-    topP: z.number().min(0).max(1).optional(),
-    stream: z.boolean().optional(),
-    
-    // Optional parameters
-    stop: z.union([z.string(), z.array(z.string())]).optional(),
-    presencePenalty: z.number().min(-2).max(2).optional(),
-    frequencyPenalty: z.number().min(-2).max(2).optional(),
-    
-    // Tool/function calling support
-    tools: z.array(z.object({
-      type: z.literal('function'),
-      function: z.object({
-        name: z.string(),
-        description: z.string().optional(),
-        parameters: z.record(z.unknown()).optional()
-      })
-    })).optional(),
-    
-    // Response format
-    responseFormat: z.object({
-      type: z.enum(['text', 'json_object'])
-    }).optional(),
-    
-    // Additional metadata
-    user: z.string().optional(),
-    seed: z.number().optional()
-  });
-
   describe('should convert universal schema to axios request for different providers', () => {
     it('should create OpenAI-compatible request', () => {
       const inputData = {
@@ -69,7 +22,7 @@ describe('create_request', () => {
         method: 'POST'
       };
 
-      const requestConfig = create_request(llmInputSchema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -99,7 +52,7 @@ describe('create_request', () => {
         method: 'POST'
       };
 
-      const requestConfig = create_request(llmInputSchema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -131,7 +84,7 @@ describe('create_request', () => {
         method: 'POST'
       };
 
-      const requestConfig = create_request(llmInputSchema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -157,7 +110,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.test.com' };
 
       expect(() => {
-        create_request(llmInputSchema, invalidData, options);
+        create_request(llm_input_schema, invalidData, options);
       }).toThrow();
     });
 
@@ -170,7 +123,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        create_request(llmInputSchema, invalidData, options);
+        create_request(llm_input_schema, invalidData, options);
       }).toThrow();
     });
 
@@ -187,7 +140,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        create_request(llmInputSchema, invalidData, options);
+        create_request(llm_input_schema, invalidData, options);
       }).toThrow();
     });
 
@@ -203,7 +156,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        create_request(llmInputSchema, invalidData, options);
+        create_request(llm_input_schema, invalidData, options);
       }).toThrow();
     });
   });
@@ -219,7 +172,7 @@ describe('create_request', () => {
 
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
-      const requestConfig = create_request(llmInputSchema, minimalData, options);
+      const requestConfig = create_request(llm_input_schema, minimalData, options);
 
       expect(requestConfig.data).toEqual(minimalData);
       expect(requestConfig.method).toBe('POST'); // Default method
@@ -261,7 +214,7 @@ describe('create_request', () => {
 
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
-      const requestConfig = create_request(llmInputSchema, fullData, options);
+      const requestConfig = create_request(llm_input_schema, fullData, options);
 
       expect(requestConfig.data).toEqual(fullData);
     });
@@ -300,7 +253,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        create_request(llmInputSchema, dataWithTools, options);
+        create_request(llm_input_schema, dataWithTools, options);
       }).not.toThrow();
     });
 
@@ -322,7 +275,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.anthropic.com/v1/messages' };
 
       expect(() => {
-        create_request(llmInputSchema, conversationData, options);
+        create_request(llm_input_schema, conversationData, options);
       }).not.toThrow();
     });
   });
@@ -340,7 +293,7 @@ describe('create_request', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        create_request(llmInputSchema, dataWithEmptyTools, options);
+        create_request(llm_input_schema, dataWithEmptyTools, options);
       }).not.toThrow();
     });
 
@@ -364,11 +317,11 @@ describe('create_request', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        create_request(llmInputSchema, dataWithStringStop, options);
+        create_request(llm_input_schema, dataWithStringStop, options);
       }).not.toThrow();
 
       expect(() => {
-        create_request(llmInputSchema, dataWithArrayStop, options);
+        create_request(llm_input_schema, dataWithArrayStop, options);
       }).not.toThrow();
     });
   });
