@@ -593,9 +593,7 @@ describe('create_request', () => {
         model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
         messages: [{ role: 'user', content: 'Hello' }],
         batch: {
-          enabled: true,
-          inputFileId: 'file-together789',
-          completionWindow: '24h'
+          enabled: true
         }
       };
 
