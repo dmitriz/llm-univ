@@ -62,17 +62,15 @@ const validateUrl = (url) => {
       throw new Error('Only HTTP and HTTPS protocols are allowed');
     }
 
-    // Block localhost and private IP ranges for security
+    // Block localhost and private IP ranges for security, except for Ollama
     const hostname = parsedUrl.hostname.toLowerCase();
-    if (hostname === 'localhost' ||
+    if ((hostname === 'localhost' ||
         hostname === '127.0.0.1' ||
         hostname.startsWith('192.168.') ||
         hostname.startsWith('10.') ||
-        hostname.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) {
-      // Allow localhost only for Ollama
-      if (!url.includes('localhost:11434')) {
-        throw new Error('Private IP addresses are not allowed');
-      }
+        hostname.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) && 
+        !url.includes('localhost:11434')) {
+      throw new Error('Private IP addresses are not allowed');
     }
 
     return url;

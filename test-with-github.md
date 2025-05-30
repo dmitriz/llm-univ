@@ -72,7 +72,7 @@ RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 
 ### With Token
 
-```
+```bash
 🔑 Using GitHub token for authenticated test
 ✅ GitHub Models authenticated request successful
 📝 Response: Hello World...
@@ -84,7 +84,7 @@ RUN_INTEGRATION_TESTS=true npx jest --testNamePattern="GitHub Models"
 
 ### Without Token
 
-```
+```bash
 🔓 No GitHub token found, testing unauthenticated request
 ✓ GitHub Models requires authentication (request format validated)
 ```
