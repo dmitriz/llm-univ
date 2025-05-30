@@ -106,9 +106,10 @@ const create_provider_headers = (data) => {
 /**
  * Gets the default URL for a provider
  * @param {string} provider - The provider name
+ * @param {string} model - The model name (required for some providers like Hugging Face)
  * @returns {string} Default URL for the provider
  */
-const get_default_url = (provider) => {
+const get_default_url = (provider, model) => {
   switch (provider) {
     case 'openai':
       return 'https://api.openai.com/v1/chat/completions';
@@ -119,7 +120,7 @@ const get_default_url = (provider) => {
     case 'gh-models':
       return 'https://models.inference.ai.azure.com/chat/completions';
     case 'huggingface':
-      return 'https://api-inference.huggingface.co/models';
+      return `https://api-inference.huggingface.co/models${model ? `/${model}` : ''}`;
     case 'together':
       return 'https://api.together.xyz/v1/chat/completions';
     case 'deepseek':
@@ -289,13 +290,36 @@ const create_batch_jsonl = (requests) => {
 
 /**
  * Extracts only the API payload fields from validated data
+ * Uses allowlist approach to include only API-relevant fields
  * Excludes internal fields like provider, apiKey, batch
  * @param {Object} validatedData - The validated input data
  * @returns {Object} Clean API payload
  */
 const extract_api_payload = (validatedData) => {
-  // Extract only the fields that should be sent to the API
-  const { provider, apiKey, batch, ...apiPayload } = validatedData;
+  // Define allowlist of fields that should be sent to the API
+  const allowedFields = [
+    'model',
+    'messages', 
+    'maxTokens',
+    'temperature',
+    'topP',
+    'stream',
+    'stop',
+    'presencePenalty',
+    'frequencyPenalty',
+    'tools',
+    'responseFormat',
+    'seed'
+  ];
+  
+  // Extract only allowed fields from validated data
+  const apiPayload = {};
+  for (const field of allowedFields) {
+    if (validatedData[field] !== undefined) {
+      apiPayload[field] = validatedData[field];
+    }
+  }
+  
   return apiPayload;
 };
 
@@ -353,7 +377,7 @@ const create_request = (schema, data, options = {}) => {
   // Return request configuration directly
   return {
     method: options.method || 'POST',
-    url: options.url || get_default_url(validatedData.provider),
+    url: options.url || get_default_url(validatedData.provider, validatedData.model),
     data: extract_api_payload(validatedData),
     headers: {
       ...create_provider_headers(validatedData),
