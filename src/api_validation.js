@@ -373,16 +373,17 @@ function generateSummaryReport(allResults) {
   };
 
   for (const result of allResults) {
-    const provider = result.provider;
+    const { provider, tests } = result;
     let hasPublicAccess = false;
     let requiresAuth = false;
     let publicEndpoints = 0;
 
-    for (const test of result.tests) {
-      if (test.accessible && test.success) {
+    for (const test of tests) {
+      const { accessible, success, requiresAuth: testRequiresAuth } = test;
+      if (accessible && success) {
         hasPublicAccess = true;
         publicEndpoints++;
-      } else if (test.requiresAuth) {
+      } else if (testRequiresAuth) {
         requiresAuth = true;
       }
     }
