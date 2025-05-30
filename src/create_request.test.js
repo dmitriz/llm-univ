@@ -2,28 +2,41 @@ const { z } = require('zod');
 const { create_request } = require('./create_request');
 const { llm_input_schema } = require('./llm_schema');
 
+// ✅ REUSABLE TEST DATA - No more duplication!
+const baseTestData = {
+  model: 'gpt-4',
+  messages: [{ role: 'user', content: 'Hello, how are you?' }],
+  maxTokens: 1000,
+  temperature: 0.7,
+  stream: false
+};
+
+const createProviderData = (provider, apiKey = 'test-key-123') => ({
+  ...baseTestData,
+  provider,
+  ...(apiKey && { apiKey })
+});
+
+// ✅ REUSABLE BATCH TEST DATA
+const createBatchData = (provider, apiKey, batchConfig = {}) => ({
+  ...createProviderData(provider, apiKey),
+  batch: {
+    enabled: true,
+    ...batchConfig
+  }
+});
+
 describe('create_request', () => {
   describe('should convert universal schema to axios request for different providers', () => {
     it('should create OpenAI-compatible request', () => {
-      const inputData = {
-        provider: 'openai',
-        apiKey: 'sk-test123',
-        model: 'gpt-4',
-        messages: [
-          { role: 'user', content: 'Hello, how are you?' }
-        ],
-        maxTokens: 1000,
-        temperature: 0.7,
-        stream: false
-      };
+      const inputData = createProviderData('openai', 'sk-test123');
 
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
-        url: options.url, // Or 'https://api.openai.com/v1/chat/completions' directly if options is not used elsewhere
-        data: inputData, // The function should validate and pass through the data
+        url: 'https://api.openai.com/v1/chat/completions',
+        data: inputData,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${inputData.apiKey}`
@@ -32,23 +45,10 @@ describe('create_request', () => {
     });
 
     it('should create Anthropic-compatible request', () => {
-      const inputData = {
-        provider: 'anthropic',
-        apiKey: 'sk-ant-test123',
-        model: 'claude-3-sonnet-20240229',
-        messages: [
-          { role: 'user', content: 'Hello Claude!' }
-        ],
-        maxTokens: 1024,
-        temperature: 0.5
-      };
+      const inputData = createProviderData('anthropic', 'sk-ant-test123');
+      inputData.model = 'claude-3-sonnet-20240229';
 
-      const options = {
-        url: 'https://api.anthropic.com/v1/messages',
-        method: 'POST'
-      };
-
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -63,26 +63,16 @@ describe('create_request', () => {
     });
 
     it('should create GitHub Models-compatible request (without API key)', () => {
-      const inputData = {
-        provider: 'gh-models',
-        model: 'gpt-4o',
-        messages: [
-          { role: 'user', content: 'Hello from GitHub Models!' }
-        ],
-        maxTokens: 500,
-        temperature: 0.3
-      };
+      const inputData = createProviderData('gh-models', null);
+      inputData.model = 'gpt-4o';
+      inputData.maxTokens = 500;
+      inputData.temperature = 0.3;
 
-      const options = {
-        url: 'https://models.inference.ai.azure.com/chat/completions',
-        method: 'POST'
-      };
-
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
-        url: options.url,
+        url: 'https://models.inference.ai.azure.com/chat/completions',
         data: inputData,
         headers: {
           'Content-Type': 'application/json'
@@ -91,27 +81,15 @@ describe('create_request', () => {
     });
 
     it('should create Hugging Face-compatible request (with API key)', () => {
-      const inputData = {
-        provider: 'huggingface',
-        apiKey: 'hf_test123',
-        model: 'microsoft/DialoGPT-medium',
-        messages: [
-          { role: 'user', content: 'Hello from Hugging Face!' }
-        ],
-        maxTokens: 500,
-        temperature: 0.7
-      };
+      const inputData = createProviderData('huggingface', 'hf_test123');
+      inputData.model = 'microsoft/DialoGPT-medium';
+      inputData.maxTokens = 500;
 
-      const options = {
-        url: 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium',
-        method: 'POST'
-      };
-
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
-        url: options.url,
+        url: 'https://api-inference.huggingface.co/models',
         data: inputData,
         headers: {
           'Content-Type': 'application/json',
@@ -121,16 +99,8 @@ describe('create_request', () => {
     });
 
     it('should create DeepSeek-compatible request', () => {
-      const inputData = {
-        provider: 'deepseek',
-        apiKey: 'sk-deepseek-test123',
-        model: 'deepseek-chat',
-        messages: [
-          { role: 'user', content: 'Hello from DeepSeek!' }
-        ],
-        maxTokens: 1000,
-        temperature: 0.7
-      };
+      const inputData = createProviderData('deepseek', 'sk-deepseek-test123');
+      inputData.model = 'deepseek-chat';
 
       const requestConfig = create_request(llm_input_schema, inputData);
 
@@ -146,16 +116,8 @@ describe('create_request', () => {
     });
 
     it('should create Qwen-compatible request', () => {
-      const inputData = {
-        provider: 'qwen',
-        apiKey: 'sk-qwen-test123',
-        model: 'qwen-plus',
-        messages: [
-          { role: 'user', content: 'Hello from Qwen!' }
-        ],
-        maxTokens: 1000,
-        temperature: 0.7
-      };
+      const inputData = createProviderData('qwen', 'sk-qwen-test123');
+      inputData.model = 'qwen-plus';
 
       const requestConfig = create_request(llm_input_schema, inputData);
 
@@ -180,10 +142,8 @@ describe('create_request', () => {
         messages: [{ role: 'user', content: 'test' }]
       };
 
-      const options = { url: 'https://api.test.com' };
-
       expect(() => {
-        create_request(llm_input_schema, invalidData, options);
+        create_request(llm_input_schema, invalidData);
       }).toThrow();
     });
 
@@ -193,25 +153,17 @@ describe('create_request', () => {
         // Missing model and messages (apiKey is now optional)
       };
 
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
-
       expect(() => {
-        create_request(llm_input_schema, invalidData, options);
+        create_request(llm_input_schema, invalidData);
       }).toThrow();
     });
 
     it('should work without API key for providers that support it', () => {
-      const inputDataGitHub = {
-        provider: 'gh-models',
-        model: 'gpt-4o',
-        messages: [{ role: 'user', content: 'Hello without API key!' }]
-      };
+      const inputDataGitHub = createProviderData('gh-models', null);
+      inputDataGitHub.model = 'gpt-4o';
 
-      const inputDataOllama = {
-        provider: 'ollama',
-        model: 'llama2',
-        messages: [{ role: 'user', content: 'Hello local model!' }]
-      };
+      const inputDataOllama = createProviderData('ollama', null);
+      inputDataOllama.model = 'llama2';
 
       expect(() => {
         create_request(llm_input_schema, inputDataGitHub);
@@ -223,61 +175,39 @@ describe('create_request', () => {
     });
 
     it('should throw error for invalid message structure', () => {
-      const invalidData = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [
-          { role: 'invalid-role', content: 'test' } // Invalid role
-        ]
-      };
-
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
+      const invalidData = createProviderData('openai');
+      invalidData.messages = [
+        { role: 'invalid-role', content: 'test' } // Invalid role
+      ];
 
       expect(() => {
-        create_request(llm_input_schema, invalidData, options);
+        create_request(llm_input_schema, invalidData);
       }).toThrow();
     });
 
     it('should throw error for invalid parameter ranges', () => {
-      const invalidData = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'test' }],
-        temperature: 3.0 // Invalid: above max of 2.0
-      };
-
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
+      const invalidData = createProviderData('openai');
+      invalidData.temperature = 3.0; // Invalid: above max of 2.0
 
       expect(() => {
-        create_request(llm_input_schema, invalidData, options);
+        create_request(llm_input_schema, invalidData);
       }).toThrow();
     });
   });
 
   describe('should handle optional parameters correctly', () => {
     it('should work with minimal required parameters', () => {
-      const minimalData = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }]
-      };
+      const minimalData = createProviderData('openai');
 
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
-
-      const requestConfig = create_request(llm_input_schema, minimalData, options);
+      const requestConfig = create_request(llm_input_schema, minimalData);
 
       expect(requestConfig.data).toEqual(minimalData);
       expect(requestConfig.method).toBe('POST'); // Default method
     });
 
     it('should include all optional parameters when provided', () => {
-      const fullData = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
+      const fullData = createProviderData('openai');
+      Object.assign(fullData, {
         messages: [
           { role: 'system', content: 'You are helpful.' },
           { role: 'user', content: 'Hello' }
@@ -304,11 +234,9 @@ describe('create_request', () => {
         }],
         responseFormat: { type: 'json_object' },
         seed: 42
-      };
+      });
 
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
-
-      const requestConfig = create_request(llm_input_schema, fullData, options);
+      const requestConfig = create_request(llm_input_schema, fullData);
 
       expect(requestConfig.data).toEqual(fullData);
     });
@@ -316,127 +244,89 @@ describe('create_request', () => {
 
   describe('should handle different message types and tools', () => {
     it('should validate tool calling schema', () => {
-      const dataWithTools = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'What is the weather?' }],
-        tools: [{
-          type: 'function',
-          function: {
-            name: 'get_current_weather',
-            description: 'Get the current weather in a given location',
-            parameters: {
-              type: 'object',
-              properties: {
-                location: {
-                  type: 'string',
-                  description: 'The city and state, e.g. San Francisco, CA'
-                },
-                unit: {
-                  type: 'string',
-                  enum: ['celsius', 'fahrenheit']
-                }
+      const dataWithTools = createProviderData('openai');
+      dataWithTools.messages = [{ role: 'user', content: 'What is the weather?' }];
+      dataWithTools.tools = [{
+        type: 'function',
+        function: {
+          name: 'get_current_weather',
+          description: 'Get the current weather in a given location',
+          parameters: {
+            type: 'object',
+            properties: {
+              location: {
+                type: 'string',
+                description: 'The city and state, e.g. San Francisco, CA'
               },
-              required: ['location']
-            }
+              unit: {
+                type: 'string',
+                enum: ['celsius', 'fahrenheit']
+              }
+            },
+            required: ['location']
           }
-        }]
-      };
-
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
+        }
+      }];
 
       expect(() => {
-        create_request(llm_input_schema, dataWithTools, options);
+        create_request(llm_input_schema, dataWithTools);
       }).not.toThrow();
     });
 
     it('should validate complex message thread', () => {
-      const conversationData = {
-        provider: 'anthropic',
-        apiKey: 'test-key',
-        model: 'claude-3-sonnet-20240229',
-        messages: [
-          { role: 'system', content: 'You are a helpful coding assistant.' },
-          { role: 'user', content: 'Can you help me write a function?' },
-          { role: 'assistant', content: 'Of course! What kind of function do you need?' },
-          { role: 'user', content: 'A function to calculate fibonacci numbers.' }
-        ],
-        maxTokens: 1500,
-        temperature: 0.2
-      };
-
-      const options = { url: 'https://api.anthropic.com/v1/messages' };
+      const conversationData = createProviderData('anthropic');
+      conversationData.model = 'claude-3-sonnet-20240229';
+      conversationData.messages = [
+        { role: 'system', content: 'You are a helpful coding assistant.' },
+        { role: 'user', content: 'Can you help me write a function?' },
+        { role: 'assistant', content: 'Of course! What kind of function do you need?' },
+        { role: 'user', content: 'A function to calculate fibonacci numbers.' }
+      ];
+      conversationData.maxTokens = 1500;
+      conversationData.temperature = 0.2;
 
       expect(() => {
-        create_request(llm_input_schema, conversationData, options);
+        create_request(llm_input_schema, conversationData);
       }).not.toThrow();
     });
   });
 
   describe('should handle edge cases', () => {
     it('should handle empty optional arrays', () => {
-      const dataWithEmptyTools = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }],
-        tools: [] // Empty array should be valid
-      };
-
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
+      const dataWithEmptyTools = createProviderData('openai');
+      dataWithEmptyTools.tools = []; // Empty array should be valid
 
       expect(() => {
-        create_request(llm_input_schema, dataWithEmptyTools, options);
+        create_request(llm_input_schema, dataWithEmptyTools);
       }).not.toThrow();
     });
 
     it('should handle string and array stop sequences', () => {
-      const dataWithStringStop = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }],
-        stop: '\\n' // Single string
-      };
+      const dataWithStringStop = createProviderData('openai');
+      dataWithStringStop.stop = '\\n'; // Single string
 
-      const dataWithArrayStop = {
-        provider: 'openai',
-        apiKey: 'test-key',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }],
-        stop: ['\\n', 'END', 'STOP'] // Array of strings
-      };
-
-      const options = { url: 'https://api.openai.com/v1/chat/completions' };
+      const dataWithArrayStop = createProviderData('openai');
+      dataWithArrayStop.stop = ['\\n', 'END', 'STOP']; // Array of strings
 
       expect(() => {
-        create_request(llm_input_schema, dataWithStringStop, options);
+        create_request(llm_input_schema, dataWithStringStop);
       }).not.toThrow();
 
       expect(() => {
-        create_request(llm_input_schema, dataWithArrayStop, options);
+        create_request(llm_input_schema, dataWithArrayStop);
       }).not.toThrow();
     });
   });
 
   describe('should handle batch processing for supported providers', () => {
     it('should create OpenAI batch request', () => {
-      const inputData = {
-        provider: 'openai',
-        apiKey: 'sk-test123',
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true,
-          inputFileId: 'file-abc123',
-          completionWindow: '24h',
-          metadata: { project: 'test' }
-        }
-      };
+      const inputData = createBatchData('openai', 'sk-test123', {
+        inputFileId: 'file-abc123',
+        completionWindow: '24h',
+        metadata: { project: 'test' }
+      });
 
-      const options = { url: 'https://api.openai.com/v1/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -455,20 +345,13 @@ describe('create_request', () => {
     });
 
     it('should create Anthropic batch request', () => {
-      const inputData = {
-        provider: 'anthropic',
-        apiKey: 'sk-ant-test123',
-        model: 'claude-3-sonnet-20240229',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true,
-          inputFileId: 'file-xyz789',
-          completionWindow: '24h'
-        }
-      };
+      const inputData = createBatchData('anthropic', 'sk-ant-test123', {
+        inputFileId: 'file-xyz789',
+        completionWindow: '24h'
+      });
+      inputData.model = 'claude-3-sonnet-20240229';
 
-      const options = { url: 'https://api.anthropic.com/v1/messages/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -478,8 +361,8 @@ describe('create_request', () => {
             custom_id: expect.any(String),
             params: {
               model: 'claude-3-sonnet-20240229',
-              max_tokens: 1024,
-              messages: [{ role: 'user', content: 'Hello' }]
+              max_tokens: 1000, // From baseTestData
+              messages: [{ role: 'user', content: 'Hello, how are you?' }] // From baseTestData
             }
           }]
         },
@@ -493,20 +376,13 @@ describe('create_request', () => {
     });
 
     it('should create Groq batch request', () => {
-      const inputData = {
-        provider: 'groq',
-        apiKey: 'gsk_test123',
-        model: 'mixtral-8x7b-32768',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true,
-          inputFileId: 'file-groq123',
-          completionWindow: '24h'
-        }
-      };
+      const inputData = createBatchData('groq', 'gsk_test123', {
+        inputFileId: 'file-groq123',
+        completionWindow: '24h'
+      });
+      inputData.model = 'mixtral-8x7b-32768';
 
-      const options = { url: 'https://api.groq.com/openai/v1/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -524,21 +400,14 @@ describe('create_request', () => {
     });
 
     it('should create SiliconFlow batch request', () => {
-      const inputData = {
-        provider: 'siliconflow',
-        apiKey: 'sk-silicon123',
-        model: 'Qwen/Qwen2-72B-Instruct',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true,
-          inputFileId: 'file-silicon456',
-          completionWindow: '24h',
-          metadata: { environment: 'test' }
-        }
-      };
+      const inputData = createBatchData('siliconflow', 'sk-silicon123', {
+        inputFileId: 'file-silicon456',
+        completionWindow: '24h',
+        metadata: { environment: 'test' }
+      });
+      inputData.model = 'Qwen/Qwen2-72B-Instruct';
 
-      const options = { url: 'https://api.siliconflow.cn/v1/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -557,19 +426,12 @@ describe('create_request', () => {
     });
 
     it('should create SiliconFlow batch request with minimal parameters', () => {
-      const inputData = {
-        provider: 'siliconflow',
-        apiKey: 'sk-silicon789',
-        model: 'Qwen/Qwen2-72B-Instruct',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true,
-          inputFileId: 'file-silicon-minimal'
-        }
-      };
+      const inputData = createBatchData('siliconflow', 'sk-silicon789', {
+        inputFileId: 'file-silicon-minimal'
+      });
+      inputData.model = 'Qwen/Qwen2-72B-Instruct';
 
-      const options = { url: 'https://api.siliconflow.cn/v1/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -587,18 +449,10 @@ describe('create_request', () => {
     });
 
     it('should create Together AI batch request', () => {
-      const inputData = {
-        provider: 'together',
-        apiKey: 'together_test123',
-        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true
-        }
-      };
+      const inputData = createBatchData('together', 'together_test123');
+      inputData.model = 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo';
 
-      const options = { url: 'https://api.together.xyz/v1/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -607,8 +461,8 @@ describe('create_request', () => {
           requests: [{
             customId: expect.any(String),
             model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-            maxTokens: 1024,
-            messages: [{ role: 'user', content: 'Hello' }]
+            maxTokens: 1000, // From baseTestData
+            messages: [{ role: 'user', content: 'Hello, how are you?' }] // From baseTestData
           }],
           batchSize: 10, // Default value
           timeout: 300    // Default value
@@ -621,20 +475,13 @@ describe('create_request', () => {
     });
 
     it('should create Together AI batch request with custom batch size and timeout', () => {
-      const inputData = {
-        provider: 'together',
-        apiKey: 'together_test123',
-        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-        messages: [{ role: 'user', content: 'Hello' }],
-        batch: {
-          enabled: true,
-          batchSize: 20,
-          timeout: 500
-        }
-      };
+      const inputData = createBatchData('together', 'together_test123', {
+        batchSize: 20,
+        timeout: 500
+      });
+      inputData.model = 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo';
 
-      const options = { url: 'https://api.together.xyz/v1/batches' };
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -643,8 +490,8 @@ describe('create_request', () => {
           requests: [{
             customId: expect.any(String),
             model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-            maxTokens: 1024,
-            messages: [{ role: 'user', content: 'Hello' }]
+            maxTokens: 1000, // From baseTestData
+            messages: [{ role: 'user', content: 'Hello, how are you?' }] // From baseTestData
           }],
           batchSize: 20,
           timeout: 500
