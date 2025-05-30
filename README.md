@@ -7,6 +7,7 @@ A minimalistic universal wrapper for different LLM API providers.
 This library provides a unified interface to interact with multiple LLM providers including:
 
 **International Providers:**
+
 - OpenAI
 - Anthropic (Claude)
 - Google (Gemini)
@@ -19,6 +20,7 @@ This library provides a unified interface to interact with multiple LLM provider
 - Ollama (Local, no API key required)
 
 **Chinese Providers:**
+
 - DeepSeek (Free tier available)
 - Qwen (Alibaba Cloud)
 - SiliconFlow (Free tier available)

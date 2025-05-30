@@ -17,11 +17,12 @@ describe('create_request', () => {
         stream: false
       };
 
-      const requestConfig = create_request(llm_input_schema, inputData);
+      const options = { url: 'https://api.openai.com/v1/chat/completions' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
-        url: 'https://api.openai.com/v1/chat/completions',
+        url: options.url, // Or 'https://api.openai.com/v1/chat/completions' directly if options is not used elsewhere
         data: inputData, // The function should validate and pass through the data
         headers: {
           'Content-Type': 'application/json',

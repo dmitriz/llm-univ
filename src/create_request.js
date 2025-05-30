@@ -243,6 +243,23 @@ const create_batch_jsonl = (requests) => {
 const create_request = (schema, data, options = {}) => {
   const validatedData = schema.parse(data);
   
+  // Validate API key requirements
+  const requiresApiKey = [
+    'openai',
+    'anthropic',
+    'google',
+    'together',
+    'deepseek',
+    'qwen',
+    'siliconflow',
+    'groq',
+    'grok',
+    'openrouter'
+  ];
+  if (requiresApiKey.includes(validatedData.provider) && !validatedData.apiKey) {
+    throw new Error(`API key is required for provider: ${validatedData.provider}`);
+  }
+
   // Return request configuration directly
   return {
     method: options.method || 'POST',
