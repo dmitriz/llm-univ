@@ -4,12 +4,11 @@
 
 ### Comprehensive MCP Server Usage
 - **Use ALL available MCP servers** in parallel to gather comprehensive information
-- **Include Context7** for its extensive code examples and structured documentation
 - **Leverage unique strengths** of each MCP server:
+  - Context7: For official API documentation, extensive code examples, and structured technical information
   - Memory MCP: For historical data and past findings
   - Model Context MCP: For deep technical insights
   - Compute MCP: For performance benchmarks
-  - Context7: For code examples and API documentation
 - **Cross-reference findings** across multiple MCP servers
 - Only use fetch tools if MCP servers lack needed information
 

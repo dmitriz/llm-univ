@@ -171,9 +171,7 @@ const batchRequest = {
 
 ### 🏭 Batch Processing Cost & Performance
 
-#### OpenAI
-
-*✅ Recommended - 50% Cost Savings*
+#### OpenAI (✅ Recommended - 50% Cost Savings)
 
 - Processing Time: 24-hour completion window
 - Endpoints: `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`
@@ -183,9 +181,7 @@ const batchRequest = {
 
 #### Anthropic
 
-*✅ Recommended - 50% Cost Savings*
-
-- Processing Time: Typically under 1 hour (much faster than OpenAI)
+#### Anthropic (✅ Recommended - 50% Cost Savings)
 - Support: All Claude models via `/v1/messages/batches` endpoint
 - Format: JSON array of requests with custom IDs
 - Status: Available in public beta with stable performance
@@ -195,9 +191,8 @@ const batchRequest = {
 
 *⚠️ Limited - 25% Cost Savings*
 
-- Processing Time: 24 hours to 7 days (variable based on queue)
-- Support: Limited model availability and capacity
-- Status: Check latest documentation for current availability
+#### Groq (⚠️ Limited - 25% Cost Savings)
+
 - Best For: Non-urgent bulk processing when extreme speed is not required
 
 ### Cost Optimization Strategies
