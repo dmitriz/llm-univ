@@ -14,6 +14,7 @@ const llm_input_schema = z.object({
    * - GitHub Models: https://docs.github.com/en/rest/models (Complete REST API Reference - Free, no API key required for basic usage)
    * - Hugging Face: https://huggingface.co/docs/api-inference/index (Complete REST API Reference - Free tier available with API token)
    * - Together AI: https://docs.together.ai/reference/completions (Free $1 credit to start)
+   * - Perplexity: https://docs.perplexity.ai/reference/post_chat_completions (Real-time search-augmented AI, 2000 RPM standard rate limits)
    * - DeepSeek: https://platform.deepseek.com/api-docs (Chinese provider, free tier available)
    * - Qwen: https://help.aliyun.com/zh/dashscope/developer-reference/api-details (Alibaba Cloud, Chinese provider)
    * - SiliconFlow: https://siliconflow.cn/zh-cn/siliconcloud (Chinese provider, free tier available)
@@ -22,7 +23,7 @@ const llm_input_schema = z.object({
    * - OpenRouter: https://openrouter.ai/docs/api-reference
    * - Ollama: https://github.com/ollama/ollama/blob/main/docs/api.md (Local, no API key required)
    */
-  provider: z.enum(['openai', 'anthropic', 'google', 'gh-models', 'huggingface', 'together', 'deepseek', 'qwen', 'siliconflow', 'grok', 'groq', 'openrouter', 'ollama']),
+  provider: z.enum(['openai', 'anthropic', 'google', 'gh-models', 'huggingface', 'together', 'perplexity', 'deepseek', 'qwen', 'siliconflow', 'grok', 'groq', 'openrouter', 'ollama']),
   
   /**
    * API Key for authentication with the LLM provider
