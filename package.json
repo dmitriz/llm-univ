@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:unit": "jest --testPathIgnorePatterns=integration",
+    "test:integration": "RUN_INTEGRATION_TESTS=true jest integration.test.js",
+    "test:all": "RUN_INTEGRATION_TESTS=true jest"
   },
   "keywords": [],
   "author": "",
