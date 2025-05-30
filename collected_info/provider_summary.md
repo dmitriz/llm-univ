@@ -33,32 +33,34 @@ These providers offer publicly accessible model information without requiring AP
 
 ### Providers Requiring Authentication
 
-These providers require API keys to access their model information:
+The following providers require API keys to access their model information:
 
-1. **Openai** - Requires API key for model information
-2. **Google** - Requires API key for model information
-3. **Groq** - Requires API key for model information
-4. **Together** - Requires API key for model information
-5. **Deepseek** - Requires API key for model information
-6. **Siliconflow** - Requires API key for model information
-7. **Grok** - Requires API key for model information
-8. **Perplexity** - Requires API key for model information
-9. **Cohere** - Requires API key for model information
-10. **Ai21** - Requires API key for model information
-11. **Fireworks** - Requires API key for model information
-12. **Replicate** - Requires API key for model information
-13. **Mistral** - Requires API key for model information
+- Openai
+- Google
+- Groq
+- Together
+- Deepseek
+- Siliconflow
+- Grok
+- Perplexity
+- Cohere
+- Ai21
+- Fireworks
+- Replicate
+- Mistral
 
 ## Real-Time Search Capabilities
 
 ### Providers with Confirmed Search Features
 
-- **Openrouter**: potential-search-capability
-  - Evidence: Search-related keywords found in model descriptions
-- **Huggingface**: potential-search-capability
-  - Evidence: Search-related keywords found in model descriptions
-- **Gh-models**: potential-search-capability
-  - Evidence: Search-related keywords found in model descriptions
+**Providers with potential search capabilities** (based on search-related keywords in model descriptions):
+
+- Openrouter
+- Huggingface  
+- Gh-models
+
+**Providers with confirmed search features:**
+
 - **Openai**: web-browsing
   - Evidence: GPT models have web browsing capabilities in ChatGPT
 - **Google**: grounding-with-search, real-time-data
