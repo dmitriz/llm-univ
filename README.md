@@ -56,7 +56,7 @@ Several providers offer batch processing capabilities that can significantly red
 
 - **💰 Cost Savings**: 25% discount on eligible endpoints  
 - **Method**: Similar to OpenAI, uses file upload and batch creation
-- **Documentation**: https://console.groq.com/docs/docs/batch
+- **Documentation**: <https://console.groq.com/docs/docs/batch>
 - **Implementation**: Added in May 30 update
 
 **🟢 Anthropic Batch API**
