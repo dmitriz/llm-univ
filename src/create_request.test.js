@@ -419,4 +419,207 @@ describe('create_request', () => {
       }).not.toThrow();
     });
   });
+
+  describe('should handle batch processing for supported providers', () => {
+    it('should create OpenAI batch request', () => {
+      const inputData = {
+        provider: 'openai',
+        apiKey: 'sk-test123',
+        model: 'gpt-4',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-abc123',
+          completionWindow: '24h',
+          metadata: { project: 'test' }
+        }
+      };
+
+      const options = { url: 'https://api.openai.com/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.openai.com/v1/batches',
+        data: {
+          input_file_id: 'file-abc123',
+          endpoint: '/v1/chat/completions',
+          completion_window: '24h',
+          metadata: { project: 'test' }
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer sk-test123'
+        }
+      });
+    });
+
+    it('should create Anthropic batch request', () => {
+      const inputData = {
+        provider: 'anthropic',
+        apiKey: 'sk-ant-test123',
+        model: 'claude-3-sonnet-20240229',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-xyz789',
+          completionWindow: '24h'
+        }
+      };
+
+      const options = { url: 'https://api.anthropic.com/v1/messages/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.anthropic.com/v1/messages/batches',
+        data: {
+          requests: [{
+            custom_id: expect.any(String),
+            params: {
+              model: 'claude-3-sonnet-20240229',
+              max_tokens: 1024,
+              messages: [{ role: 'user', content: 'Hello' }]
+            }
+          }]
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'sk-ant-test123',
+          'anthropic-version': '2025-05-22',
+          'anthropic-beta': 'message-batches-2024-09-24'
+        }
+      });
+    });
+
+    it('should create Groq batch request', () => {
+      const inputData = {
+        provider: 'groq',
+        apiKey: 'gsk_test123',
+        model: 'mixtral-8x7b-32768',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-groq123',
+          completionWindow: '24h'
+        }
+      };
+
+      const options = { url: 'https://api.groq.com/openai/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.groq.com/openai/v1/batches',
+        data: {
+          input_file_id: 'file-groq123',
+          endpoint: '/v1/chat/completions',
+          completion_window: '24h'
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer gsk_test123'
+        }
+      });
+    });
+
+    it('should create SiliconFlow batch request', () => {
+      const inputData = {
+        provider: 'siliconflow',
+        apiKey: 'sk-silicon123',
+        model: 'Qwen/Qwen2-72B-Instruct',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-silicon456',
+          completionWindow: '24h',
+          metadata: { environment: 'test' }
+        }
+      };
+
+      const options = { url: 'https://api.siliconflow.cn/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.siliconflow.cn/v1/batches',
+        data: {
+          input_file_id: 'file-silicon456',
+          endpoint: '/v1/chat/completions',
+          completion_window: '24h',
+          metadata: { environment: 'test' }
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer sk-silicon123'
+        }
+      });
+    });
+
+    it('should create SiliconFlow batch request with minimal parameters', () => {
+      const inputData = {
+        provider: 'siliconflow',
+        apiKey: 'sk-silicon789',
+        model: 'Qwen/Qwen2-72B-Instruct',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-silicon-minimal'
+        }
+      };
+
+      const options = { url: 'https://api.siliconflow.cn/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.siliconflow.cn/v1/batches',
+        data: {
+          input_file_id: 'file-silicon-minimal',
+          endpoint: '/v1/chat/completions',
+          completion_window: '24h'
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer sk-silicon789'
+        }
+      });
+    });
+
+    it('should create Together AI batch request', () => {
+      const inputData = {
+        provider: 'together',
+        apiKey: 'together_test123',
+        model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true,
+          inputFileId: 'file-together789',
+          completionWindow: '24h'
+        }
+      };
+
+      const options = { url: 'https://api.together.xyz/v1/batches' };
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.together.xyz/v1/batches',
+        data: {
+          requests: [{
+            custom_id: expect.any(String),
+            model: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+            max_tokens: 1024,
+            messages: [{ role: 'user', content: 'Hello' }]
+          }],
+          batch_size: 10,
+          timeout: 300
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer together_test123'
+        }
+      });
+    });
+  });
 });

@@ -159,7 +159,8 @@ const create_batch_request = (data) => {
         data: {
           input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
           endpoint: '/v1/chat/completions',
-          completion_window: data.batch.completionWindow || '24h'
+          completion_window: data.batch.completionWindow || '24h',
+          ...(data.batch.metadata && { metadata: data.batch.metadata })
         },
         headers: {
           'Content-Type': 'application/json',
@@ -229,6 +230,23 @@ const create_batch_request = (data) => {
         }
       };
     
+    case 'siliconflow':
+      // SiliconFlow uses OpenAI-compatible batch API format
+      return {
+        method: 'POST',
+        url: 'https://api.siliconflow.cn/v1/batches',
+        data: {
+          input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
+          endpoint: '/v1/chat/completions',
+          completion_window: data.batch.completionWindow || '24h',
+          ...(data.batch.metadata && { metadata: data.batch.metadata })
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.apiKey}`
+        }
+      };
+    
     default:
       throw new Error(`Batch processing not supported for provider: ${data.provider}`);
   }
@@ -265,6 +283,18 @@ const create_batch_jsonl = (requests) => {
  */
 const create_request = (schema, data, options = {}) => {
   const validatedData = schema.parse(data);
+  
+  // Check if this is a batch processing request
+  if (validatedData.batch?.enabled) {
+    const batchRequest = create_batch_request(validatedData);
+    if (batchRequest) {
+      // Override URL if provided in options
+      if (options.url) {
+        batchRequest.url = options.url;
+      }
+      return batchRequest;
+    }
+  }
   
   // Validate API key requirements
   const requiresApiKey = [

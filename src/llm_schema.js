@@ -348,8 +348,8 @@ const llm_input_schema = z.object({
 
   /**
    * Batch processing configuration for cost optimization and bulk operations
-   * Supported providers: OpenAI (50% discount), Anthropic (50% discount), Groq (25% discount)
-   * Reference: OpenAI Batch API, Anthropic Message Batches, Groq Batch API
+   * Supported providers: OpenAI (50% discount), Anthropic (50% discount), Groq (25% discount), SiliconFlow (estimated discount)
+   * Reference: OpenAI Batch API, Anthropic Message Batches, Groq Batch API, SiliconFlow Batch API
    */
   batch: z.object({
     /**
