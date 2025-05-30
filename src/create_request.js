@@ -25,13 +25,51 @@ const create_provider_headers = (data) => {
         'anthropic-version': '2025-05-22'
       };
     
-    case 'azure-openai':
+    case 'google':
       return {
         ...baseHeaders,
-        'api-key': data.apiKey
+        'Authorization': `Bearer ${data.apiKey}`
       };
     
-    case 'google':
+    case 'gh-models':
+      // GitHub Models can work without API key for basic usage
+      if (data.apiKey) {
+        return {
+          ...baseHeaders,
+          'Authorization': `Bearer ${data.apiKey}`
+        };
+      }
+      return baseHeaders;
+    
+    case 'huggingface':
+      // Hugging Face has free tier, API key optional
+      if (data.apiKey) {
+        return {
+          ...baseHeaders,
+          'Authorization': `Bearer ${data.apiKey}`
+        };
+      }
+      return baseHeaders;
+    
+    case 'together':
+      return {
+        ...baseHeaders,
+        'Authorization': `Bearer ${data.apiKey}`
+      };
+    
+    case 'deepseek':
+      return {
+        ...baseHeaders,
+        'Authorization': `Bearer ${data.apiKey}`
+      };
+    
+    case 'qwen':
+      return {
+        ...baseHeaders,
+        'Authorization': `Bearer ${data.apiKey}`
+      };
+    
+    case 'siliconflow':
       return {
         ...baseHeaders,
         'Authorization': `Bearer ${data.apiKey}`
@@ -78,6 +116,26 @@ const get_default_url = (provider) => {
       return 'https://api.anthropic.com/v1/messages';
     case 'google':
       return 'https://generativelanguage.googleapis.com/v1/models';
+    case 'gh-models':
+      return 'https://models.inference.ai.azure.com/chat/completions';
+    case 'huggingface':
+      return 'https://api-inference.huggingface.co/models';
+    case 'together':
+      return 'https://api.together.xyz/v1/chat/completions';
+    case 'deepseek':
+      return 'https://api.deepseek.com/chat/completions';
+    case 'qwen':
+      return 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
+    case 'siliconflow':
+      return 'https://api.siliconflow.cn/v1/chat/completions';
+    case 'groq':
+      return 'https://api.groq.com/openai/v1/chat/completions';
+    case 'grok':
+      return 'https://api.x.ai/v1/chat/completions';
+    case 'openrouter':
+      return 'https://openrouter.ai/api/v1/chat/completions';
+    case 'ollama':
+      return 'http://localhost:11434/api/chat';
     default:
       return undefined;
   }

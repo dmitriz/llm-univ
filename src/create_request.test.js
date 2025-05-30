@@ -56,26 +56,53 @@ describe('create_request', () => {
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': inputData.apiKey,
-          'anthropic-version': '2023-06-01'
+          'anthropic-version': '2025-05-22'
         }
       });
     });
 
-    it('should create Azure OpenAI-compatible request', () => {
+    it('should create GitHub Models-compatible request (without API key)', () => {
       const inputData = {
-        provider: 'azure-openai',
-        apiKey: 'azure-test-key',
-        model: 'gpt-35-turbo',
+        provider: 'gh-models',
+        model: 'gpt-4o',
         messages: [
-          { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: 'What is the weather like?' }
+          { role: 'user', content: 'Hello from GitHub Models!' }
         ],
         maxTokens: 500,
         temperature: 0.3
       };
 
       const options = {
-        url: 'https://your-resource.openai.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2023-12-01-preview',
+        url: 'https://models.inference.ai.azure.com/chat/completions',
+        method: 'POST'
+      };
+
+      const requestConfig = create_request(llm_input_schema, inputData, options);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: options.url,
+        data: inputData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    });
+
+    it('should create Hugging Face-compatible request (with API key)', () => {
+      const inputData = {
+        provider: 'huggingface',
+        apiKey: 'hf_test123',
+        model: 'microsoft/DialoGPT-medium',
+        messages: [
+          { role: 'user', content: 'Hello from Hugging Face!' }
+        ],
+        maxTokens: 500,
+        temperature: 0.7
+      };
+
+      const options = {
+        url: 'https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium',
         method: 'POST'
       };
 
@@ -87,7 +114,57 @@ describe('create_request', () => {
         data: inputData,
         headers: {
           'Content-Type': 'application/json',
-          'api-key': inputData.apiKey
+          'Authorization': `Bearer ${inputData.apiKey}`
+        }
+      });
+    });
+
+    it('should create DeepSeek-compatible request', () => {
+      const inputData = {
+        provider: 'deepseek',
+        apiKey: 'sk-deepseek-test123',
+        model: 'deepseek-chat',
+        messages: [
+          { role: 'user', content: 'Hello from DeepSeek!' }
+        ],
+        maxTokens: 1000,
+        temperature: 0.7
+      };
+
+      const requestConfig = create_request(llm_input_schema, inputData);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.deepseek.com/chat/completions',
+        data: inputData,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${inputData.apiKey}`
+        }
+      });
+    });
+
+    it('should create Qwen-compatible request', () => {
+      const inputData = {
+        provider: 'qwen',
+        apiKey: 'sk-qwen-test123',
+        model: 'qwen-plus',
+        messages: [
+          { role: 'user', content: 'Hello from Qwen!' }
+        ],
+        maxTokens: 1000,
+        temperature: 0.7
+      };
+
+      const requestConfig = create_request(llm_input_schema, inputData);
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
+        data: inputData,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${inputData.apiKey}`
         }
       });
     });
@@ -112,7 +189,7 @@ describe('create_request', () => {
     it('should throw error for missing required fields', () => {
       const invalidData = {
         provider: 'openai',
-        // Missing apiKey, model, and messages
+        // Missing model and messages (apiKey is now optional)
       };
 
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
@@ -120,6 +197,28 @@ describe('create_request', () => {
       expect(() => {
         create_request(llm_input_schema, invalidData, options);
       }).toThrow();
+    });
+
+    it('should work without API key for providers that support it', () => {
+      const inputDataGitHub = {
+        provider: 'gh-models',
+        model: 'gpt-4o',
+        messages: [{ role: 'user', content: 'Hello without API key!' }]
+      };
+
+      const inputDataOllama = {
+        provider: 'ollama',
+        model: 'llama2',
+        messages: [{ role: 'user', content: 'Hello local model!' }]
+      };
+
+      expect(() => {
+        create_request(llm_input_schema, inputDataGitHub);
+      }).not.toThrow();
+
+      expect(() => {
+        create_request(llm_input_schema, inputDataOllama);
+      }).not.toThrow();
     });
 
     it('should throw error for invalid message structure', () => {
@@ -203,7 +302,6 @@ describe('create_request', () => {
           }
         }],
         responseFormat: { type: 'json_object' },
-        user: 'user123',
         seed: 42
       };
 

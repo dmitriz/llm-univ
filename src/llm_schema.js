@@ -2,29 +2,47 @@ const { z } = require('zod');
 
 /**
  * Universal LLM input schema that works across different providers
- * This schema defines the common interface for OpenAI, Anthropic, Google, Azure OpenAI, etc.
+ * This schema defines the common interface for OpenAI, Anthropic, Google, GitHub Models, etc.
  */
 const llm_input_schema = z.object({
   /**
    * Universal provider field - specifies which LLM provider to use
-   * Documentation links for each provider:
-   * - OpenAI: https://platform.openai.com/docs/api-reference
-   * - Anthropic: https://docs.anthropic.com/en/api
-   * - Google (Gemini): https://ai.google.dev/gemini-api/docs
-   * - Azure OpenAI: https://learn.microsoft.com/en-us/azure/ai-services/openai/reference
+   * API Reference Documentation links for each provider:
+   * - OpenAI: https://platform.openai.com/docs/api-reference (Complete REST API Reference)
+   * - Anthropic: https://docs.anthropic.com/en/api (Complete REST API Reference)
+   * - Google (Gemini): https://ai.google.dev/gemini-api/docs/api-overview (Complete REST API Reference)
+   * - GitHub Models: https://docs.github.com/en/rest/models (Complete REST API Reference - Free, no API key required for basic usage)
+   * - Hugging Face: https://huggingface.co/docs/api-inference/index (Complete REST API Reference - Free tier available with API token)
+   * - Together AI: https://docs.together.ai/reference/completions (Free $1 credit to start)
+   * - DeepSeek: https://platform.deepseek.com/api-docs (Chinese provider, free tier available)
+   * - Qwen: https://help.aliyun.com/zh/dashscope/developer-reference/api-details (Alibaba Cloud, Chinese provider)
+   * - SiliconFlow: https://siliconflow.cn/zh-cn/siliconcloud (Chinese provider, free tier available)
    * - Grok (X.AI): https://docs.x.ai/api
    * - Groq: https://console.groq.com/docs/quickstart
-   * - OpenRouter: https://openrouter.ai/docs
-   * - Ollama: https://github.com/ollama/ollama/blob/main/docs/api.md
+   * - OpenRouter: https://openrouter.ai/docs/api-reference
+   * - Ollama: https://github.com/ollama/ollama/blob/main/docs/api.md (Local, no API key required)
    */
-  provider: z.enum(['openai', 'anthropic', 'google', 'azure-openai', 'grok', 'groq', 'openrouter', 'ollama']),
+  provider: z.enum(['openai', 'anthropic', 'google', 'gh-models', 'huggingface', 'together', 'deepseek', 'qwen', 'siliconflow', 'grok', 'groq', 'openrouter', 'ollama']),
   
   /**
    * API Key for authentication with the LLM provider
-   * Required for all providers to authenticate API requests
+   * 
+   * OPTIONAL for these providers (free usage without API key):
+   * - GitHub Models: Free usage without API key (rate limited)
+   * - Ollama: Local installation, typically no authentication needed
+   * 
+   * REQUIRED for providers with free credits/tiers:
+   * - Together AI: Free $1 credit to start (API key required)
+   * - DeepSeek: Free tier available (API key required)  
+   * - SiliconFlow: Free tier available (API key required)
+   * - Hugging Face: Free tier available (API token required)
+   * 
+   * REQUIRED for all other providers:
+   * - OpenAI, Anthropic, Google, Grok, Groq, OpenRouter, Qwen
+   * 
    * Reference: https://platform.openai.com/docs/api-reference/authentication
    */
-  apiKey: z.string(),
+  apiKey: z.string().optional(),
   
   /**
    * Model identifier/name to use for the LLM request
@@ -117,13 +135,6 @@ const llm_input_schema = z.object({
   responseFormat: z.object({
     type: z.enum(['text', 'json_object'])
   }).optional(),
-  
-  /**
-   * User identifier for tracking and abuse monitoring
-   * Helps providers identify and track usage patterns
-   * Reference: https://platform.openai.com/docs/api-reference/chat/create#chat-create-user
-   */
-  user: z.string().optional(),
   
   /**
    * Seed for deterministic outputs (when supported by provider)
