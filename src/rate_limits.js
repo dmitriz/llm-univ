@@ -1,4 +1,3 @@
-
 /**
  * Universal Rate Limit Management Module
  * 
@@ -309,6 +308,8 @@ class RateLimitTracker {
         day: [],
         tokens: { minute: 0, day: 0 }
       });
+    } else if (this.usage.has(provider)) {
+      const usage = this.usage.get(provider);
     }
 
     const usage = this.usage.get(provider);
@@ -432,7 +433,6 @@ class RateLimitTracker {
         day: {
           used: usage.tokens.day,
           limit: limits[RATE_LIMIT_TYPES.TPD] || null,
-          percentage: limits[RATE_LIMIT_TYPES.TPD] ? (usage.tokens.day / limits[RATE_LIMIT_TYPES.TPD]) * 100 : 0
         }
       }
     };
