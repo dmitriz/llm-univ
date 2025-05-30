@@ -54,6 +54,8 @@
 - Use **comments** (`// ...existing code...`) instead of repeating existing code in edits
 - Group changes by file
 - Provide **clear explanations** for each edit
+- **NEVER use inline comments** - always put comments on separate lines above the code
+- **NEVER use placeholder values** like `your_key_here` - use empty values with `=` only
 
 ## 🚫 Common Mistakes to Avoid
 
@@ -73,6 +75,8 @@
 - **DON'T** print code blocks instead of using edit tools
 - **DON'T** print terminal commands instead of using run_in_terminal
 - **DON'T** repeat existing code in edit tools
+- **DON'T** use inline comments (same line as code) - always use separate lines
+- **DON'T** use placeholder values like `your_key_here` - use empty values only
 
 ## 🎯 Current Project Focus Areas
 
