@@ -462,7 +462,7 @@ async function collectProviderInfo(provider) {
   const info = {
     provider: provider,
     timestamp: new Date().toISOString(),
-    models: null,
+    models: [],
     endpoints: {},
     errors: []
   };

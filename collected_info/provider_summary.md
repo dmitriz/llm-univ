@@ -29,7 +29,7 @@ These providers offer publicly accessible model information without requiring AP
 3. **Gh-models** - 24 models available (potential-search-capability)
 4. **Qwen** - 7 models available
 5. **Anthropic** - 4 models available
-6. **Ollama** - 1 models available
+6. **Ollama** - 1 model available
 
 ### Providers Requiring Authentication
 

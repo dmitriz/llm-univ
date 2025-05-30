@@ -1,6 +1,11 @@
 # LLM Provider Information Collection
 
-This directory contains data collected by the LLM Provider Information Collector script. The script gathers publicly available information from various LLM providers without requiring API keys.
+This## Usage
+
+The most useful files for understanding provider capabilities:
+
+- **[provider_summary.md](provider_summary.md)** - Start here for an overview
+- **[summary_report.json](summary_report.json)** - For statistical analysis and quick referencetory contains data collected by the LLM Provider Information Collector script. The script gathers publicly available information from various LLM providers without requiring API keys.
 
 ## Files Overview
 
@@ -11,7 +16,7 @@ This directory contains data collected by the LLM Provider Information Collector
 - Human-readable summary of all provider information
 - Authentication requirements and free tiers
 - Special features and research methodology
-- Start here for overview
+- Start here for an overview
 
 #### summary_report.json
 
@@ -54,7 +59,7 @@ Information was collected through multiple sources:
 
 1. Public API endpoints when available without authentication
 2. Documentation scraping when direct API access wasn't available  
-3. Context7 MCP server for comprehensive documentation research
+3. Context7 MCP (Model Context Protocol) server for comprehensive documentation research
 4. Memory MCP for storing and retrieving research findings
 5. Fetch MCP for web-based verification and additional research
 
