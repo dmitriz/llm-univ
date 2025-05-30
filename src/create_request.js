@@ -141,6 +141,35 @@ const get_default_url = (provider) => {
   }
 };
 
+// API version constants for maintainability
+const API_VERSIONS = {
+  anthropic: '2025-05-22',
+  anthropicBeta: 'message-batches-2024-09-24'
+};
+
+/**
+ * Creates OpenAI-compatible batch request for providers that use the same format
+ * @param {Object} data - The validated input data
+ * @param {string} baseUrl - The base URL for the provider
+ * @returns {Object} OpenAI-compatible batch request configuration
+ */
+const create_openai_compatible_batch = (data, baseUrl) => {
+  return {
+    method: 'POST',
+    url: `${baseUrl}/batches`,
+    data: {
+      input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
+      endpoint: '/v1/chat/completions',
+      completion_window: data.batch.completionWindow || '24h',
+      ...(data.batch.metadata && { metadata: data.batch.metadata })
+    },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${data.apiKey}`
+    }
+  };
+};
+
 /**
  * Handles batch processing request creation for supported providers
  * @param {Object} data - The validated input data with batch configuration
@@ -151,21 +180,38 @@ const create_batch_request = (data) => {
     return null; // Not a batch request
   }
 
+  // Provider-specific validation for required batch fields
+  switch (data.provider) {
+    case 'siliconflow':
+      if (!data.batch.inputFileId) {
+        throw new Error('SiliconFlow batch processing requires inputFileId');
+      }
+      break;
+    case 'openai':
+    case 'groq':
+      if (!data.batch.inputFileId) {
+        throw new Error(`${data.provider} batch processing requires inputFileId`);
+      }
+      break;
+    case 'together':
+      // Together AI can work with either explicit requests array or fallback to single request
+      // No strict validation needed as fallback is supported
+      break;
+    case 'anthropic':
+      // Anthropic can work with either explicit requests array or fallback to single request
+      // No strict validation needed as fallback is supported
+      break;
+  }
+
   switch (data.provider) {
     case 'openai':
-      return {
-        method: 'POST',
-        url: 'https://api.openai.com/v1/batches',
-        data: {
-          input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
-          endpoint: '/v1/chat/completions',
-          completion_window: data.batch.completionWindow || '24h'
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${data.apiKey}`
-        }
-      };
+      return create_openai_compatible_batch(data, 'https://api.openai.com/v1');
+    
+    case 'groq':
+      return create_openai_compatible_batch(data, 'https://api.groq.com/openai/v1');
+    
+    case 'siliconflow':
+      return create_openai_compatible_batch(data, 'https://api.siliconflow.cn/v1');
     
     case 'anthropic':
       return {
@@ -186,42 +232,30 @@ const create_batch_request = (data) => {
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': data.apiKey,
-          'anthropic-version': '2025-05-22',
-          'anthropic-beta': 'message-batches-2024-09-24'
+          'anthropic-version': API_VERSIONS.anthropic,
+          'anthropic-beta': API_VERSIONS.anthropicBeta
         }
       };
     
     case 'together':
+      // Together AI doesn't support metadata - strip it to prevent silent failures
+      if (data.batch.metadata) {
+        console.warn('Together AI batch processing does not support metadata. Metadata will be ignored.');
+      }
       return {
         method: 'POST',
         url: 'https://api.together.xyz/v1/batches',
         data: {
           requests: data.batch.requests || [{
-            custom_id: data.batch.customId || `batch-${Date.now()}`,
+            customId: data.batch.customId || `batch-${Date.now()}`,
             model: data.model,
-            max_tokens: data.maxTokens || 1024,
+            maxTokens: data.maxTokens || 1024,
             messages: data.messages,
             ...(data.temperature && { temperature: data.temperature }),
-            ...(data.topP && { top_p: data.topP })
+            ...(data.topP && { topP: data.topP })
           }],
-          batch_size: data.batch.batchSize || 10,
+          batchSize: data.batch.batchSize || 10,
           timeout: data.batch.timeout || 300
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${data.apiKey}`
-        }
-      };
-    
-    case 'groq':
-      return {
-        url: 'https://api.groq.com/openai/v1/batches',
-        method: 'POST',
-        data: {
-          input_file_id: data.batch.inputFileId,
-          endpoint: '/v1/chat/completions',
-          completion_window: data.batch.completionWindow || '24h',
-          ...(data.batch.metadata && { metadata: data.batch.metadata })
         },
         headers: {
           'Content-Type': 'application/json',
@@ -265,6 +299,27 @@ const create_batch_jsonl = (requests) => {
  */
 const create_request = (schema, data, options = {}) => {
   const validatedData = schema.parse(data);
+  
+  // Check if this is a batch processing request
+  if (validatedData.batch?.enabled) {
+    try {
+      const batchRequest = create_batch_request(validatedData);
+      if (batchRequest) {
+        // Override URL if provided in options
+        if (options.url) {
+          batchRequest.url = options.url;
+        }
+        // Merge custom headers if provided
+        if (options.headers) {
+          batchRequest.headers = { ...batchRequest.headers, ...options.headers };
+        }
+        return batchRequest;
+      }
+    } catch (error) {
+      console.error(`Batch processing error for provider ${validatedData.provider}:`, error.message);
+      throw new Error(`Failed to create batch request: ${error.message}`);
+    }
+  }
   
   // Validate API key requirements
   const requiresApiKey = [

@@ -214,6 +214,8 @@ const batchRequest = {
 
 - OpenAI: Complete batch API with 50% cost savings, 24h processing, JSONL format
 - Anthropic: Message Batches API with 50% cost savings, <1h processing, JSON format
+- SiliconFlow: OpenAI-compatible batch API, estimated cost savings, 24h processing, JSONL format
+- Together AI: Batch API with custom format, estimated cost savings, processing time varies by queue and model load (typically minutes to a few hours)
 
 #### Limited Batch Support
 
@@ -226,7 +228,6 @@ const batchRequest = {
 - OpenRouter: Individual requests only
 - Perplexity: Individual requests only (but 2000 RPM standard rate limits)
 - Hugging Face: Individual requests only (community inference)
-- Together AI: Individual requests only
 - Qwen (Alibaba): Individual requests only
 - Ollama: Local processing only (unlimited by design)
 - GitHub Models: Individual requests only
