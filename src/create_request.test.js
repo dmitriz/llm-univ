@@ -679,7 +679,7 @@ describe('create_request', () => {
 
       expect(() => {
         create_request(llm_input_schema, inputData, options);
-      }).toThrow('SiliconFlow batch processing requires inputFileId');
+      }).toThrow('Siliconflow batch processing requires inputFileId');
     });
 
     it('should throw error when OpenAI batch lacks inputFileId', () => {
@@ -698,7 +698,7 @@ describe('create_request', () => {
 
       expect(() => {
         create_request(llm_input_schema, inputData, options);
-      }).toThrow('openai batch processing requires inputFileId');
+      }).toThrow('Openai batch processing requires inputFileId');
     });
 
     it('should throw error when Groq batch lacks inputFileId', () => {
@@ -717,7 +717,7 @@ describe('create_request', () => {
 
       expect(() => {
         create_request(llm_input_schema, inputData, options);
-      }).toThrow('groq batch processing requires inputFileId');
+      }).toThrow('Groq batch processing requires inputFileId');
     });
 
     it('should allow Together AI batch without inputFileId (uses fallback)', () => {
