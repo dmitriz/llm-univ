@@ -22,6 +22,7 @@ The most useful files for understanding provider capabilities are:
 ## Research Methodology
 
 Information was collected through:
+
 1. Public API endpoints when available without authentication
 2. Documentation scraping when direct API access wasn't available
 3. Context7 MCP server for comprehensive documentation research
@@ -31,6 +32,7 @@ Information was collected through:
 ## Recent Updates
 
 ### May 30, 2025 - Batch Processing Verification
+
 - **Groq Batch API Confirmed**: Verified that Groq does support dedicated batch processing via `/v1/batches` endpoint
 - **Endpoint Correction**: Updated from "async requests recommended" to full batch API support
 - **Documentation Source**: Context7 MCP research confirmed official Groq Cloud documentation

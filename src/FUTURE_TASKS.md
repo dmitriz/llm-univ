@@ -97,19 +97,28 @@
 
 **Estimated Time**: 6-8 days
 
-**Multi-modal Content Support**
+##### Multi-modal Content Support
 
 - Extend schema to support image, audio, video inputs
 - Implement provider-specific multi-modal formatting
 - Test across OpenAI, Google, Anthropic, Together AI
 
-**Streaming Response Handler**
+##### Advanced Function Calling
+
+- Implement universal function schema
+- Add type validation for function parameters
+- Create provider-specific function formatters
+
+#### Streaming Response Handler
 
 - Create universal streaming response parser
 - Implement provider-specific SSE handling differences
 - Add reconnection logic for dropped connections
+- Document cross-provider streaming variations
+- Implement backpressure handling
+- Add streaming progress callbacks
 
-**Advanced Function Calling**
+##### Advanced Function Calling Integration
 
 - Implement tool choice and parallel function calling
 - Add JSON schema validation for function parameters
