@@ -109,7 +109,6 @@ describe('Rate Limits Module', () => {
     });
 
     describe('cleanOldEntries', () => {
-    describe('cleanOldEntries', () => {
       beforeEach(() => {
         jest.useFakeTimers();
       });
@@ -228,3 +227,4 @@ describe('Rate Limits Module', () => {
     });
   });
 });
+
