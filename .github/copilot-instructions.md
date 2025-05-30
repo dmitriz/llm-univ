@@ -1,5 +1,34 @@
 # GitHub Copilot Instructions for LLM Universal Wrapper Project
 
+## ⚠️ CRITICAL - TASK COMPLETION REQUIREMENTS ⚠️
+
+### ❗️NEVER MARK A TASK AS COMPLETE WITHOUT:
+
+1. RUNNING ALL TESTS AND VERIFYING THEY PASS
+2. CHECKING FOR ALL WARNINGS, ERRORS, AND VIOLATIONS
+3. REVIEWING ALL PROBLEM REPORTS
+4. FIXING ANY IDENTIFIED ISSUES
+5. VERIFYING FIXES WITH A SECOND TEST RUN
+
+### 🚫 ABSOLUTELY FORBIDDEN:
+
+- DECLARING A TASK COMPLETE WITH UNRESOLVED PROBLEMS
+- IGNORING WARNINGS OR "MINOR" ISSUES
+- SKIPPING TEST VERIFICATION
+- PARTIAL PROBLEM RESOLUTION
+
+### ✅ REQUIRED STEPS FOR EVERY TASK:
+
+1. REVIEW ALL PROBLEM REPORTS
+2. FIX EVERY SINGLE WARNING AND ERROR
+3. RUN COMPREHENSIVE TESTS
+4. VERIFY ALL FIXES
+5. DOCUMENT ANY REMAINING ISSUES
+6. GET EXPLICIT USER CONFIRMATION
+
+This is the HIGHEST PRIORITY rule that MUST be followed AT ALL TIMES.
+NO EXCEPTIONS. NO COMPROMISES.
+
 ## 🎯 Primary Research Strategy
 
 ### Comprehensive MCP Server Usage
@@ -38,7 +67,7 @@
 - **Avoid repetition** - create clean sections instead of repeating "free tier available"
 - Structure as:
   - **No API Key Required**: GitHub Models, Ollama
-  - **Free Credits/Tiers Available**: List with specific details
+  - **Free Credits/Tiers Available**: Provide specific details
   - **Payment Required**: Focus on minimum deposit requirements, not just "payment required"
 
 ### Model Discovery & Documentation

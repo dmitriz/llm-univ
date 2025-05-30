@@ -11,7 +11,7 @@ A minimalistic universal wrapper for different LLM API providers with comprehens
 
 ## Purpose
 
-This library provides a unified interface to interact with multiple LLM providers including:
+This library provides a unified interface to interact with multiple LLM providers, including:
 
 **International Providers:**
 
@@ -48,7 +48,7 @@ Several providers offer batch processing capabilities that can significantly red
 
 #### OpenAI Batch API ✅
 
-*Recommended Implementation*
+#### Recommended Implementation
 
 - 💰 Cost Savings: 50% discount on eligible endpoints
 - Method: Upload JSONL file → Create batch → Monitor status → Download results
@@ -60,7 +60,7 @@ Several providers offer batch processing capabilities that can significantly red
 
 #### Anthropic Message Batches ✅
 
-*Recommended Implementation*
+##### Configuration and Setup
 
 - 💰 Cost Savings: 50% discount on Message Batches API
 - Processing Window: Typically under 1 hour
@@ -71,7 +71,7 @@ Several providers offer batch processing capabilities that can significantly red
 
 #### Groq Batch Processing ⚠️
 
-*Limited Availability*
+##### Status: Limited Availability
 
 - 💰 Cost Savings: 25% discount on batch requests
 - Processing Window: 24 hours to 7 days (variable based on queue)
@@ -163,12 +163,6 @@ const batchRequest = {
 • **Models**: Access to popular open-source and proprietary models
 • **Best For**: Applications targeting Chinese markets or developers in Asia
 
-**☁️ Azure OpenAI**
-• **Free Services**: Azure Cosmos DB free SKU eliminates database costs
-• **Cost Control**: Detailed environment variable configurations for precise cost management
-• **Enterprise Features**: Advanced security, compliance, and integration capabilities
-• **Best For**: Enterprise applications requiring compliance and integration with Microsoft ecosystem
-
 ### 🏭 Batch Processing Cost & Performance
 
 #### OpenAI (✅ Recommended - 50% Cost Savings)
@@ -188,11 +182,7 @@ const batchRequest = {
 - Status: Available in public beta with stable performance
 - Best For: Bulk analysis, content moderation, research applications
 
-#### Groq
-
-*⚠️ Limited - 25% Cost Savings*
-
-#### Groq (⚠️ Limited - 25% Cost Savings)
+#### Groq ⚠️ (Limited - 25% Cost Savings)
 
 - Best For: Non-urgent bulk processing when extreme speed is not required
 
@@ -247,7 +237,7 @@ const batchRequest = {
 
 - OpenAI: Transparent per-token pricing with batch discounts clearly documented
 - Anthropic: Clear pricing structure with batch savings well-documented
-- Azure OpenAI: Enterprise pricing with detailed cost control mechanisms
+- DeepSeek: Detailed pricing tiers with transparent rate limits
 
 #### Limited Pricing Transparency
 
@@ -263,37 +253,63 @@ const batchRequest = {
 - Monitor Usage: Implement usage tracking and alerts for cost control
 - Plan for Growth: Design applications to easily switch between providers based on cost
 
+## Installation
+
+```bash
+npm install llm-univ
+```
+
 ## Usage
 
-Define your input schema, provide your data, and let the wrapper handle provider-specific formatting and requests.
+Import the library and create a unified interface for any supported LLM provider:
 
-Copy your API keys to `.env` file:
+```javascript
+const { createRequest, llmInputSchema } = require('llm-univ');
+
+// Load environment variables
+require('dotenv').config();
+
+// Create a chat request
+const response = await createRequest(llmInputSchema, {
+  provider: 'openai', // or any supported provider
+  model: 'gpt-4',
+  messages: [{ role: 'user', content: 'Hello!' }],
+  maxTokens: 1000,
+  temperature: 0.7
+});
+
+console.log(response);
+```
+
+### Environment Setup
+
+Copy your API keys to the `.env` file:
 
 ```env
-# Required API keys
+# Essential - Major Providers
 OPENAI_API_KEY=
-GEMINI_API_KEY=
-GROK_API_KEY=
-GROQ_API_KEY=
-OPENROUTER_API_KEY=
 ANTHROPIC_API_KEY=
-TOGETHER_API_KEY=
+GEMINI_API_KEY=
 
-# Chinese providers
+# Optional - Free Tier Available
+HUGGINGFACE_API_KEY=
+GITHUB_TOKEN=
+TOGETHER_API_KEY=
+GROQ_API_KEY=
+
+# Regional Providers
 DEEPSEEK_API_KEY=
-# Alibaba Cloud DashScope API key
 QWEN_API_KEY=
 SILICONFLOW_API_KEY=
 
-# Optional API keys (providers offer free tiers)
-# Optional - for higher rate limits on GitHub Models
-GITHUB_TOKEN=
-# Optional - for higher rate limits on Hugging Face
-HUGGINGFACE_API_KEY=
+# Advanced Providers
+GROK_API_KEY=
+OPENROUTER_API_KEY=
 
-# Ollama configuration (local deployment)
-# Note: OLLAMA_API_KEY is optional for most local Ollama setups
+# Local Deployment (Ollama)
 OLLAMA_API_KEY=
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama2
 ```
+
+> Note: Azure OpenAI Service has been intentionally excluded from this project after review due to significant overlap with base OpenAI functionality and added complexity without proportional benefits.

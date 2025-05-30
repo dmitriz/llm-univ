@@ -33,7 +33,7 @@
 
 #### 1. Rate Limiting & Error Handling Module
 
-**Status**: Not Started | **Estimated Time**: 3-4 days
+**Status**: Not Started | **Estimated Time**: 3–4 days
 
 - Create universal rate limiting handler for all 14 providers
 - Implement provider-specific retry strategies with exponential backoff
@@ -42,7 +42,7 @@
 
 #### 2. Complete Provider Implementations
 
-**Status**: Partial | **Estimated Time**: 5-6 days
+**Status**: Partial | **Estimated Time**: 5–6 days
 
 **SiliconFlow** (Base URL: `https://api.siliconflow.cn/v1/`)
 
@@ -84,7 +84,7 @@
 
 #### 3. Comprehensive Testing Suite
 
-**Status**: Not Started | **Estimated Time**: 4-5 days
+**Status**: Not Started | **Estimated Time**: 4–5 days
 
 - Unit tests for all providers and parameters
 - Integration tests with real API endpoints (using free tiers)
@@ -95,7 +95,7 @@
 
 #### 4. Advanced Features Implementation
 
-**Estimated Time**: 6-8 days
+**Estimated Time**: 6–8 days
 
 ##### Multi-modal Content Support
 
@@ -126,7 +126,7 @@
 
 #### 5. Documentation & Examples
 
-**Estimated Time**: 3-4 days
+**Estimated Time**: 3–4 days
 
 - Create comprehensive provider comparison matrix
 - Add interactive examples for all features
@@ -166,19 +166,19 @@
 
 ## 🎯 IMPLEMENTATION ROADMAP
 
-### Phase 1: Core Stability (Weeks 1-2)
+### Phase 1: Core Stability (Weeks 1–2)
 
 1. Rate limiting & error handling module
 2. Complete SiliconFlow, Fireworks AI, Mistral AI implementations
 3. Comprehensive testing suite
 
-### Phase 2: Advanced Features (Weeks 3-4)
+### Phase 2: Advanced Features (Weeks 3–4)
 
 1. Multi-modal content support
 2. Advanced streaming features
 3. Enhanced function calling capabilities
 
-### Phase 3: Production Ready (Weeks 5-6)
+### Phase 3: Production Ready (Weeks 5–6)
 
 1. Documentation and examples
 2. NPM package preparation

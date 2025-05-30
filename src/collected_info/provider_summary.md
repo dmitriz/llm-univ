@@ -30,7 +30,7 @@ These providers require API keys to access their model information:
 
 1. **OpenAI** - Requires API key for all model information
 2. **Google/Gemini** - Requires API key for model access
-3. **Groq** - Public documentation but API key required for models
+3. **Groq** - Public documentation, but an API key is required for models
 4. **Together AI** - Requires API key but has extensive documentation
 5. **DeepSeek** - Requires API key for all model information
 6. **SiliconFlow** - Requires API key but has public documentation
@@ -140,7 +140,7 @@ For comprehensive research, multiple MCP servers were utilized:
 
 ## Recent Verifications
 
-### Batch Processing Support
+### Batch Processing Verification Results
 
 - ✅ **Groq**: Verified batch API support via `/v1/batches` endpoint with 25% discount
 - ✅ **Together AI**: Confirmed batch API support via `/v1/batches` with cost savings
