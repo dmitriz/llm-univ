@@ -37,7 +37,30 @@ const create_provider_headers = (data) => {
         'Authorization': `Bearer ${data.apiKey}`
       };
     
+    case 'groq':
+      return {
+        ...baseHeaders,
+        'Authorization': `Bearer ${data.apiKey}`
+      };
+      
+    case 'grok':
+      return {
+        ...baseHeaders,
+        'Authorization': `Bearer ${data.apiKey}`
+      };
+      
+    case 'openrouter':
+      return {
+        ...baseHeaders,
+        'Authorization': `Bearer ${data.apiKey}`
+      };
+      
+    case 'ollama':
+      // Ollama typically runs locally and doesn't require API key authentication
+      return baseHeaders;
+    
     default:
+      // For any other providers, return base headers
       return baseHeaders;
   }
 };
