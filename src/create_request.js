@@ -22,7 +22,7 @@ const create_provider_headers = (data) => {
       return {
         ...baseHeaders,
         'x-api-key': data.apiKey,
-        'anthropic-version': '2023-06-01'
+        'anthropic-version': '2025-05-22'
       };
     
     case 'azure-openai':
