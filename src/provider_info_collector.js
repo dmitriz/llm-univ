@@ -1,0 +1,592 @@
+/**
+ * Provider Information Collector
+ * 
+ * This script collects publicly available information from LLM providers
+ * without requiring API keys. It includes model lists, pricing info,
+ * rate limits, and other metadata that can be accessed via public endpoints.
+ * 
+ * Usage: node provider_info_collector.js [provider_name]
+ */
+
+const https = require('https');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const { URL } = require('url');
+
+/**
+ * Public endpoints for each provider
+ * These endpoints typically don't require authentication
+ */
+const PUBLIC_ENDPOINTS = {
+  // OpenAI - No public model list endpoint without API key
+  openai: {
+    models: null, // Requires API key
+    pricing: 'https://openai.com/pricing',
+    documentation: 'https://platform.openai.com/docs/models',
+    status: 'https://status.openai.com/api/v2/status.json',
+    publicInfo: [
+      'https://platform.openai.com/docs/models', // Model info in docs
+      'https://openai.com/pricing' // Pricing page
+    ]
+  },
+
+  // Anthropic - No public model list endpoint
+  anthropic: {
+    models: null, // Requires API key
+    pricing: 'https://www.anthropic.com/pricing',
+    documentation: 'https://docs.anthropic.com/en/docs/about-claude',
+    publicInfo: [
+      'https://www.anthropic.com/pricing',
+      'https://docs.anthropic.com/en/docs/about-claude'
+    ]
+  },
+
+  // Google Gemini - Has some public model info
+  google: {
+    models: 'https://generativelanguage.googleapis.com/v1beta/models', // May work without API key
+    pricing: 'https://ai.google.dev/pricing',
+    documentation: 'https://ai.google.dev/gemini-api/docs/models',
+    publicInfo: [
+      'https://ai.google.dev/pricing',
+      'https://ai.google.dev/gemini-api/docs/models'
+    ]
+  },
+
+  // Groq - Has public model endpoint
+  groq: {
+    models: 'https://api.groq.com/openai/v1/models', // Public endpoint
+    pricing: 'https://groq.com/pricing/',
+    documentation: 'https://console.groq.com/docs/models',
+    publicInfo: [
+      'https://groq.com/pricing/',
+      'https://console.groq.com/docs/models'
+    ]
+  },
+
+  // Together AI - May have public model info
+  together: {
+    models: 'https://api.together.xyz/v1/models', // May work without API key
+    pricing: 'https://www.together.ai/pricing',
+    documentation: 'https://docs.together.ai/docs/inference-models',
+    publicInfo: [
+      'https://www.together.ai/pricing',
+      'https://docs.together.ai/docs/inference-models'
+    ]
+  },
+
+  // OpenRouter - Has public model endpoint
+  openrouter: {
+    models: 'https://openrouter.ai/api/v1/models', // Public endpoint
+    pricing: 'https://openrouter.ai/docs/pricing',
+    documentation: 'https://openrouter.ai/docs/models',
+    publicInfo: [
+      'https://openrouter.ai/docs/pricing',
+      'https://openrouter.ai/docs/models'
+    ]
+  },
+
+  // GitHub Models - Public repository info
+  'gh-models': {
+    models: 'https://models.inference.ai.azure.com/models', // May work
+    pricing: 'https://docs.github.com/en/github-models/prototyping-with-ai-models',
+    documentation: 'https://docs.github.com/en/github-models',
+    publicInfo: [
+      'https://docs.github.com/en/github-models/prototyping-with-ai-models'
+    ]
+  },
+
+  // Hugging Face - Has public model API
+  huggingface: {
+    models: 'https://huggingface.co/api/models', // Public endpoint with filters
+    pricing: 'https://huggingface.co/pricing',
+    documentation: 'https://huggingface.co/docs/api-inference/index',
+    search: 'https://huggingface.co/api/models?filter=text-generation&sort=downloads&direction=-1&limit=20',
+    publicInfo: [
+      'https://huggingface.co/pricing',
+      'https://huggingface.co/docs/api-inference/index'
+    ]
+  },
+
+  // DeepSeek - May have public info
+  deepseek: {
+    models: 'https://api.deepseek.com/v1/models', // May work without API key
+    pricing: 'https://platform.deepseek.com/pricing',
+    documentation: 'https://platform.deepseek.com/api-docs',
+    publicInfo: [
+      'https://platform.deepseek.com/pricing'
+    ]
+  },
+
+  // Qwen (Alibaba Cloud) - Public model info
+  qwen: {
+    models: null, // Likely requires API key
+    pricing: 'https://help.aliyun.com/zh/dashscope/product-overview/billing-methods',
+    documentation: 'https://help.aliyun.com/zh/dashscope/developer-reference/api-details',
+    publicInfo: [
+      'https://help.aliyun.com/zh/dashscope/product-overview/billing-methods'
+    ]
+  },
+
+  // SiliconFlow - May have public endpoints
+  siliconflow: {
+    models: 'https://api.siliconflow.cn/v1/models', // May work without API key
+    pricing: 'https://siliconflow.cn/pricing',
+    documentation: 'https://docs.siliconflow.cn/',
+    publicInfo: [
+      'https://siliconflow.cn/pricing'
+    ]
+  },
+
+  // Grok (X.AI) - Limited public info
+  grok: {
+    models: null, // Likely requires API key
+    pricing: 'https://x.ai/pricing',
+    documentation: 'https://docs.x.ai/api',
+    publicInfo: [
+      'https://x.ai/pricing'
+    ]
+  },
+
+  // Ollama - Local deployment, GitHub for model info
+  ollama: {
+    models: 'https://api.github.com/repos/ollama/ollama/releases/latest', // GitHub API
+    library: 'https://ollama.com/library', // Public model library
+    documentation: 'https://github.com/ollama/ollama/blob/main/docs/api.md',
+    publicInfo: [
+      'https://ollama.com/library',
+      'https://github.com/ollama/ollama/blob/main/docs/api.md'
+    ]
+  },
+
+  // Perplexity - Limited public info
+  perplexity: {
+    models: null, // Likely requires API key
+    pricing: 'https://www.perplexity.ai/pro',
+    documentation: 'https://docs.perplexity.ai/',
+    publicInfo: [
+      'https://www.perplexity.ai/pro'
+    ]
+  }
+};
+
+/**
+ * Make HTTP/HTTPS request
+ */
+function makeRequest(url, options = {}) {
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const isHttps = urlObj.protocol === 'https:';
+    const client = isHttps ? https : http;
+    
+    const requestOptions = {
+      hostname: urlObj.hostname,
+      port: urlObj.port || (isHttps ? 443 : 80),
+      path: urlObj.pathname + urlObj.search,
+      method: options.method || 'GET',
+      headers: {
+        'User-Agent': 'LLM-Universal-Wrapper/1.0',
+        'Accept': 'application/json',
+        ...options.headers
+      },
+      timeout: 10000
+    };
+
+    const req = client.request(requestOptions, (res) => {
+      let data = '';
+      
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      
+      res.on('end', () => {
+        try {
+          const result = {
+            statusCode: res.statusCode,
+            headers: res.headers,
+            data: data,
+            url: url
+          };
+          
+          // Try to parse JSON if content-type suggests it
+          if (res.headers['content-type']?.includes('application/json')) {
+            try {
+              result.json = JSON.parse(data);
+            } catch (e) {
+              // Not valid JSON, keep as string
+            }
+          }
+          
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error(`Request timeout for ${url}`));
+    });
+
+    if (options.data) {
+      req.write(options.data);
+    }
+    
+    req.end();
+  });
+}
+
+/**
+ * Extract models from provider response
+ */
+function extractModels(provider, response) {
+  if (!response.json) return null;
+
+  switch (provider) {
+    case 'groq':
+    case 'openrouter':
+    case 'together':
+    case 'deepseek':
+    case 'siliconflow':
+      // OpenAI-compatible format
+      if (response.json.data && Array.isArray(response.json.data)) {
+        return response.json.data.map(model => ({
+          id: model.id,
+          name: model.id,
+          description: model.description || null,
+          context_length: model.context_length || model.max_tokens || null,
+          pricing: model.pricing || null,
+          created: model.created || null
+        }));
+      }
+      break;
+
+    case 'huggingface':
+      // Hugging Face format
+      if (Array.isArray(response.json)) {
+        return response.json.slice(0, 50).map(model => ({ // Limit to first 50
+          id: model.id || model.modelId,
+          name: model.id || model.modelId,
+          downloads: model.downloads || 0,
+          likes: model.likes || 0,
+          library_name: model.library_name || null,
+          pipeline_tag: model.pipeline_tag || null,
+          tags: model.tags || []
+        }));
+      }
+      break;
+
+    case 'google':
+      // Google Gemini format
+      if (response.json.models && Array.isArray(response.json.models)) {
+        return response.json.models.map(model => ({
+          id: model.name,
+          name: model.displayName || model.name,
+          description: model.description || null,
+          version: model.version || null,
+          inputTokenLimit: model.inputTokenLimit || null,
+          outputTokenLimit: model.outputTokenLimit || null,
+          supportedGenerationMethods: model.supportedGenerationMethods || []
+        }));
+      }
+      break;
+
+    case 'ollama':
+      // GitHub releases format for Ollama
+      if (response.json.tag_name) {
+        return [{
+          id: 'ollama',
+          name: 'Ollama',
+          version: response.json.tag_name,
+          description: response.json.body || 'Local LLM runtime',
+          published_at: response.json.published_at
+        }];
+      }
+      break;
+
+    default:
+      return response.json;
+  }
+
+  return null;
+}
+
+/**
+ * Collect information from a single provider
+ */
+async function collectProviderInfo(provider) {
+  console.log(`\n🔍 Collecting information for ${provider}...`);
+  
+  const endpoints = PUBLIC_ENDPOINTS[provider];
+  if (!endpoints) {
+    console.log(`❌ No public endpoints defined for ${provider}`);
+    return null;
+  }
+
+  const info = {
+    provider: provider,
+    timestamp: new Date().toISOString(),
+    models: null,
+    endpoints: {},
+    errors: []
+  };
+
+  // Try to fetch models
+  if (endpoints.models) {
+    try {
+      console.log(`  📋 Fetching models from ${endpoints.models}`);
+      const response = await makeRequest(endpoints.models);
+      
+      if (response.statusCode === 200) {
+        const models = extractModels(provider, response);
+        if (models && models.length > 0) {
+          info.models = models;
+          console.log(`  ✅ Found ${models.length} models`);
+        } else {
+          console.log(`  ⚠️  Models endpoint responded but no models extracted`);
+        }
+      } else if (response.statusCode === 401 || response.statusCode === 403) {
+        console.log(`  🔒 Models endpoint requires authentication (${response.statusCode})`);
+      } else {
+        console.log(`  ❌ Models endpoint returned ${response.statusCode}`);
+      }
+      
+      info.endpoints.models = {
+        url: endpoints.models,
+        status: response.statusCode,
+        accessible: response.statusCode === 200
+      };
+      
+    } catch (error) {
+      console.log(`  ❌ Error fetching models: ${error.message}`);
+      info.errors.push(`Models: ${error.message}`);
+    }
+  } else {
+    console.log(`  ⚠️  No public models endpoint available`);
+  }
+
+  // Check other public endpoints
+  for (const [key, url] of Object.entries(endpoints)) {
+    if (key === 'models' || key === 'publicInfo') continue;
+    
+    try {
+      console.log(`  🌐 Checking ${key}: ${url}`);
+      const response = await makeRequest(url, { timeout: 5000 });
+      
+      info.endpoints[key] = {
+        url: url,
+        status: response.statusCode,
+        accessible: response.statusCode === 200,
+        contentType: response.headers['content-type']
+      };
+      
+      if (response.statusCode === 200) {
+        console.log(`  ✅ ${key} accessible`);
+      } else {
+        console.log(`  ⚠️  ${key} returned ${response.statusCode}`);
+      }
+      
+    } catch (error) {
+      console.log(`  ❌ Error checking ${key}: ${error.message}`);
+      info.endpoints[key] = {
+        url: url,
+        status: null,
+        accessible: false,
+        error: error.message
+      };
+    }
+  }
+
+  return info;
+}
+
+/**
+ * Collect Hugging Face model information with filters
+ */
+async function collectHuggingFaceModels() {
+  const filters = [
+    'text-generation',
+    'text2text-generation', 
+    'conversational',
+    'question-answering'
+  ];
+  
+  const models = [];
+  
+  for (const filter of filters) {
+    try {
+      const url = `https://huggingface.co/api/models?filter=${filter}&sort=downloads&direction=-1&limit=10`;
+      console.log(`  📋 Fetching ${filter} models...`);
+      
+      const response = await makeRequest(url);
+      if (response.statusCode === 200 && response.json) {
+        const extracted = extractModels('huggingface', response);
+        if (extracted) {
+          models.push(...extracted);
+        }
+      }
+    } catch (error) {
+      console.log(`  ❌ Error fetching ${filter} models: ${error.message}`);
+    }
+  }
+  
+  // Remove duplicates
+  const uniqueModels = models.reduce((acc, model) => {
+    if (!acc.find(m => m.id === model.id)) {
+      acc.push(model);
+    }
+    return acc;
+  }, []);
+  
+  return uniqueModels;
+}
+
+/**
+ * Save collected information to file
+ */
+function saveToFile(data, filename) {
+  const outputDir = path.join(__dirname, 'collected_info');
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+  
+  const filepath = path.join(outputDir, filename);
+  fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+  console.log(`💾 Saved to ${filepath}`);
+  return filepath;
+}
+
+/**
+ * Generate summary report
+ */
+function generateSummary(allInfo) {
+  const summary = {
+    timestamp: new Date().toISOString(),
+    total_providers: allInfo.length,
+    providers_with_models: allInfo.filter(p => p.models && p.models.length > 0).length,
+    total_models: allInfo.reduce((sum, p) => sum + (p.models?.length || 0), 0),
+    provider_summary: {}
+  };
+  
+  for (const info of allInfo) {
+    summary.provider_summary[info.provider] = {
+      models_found: info.models?.length || 0,
+      accessible_endpoints: Object.values(info.endpoints).filter(e => e.accessible).length,
+      total_endpoints: Object.keys(info.endpoints).length,
+      has_public_models: !!(info.models && info.models.length > 0)
+    };
+  }
+  
+  return summary;
+}
+
+/**
+ * Main execution function
+ */
+async function main() {
+  const args = process.argv.slice(2);
+  const targetProvider = args[0];
+  
+  console.log('🚀 LLM Provider Information Collector');
+  console.log('=====================================');
+  
+  if (targetProvider) {
+    if (!PUBLIC_ENDPOINTS[targetProvider]) {
+      console.log(`❌ Unknown provider: ${targetProvider}`);
+      console.log(`Available providers: ${Object.keys(PUBLIC_ENDPOINTS).join(', ')}`);
+      process.exit(1);
+    }
+    
+    console.log(`🎯 Targeting specific provider: ${targetProvider}`);
+    const info = await collectProviderInfo(targetProvider);
+    
+    if (info) {
+      // Special handling for Hugging Face to get more models
+      if (targetProvider === 'huggingface') {
+        console.log(`  🔍 Collecting additional Hugging Face models...`);
+        const extraModels = await collectHuggingFaceModels();
+        if (extraModels.length > 0) {
+          info.models = extraModels;
+          console.log(`  ✅ Total models collected: ${extraModels.length}`);
+        }
+      }
+      
+      const filename = `${targetProvider}_info_${new Date().toISOString().split('T')[0]}.json`;
+      saveToFile(info, filename);
+    }
+    
+  } else {
+    console.log('🌍 Collecting from all providers...');
+    
+    const allInfo = [];
+    const providers = Object.keys(PUBLIC_ENDPOINTS);
+    
+    for (const provider of providers) {
+      const info = await collectProviderInfo(provider);
+      if (info) {
+        // Special handling for Hugging Face
+        if (provider === 'huggingface') {
+          console.log(`  🔍 Collecting additional Hugging Face models...`);
+          const extraModels = await collectHuggingFaceModels();
+          if (extraModels.length > 0) {
+            info.models = extraModels;
+            console.log(`  ✅ Total models collected: ${extraModels.length}`);
+          }
+        }
+        
+        allInfo.push(info);
+      }
+      
+      // Small delay between providers to be respectful
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    
+    // Save individual files and summary
+    const timestamp = new Date().toISOString().split('T')[0];
+    saveToFile(allInfo, `all_providers_${timestamp}.json`);
+    
+    const summary = generateSummary(allInfo);
+    saveToFile(summary, `summary_${timestamp}.json`);
+    
+    console.log('\n📊 Collection Summary:');
+    console.log(`Total providers checked: ${summary.total_providers}`);
+    console.log(`Providers with accessible models: ${summary.providers_with_models}`);
+    console.log(`Total models collected: ${summary.total_models}`);
+    
+    console.log('\n🎯 Providers with public model endpoints:');
+    for (const [provider, data] of Object.entries(summary.provider_summary)) {
+      if (data.has_public_models) {
+        console.log(`  ✅ ${provider}: ${data.models_found} models`);
+      }
+    }
+    
+    console.log('\n🔒 Providers requiring API keys for models:');
+    for (const [provider, data] of Object.entries(summary.provider_summary)) {
+      if (!data.has_public_models) {
+        console.log(`  🔑 ${provider}: ${data.accessible_endpoints}/${data.total_endpoints} endpoints accessible`);
+      }
+    }
+  }
+  
+  console.log('\n✨ Collection complete!');
+}
+
+// Run the script
+if (require.main === module) {
+  main().catch(error => {
+    console.error('❌ Script failed:', error);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  PUBLIC_ENDPOINTS,
+  collectProviderInfo,
+  makeRequest,
+  extractModels
+};

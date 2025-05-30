@@ -37,67 +37,92 @@ const RATE_LIMIT_TYPES = {
  * Each provider has different tiers and limits based on usage/payment
  */
 const PROVIDER_RATE_LIMITS = {
-  // OpenAI rate limits (approximate based on tier)
+  // OpenAI rate limits (based on official documentation as of May 2024)
+  // https://help.openai.com/en/articles/7127986-what-are-the-gpt-4-rate-limits
   openai: {
-    free: {
+    // Note: "free" tier is not an official rate limit tier, but represents the $100 trial credit
+    free_trial: {
       [RATE_LIMIT_TYPES.RPM]: 3,
-      [RATE_LIMIT_TYPES.TPM]: 200000,
-      [RATE_LIMIT_TYPES.RPD]: 200
+      [RATE_LIMIT_TYPES.TPM]: 10000,
+      [RATE_LIMIT_TYPES.RPD]: 200,
+      notes: "$100 trial credit, not a distinct rate-limit tier"
     },
     tier1: {
       [RATE_LIMIT_TYPES.RPM]: 500,
       [RATE_LIMIT_TYPES.TPM]: 30000,
-      [RATE_LIMIT_TYPES.RPD]: 10000
+      notes: "$5 paid"
     },
     tier2: {
-      [RATE_LIMIT_TYPES.RPM]: 5000,
-      [RATE_LIMIT_TYPES.TPM]: 450000,
-      [RATE_LIMIT_TYPES.RPD]: 10000
+      [RATE_LIMIT_TYPES.RPM]: 3500,
+      [RATE_LIMIT_TYPES.TPM]: 180000,
+      notes: "$50 paid and 7+ days since first successful payment"
     },
-    documentation: 'https://platform.openai.com/docs/guides/rate-limits',
+    tier3: {
+      [RATE_LIMIT_TYPES.RPM]: 5000,
+      [RATE_LIMIT_TYPES.TPM]: 300000,
+      notes: "$100 paid and 7+ days since first successful payment"
+    },
+    tier4: {
+      [RATE_LIMIT_TYPES.RPM]: 7000,
+      [RATE_LIMIT_TYPES.TPM]: 600000,
+      notes: "$250 paid and 14+ days since first successful payment"
+    },
+    tier5: {
+      [RATE_LIMIT_TYPES.RPM]: 10000,
+      [RATE_LIMIT_TYPES.TPM]: {
+        "gpt-4o": 12000000,
+        "gpt-4-turbo": 2000000,
+        "gpt-4": 300000
+      },
+      notes: "$1,000 paid and 30+ days since first successful payment"
+    },
+    documentation: 'https://help.openai.com/en/articles/7127986-what-are-the-gpt-4-rate-limits',
     headers: ['x-ratelimit-limit-requests', 'x-ratelimit-remaining-requests', 'x-ratelimit-reset-requests']
   },
 
-  // Anthropic rate limits
+  // Anthropic rate limits (based on official documentation as of May 2024)
+  // https://docs.anthropic.com/en/api/rate-limits
   anthropic: {
-    free: {
-      [RATE_LIMIT_TYPES.RPM]: 1000,
-      [RATE_LIMIT_TYPES.TPM]: 10000,
-      [RATE_LIMIT_TYPES.RPD]: 1000,
-      [RATE_LIMIT_TYPES.TPD]: 25000
+    claude3: {
+      [RATE_LIMIT_TYPES.RPM]: 5,
+      [RATE_LIMIT_TYPES.TPM]: {
+        "claude-3-opus": 10000,
+        "claude-3-sonnet": 20000,
+        "claude-3-haiku": 25000,
+        "claude-3.5-sonnet": 20000
+      },
+      [RATE_LIMIT_TYPES.TPD]: 300000,
+      notes: "Limits apply to all Claude 3 models with slight TPM variation by model"
     },
-    tier1: {
-      [RATE_LIMIT_TYPES.RPM]: 1000,
-      [RATE_LIMIT_TYPES.TPM]: 80000,
-      [RATE_LIMIT_TYPES.RPD]: 1000,
-      [RATE_LIMIT_TYPES.TPD]: 300000
-    },
-    tier2: {
-      [RATE_LIMIT_TYPES.RPM]: 2000,
-      [RATE_LIMIT_TYPES.TPM]: 160000,
-      [RATE_LIMIT_TYPES.RPD]: 2000,
-      [RATE_LIMIT_TYPES.TPD]: 600000
+    enterprise: {
+      [RATE_LIMIT_TYPES.RPM]: 50,
+      [RATE_LIMIT_TYPES.TPM]: 100000,
+      [RATE_LIMIT_TYPES.TPD]: 3000000,
+      notes: "Custom enterprise tier with higher limits"
     },
     documentation: 'https://docs.anthropic.com/en/api/rate-limits',
     headers: ['anthropic-ratelimit-requests-remaining', 'anthropic-ratelimit-tokens-remaining']
   },
 
-  // Google Gemini rate limits (based on research)
+  // Google Gemini rate limits (estimated - official detailed limits not publicly released)
   google: {
-    free: {
+    preview: {
       [RATE_LIMIT_TYPES.RPM]: 15,
       [RATE_LIMIT_TYPES.TPM]: 250000,
-      [RATE_LIMIT_TYPES.RPD]: 1500
+      [RATE_LIMIT_TYPES.RPD]: 1500,
+      notes: "Preview estimates - detailed rate limits not publicly released"
     },
     tier1: {
       [RATE_LIMIT_TYPES.RPM]: 2000,
       [RATE_LIMIT_TYPES.TPM]: 4000000,
-      [RATE_LIMIT_TYPES.RPD]: null // No daily limit
+      [RATE_LIMIT_TYPES.RPD]: null, // No daily limit specified
+      notes: "Estimated values - refer to official documentation for confirmation"
     },
     tier2: {
       [RATE_LIMIT_TYPES.RPM]: 10000,
       [RATE_LIMIT_TYPES.TPM]: 4000000,
-      [RATE_LIMIT_TYPES.RPD]: null
+      [RATE_LIMIT_TYPES.RPD]: null,
+      notes: "Estimated values - refer to official documentation for confirmation"
     },
     documentation: 'https://ai.google.dev/gemini-api/docs/quota',
     headers: ['x-goog-quota-user', 'x-goog-api-quota-user']
