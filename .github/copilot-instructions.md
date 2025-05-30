@@ -95,6 +95,8 @@ NO EXCEPTIONS. NO COMPROMISES.
 - Provide **clear explanations** for each edit
 - **NEVER use inline comments** - always put comments on separate lines above the code
 - **NEVER use placeholder values** like `your_key_here` - use empty values with `=` only
+- **🚫 NO TABLES ANYWHERE** - Use hierarchical sections and bullet points
+- **Prefer clear sections** over table format for better readability
 
 ## 🚫 Common Mistakes to Avoid
 
@@ -111,6 +113,9 @@ NO EXCEPTIONS. NO COMPROMISES.
 - **DON'T** provide incomplete API references
 - **DON'T** skip model discovery endpoint research
 - **DON'T** assume Google/other providers don't have free tiers without research
+- **🚫 ABSOLUTELY NO TABLES** - Tables consistently format poorly in markdown files
+- **NEVER use table format** - Use sections, subsections, and bullet points instead
+- **Use clear hierarchical structure** instead of tables for organizing information
 
 ### Code Mistakes
 - **DON'T** print code blocks instead of using edit tools

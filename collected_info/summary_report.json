@@ -1,122 +1,191 @@
 {
-  "timestamp": "2025-05-30T03:33:30.407Z",
+  "timestamp": "2025-05-30T05:51:41.750Z",
   "total_providers": 19,
   "providers_with_models": 6,
-  "total_models": 405,
+  "total_models": 408,
   "provider_summary": {
     "openai": {
       "models_found": 0,
       "accessible_endpoints": 1,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": {
+        "capabilities": [
+          "web-browsing"
+        ],
+        "evidence": "GPT models have web browsing capabilities in ChatGPT"
+      }
     },
     "anthropic": {
-      "models_found": 1,
+      "models_found": 4,
       "accessible_endpoints": 1,
       "total_endpoints": 2,
-      "has_public_models": true
+      "has_public_models": true,
+      "search_capabilities": null
     },
     "google": {
       "models_found": 0,
       "accessible_endpoints": 1,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": {
+        "capabilities": [
+          "grounding-with-search",
+          "real-time-data"
+        ],
+        "evidence": "Google Gemini has Grounding with Search feature"
+      }
     },
     "groq": {
       "models_found": 0,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "together": {
       "models_found": 0,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "openrouter": {
       "models_found": 322,
       "accessible_endpoints": 1,
       "total_endpoints": 3,
-      "has_public_models": true
+      "has_public_models": true,
+      "search_capabilities": {
+        "capabilities": [
+          "potential-search-capability"
+        ],
+        "evidence": "Search-related keywords found in model descriptions"
+      }
     },
     "gh-models": {
       "models_found": 24,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
-      "has_public_models": true
+      "has_public_models": true,
+      "search_capabilities": {
+        "capabilities": [
+          "potential-search-capability"
+        ],
+        "evidence": "Search-related keywords found in model descriptions"
+      }
     },
     "huggingface": {
       "models_found": 50,
       "accessible_endpoints": 3,
       "total_endpoints": 4,
-      "has_public_models": true
+      "has_public_models": true,
+      "search_capabilities": {
+        "capabilities": [
+          "potential-search-capability"
+        ],
+        "evidence": "Search-related keywords found in model descriptions"
+      }
     },
     "deepseek": {
       "models_found": 0,
       "accessible_endpoints": 0,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "qwen": {
       "models_found": 7,
       "accessible_endpoints": 1,
       "total_endpoints": 2,
-      "has_public_models": true
+      "has_public_models": true,
+      "search_capabilities": null
     },
     "siliconflow": {
       "models_found": 0,
       "accessible_endpoints": 1,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "grok": {
       "models_found": 0,
       "accessible_endpoints": 0,
       "total_endpoints": 2,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": {
+        "capabilities": [
+          "live-web-access",
+          "real-time-search",
+          "x-platform-integration"
+        ],
+        "evidence": "Grok has live web access through X platform"
+      }
     },
     "ollama": {
       "models_found": 1,
       "accessible_endpoints": 3,
       "total_endpoints": 3,
-      "has_public_models": true
+      "has_public_models": true,
+      "search_capabilities": null
     },
     "perplexity": {
       "models_found": 0,
       "accessible_endpoints": 0,
       "total_endpoints": 2,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": {
+        "capabilities": [
+          "real-time-search",
+          "web-search",
+          "search-augmented-generation"
+        ],
+        "evidence": "Perplexity is known for real-time search capabilities"
+      }
     },
     "cohere": {
       "models_found": 0,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "ai21": {
       "models_found": 0,
       "accessible_endpoints": 1,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "fireworks": {
       "models_found": 0,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "replicate": {
       "models_found": 0,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     },
     "mistral": {
       "models_found": 0,
       "accessible_endpoints": 1,
       "total_endpoints": 3,
-      "has_public_models": false
+      "has_public_models": false,
+      "search_capabilities": null
     }
+  },
+  "validation": {
+    "math_check_passed": true,
+    "calculated_total": 408,
+    "discrepancies": []
+  },
+  "data_freshness": {
+    "collection_time": "2025-05-30T05:51:41.750Z",
+    "is_latest": true,
+    "note": "This is the most recent data collection run"
   }
 }
