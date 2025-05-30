@@ -1,5 +1,20 @@
 const { z } = require('zod');
 const axios = require('axios');
+const { 
+  BASE_URLS, 
+  CHAT_ENDPOINTS, 
+  MODEL_ENDPOINTS, 
+  getChatEndpoint, 
+  getModelEndpoint,
+  getHuggingFaceUrl,
+  getBatchEndpoint
+} = require('./config/url_config');
+
+// API version constants for maintainability
+const API_VERSIONS = {
+  anthropic: '2025-05-22',
+  anthropicBeta: 'message-batches-2024-09-24'
+};
 
 /**
  * Creates provider-specific headers based on the input data
@@ -22,7 +37,7 @@ const create_provider_headers = (data) => {
       return {
         ...baseHeaders,
         'x-api-key': data.apiKey,
-        'anthropic-version': '2025-05-22'
+        'anthropic-version': API_VERSIONS.anthropic
       };
     
     case 'google':
@@ -52,41 +67,11 @@ const create_provider_headers = (data) => {
       return baseHeaders;
     
     case 'together':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'deepseek':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'qwen':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'siliconflow':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-    
     case 'groq':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-      
     case 'grok':
-      return {
-        ...baseHeaders,
-        'Authorization': `Bearer ${data.apiKey}`
-      };
-      
     case 'openrouter':
       return {
         ...baseHeaders,
@@ -110,57 +95,25 @@ const create_provider_headers = (data) => {
  * @returns {string} Default URL for the provider
  */
 const get_default_url = (provider, model) => {
-  switch (provider) {
-    case 'openai':
-      return 'https://api.openai.com/v1/chat/completions';
-    case 'anthropic':
-      return 'https://api.anthropic.com/v1/messages';
-    case 'google':
-      return 'https://generativelanguage.googleapis.com/v1/models';
-    case 'gh-models':
-      return 'https://models.inference.ai.azure.com/chat/completions';
-    case 'huggingface':
-      return `https://api-inference.huggingface.co/models${model ? `/${model}` : ''}`;
-    case 'together':
-      return 'https://api.together.xyz/v1/chat/completions';
-    case 'deepseek':
-      return 'https://api.deepseek.com/chat/completions';
-    case 'qwen':
-      return 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
-    case 'siliconflow':
-      return 'https://api.siliconflow.cn/v1/chat/completions';
-    case 'groq':
-      return 'https://api.groq.com/openai/v1/chat/completions';
-    case 'grok':
-      return 'https://api.x.ai/v1/chat/completions';
-    case 'openrouter':
-      return 'https://openrouter.ai/api/v1/chat/completions';
-    case 'ollama':
-      return 'http://localhost:11434/api/chat';
-    default:
-      return undefined;
+  if (provider === 'huggingface') {
+    return getHuggingFaceUrl(model);
   }
-};
-
-// API version constants for maintainability
-const API_VERSIONS = {
-  anthropic: '2025-05-22',
-  anthropicBeta: 'message-batches-2024-09-24'
+  return getChatEndpoint(provider);
 };
 
 /**
  * Creates OpenAI-compatible batch request for providers that use the same format
  * @param {Object} data - The validated input data
- * @param {string} baseUrl - The base URL for the provider
+ * @param {string} provider - The provider name
  * @returns {Object} OpenAI-compatible batch request configuration
  */
-const create_openai_compatible_batch = (data, baseUrl) => {
+const create_openai_compatible_batch = (data, provider) => {
   return {
     method: 'POST',
-    url: `${baseUrl}/batches`,
+    url: getBatchEndpoint(provider),
     data: {
-      input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
-      endpoint: '/v1/chat/completions',
+      input_file_id: data.batch.inputFileId, 
+      endpoint: '/v1/chat/completions', // Use full path for batch endpoint
       completion_window: data.batch.completionWindow || '24h',
       ...(data.batch.metadata && { metadata: data.batch.metadata })
     },
@@ -182,42 +135,23 @@ const create_batch_request = (data) => {
   }
 
   // Provider-specific validation for required batch fields
-  switch (data.provider) {
-    case 'siliconflow':
-      if (!data.batch.inputFileId) {
-        throw new Error('SiliconFlow batch processing requires inputFileId');
-      }
-      break;
-    case 'openai':
-    case 'groq':
-      if (!data.batch.inputFileId) {
-        throw new Error(`${data.provider} batch processing requires inputFileId`);
-      }
-      break;
-    case 'together':
-      // Together AI can work with either explicit requests array or fallback to single request
-      // No strict validation needed as fallback is supported
-      break;
-    case 'anthropic':
-      // Anthropic can work with either explicit requests array or fallback to single request
-      // No strict validation needed as fallback is supported
-      break;
+  const requiresInputFileId = ['siliconflow', 'openai', 'groq'];
+  if (requiresInputFileId.includes(data.provider) && !data.batch.inputFileId) {
+    // Capitalize first letter for better error message formatting
+    const providerName = data.provider.charAt(0).toUpperCase() + data.provider.slice(1);
+    throw new Error(`${providerName} batch processing requires inputFileId`);
   }
 
   switch (data.provider) {
     case 'openai':
-      return create_openai_compatible_batch(data, 'https://api.openai.com/v1');
-    
     case 'groq':
-      return create_openai_compatible_batch(data, 'https://api.groq.com/openai/v1');
-    
     case 'siliconflow':
-      return create_openai_compatible_batch(data, 'https://api.siliconflow.cn/v1');
+      return create_openai_compatible_batch(data, data.provider);
     
     case 'anthropic':
       return {
         method: 'POST',
-        url: 'https://api.anthropic.com/v1/messages/batches',
+        url: getBatchEndpoint('anthropic'),
         data: {
           requests: data.batch.requests || [{
             custom_id: data.batch.customId || `req-${Date.now()}`,
@@ -245,7 +179,7 @@ const create_batch_request = (data) => {
       }
       return {
         method: 'POST',
-        url: 'https://api.together.xyz/v1/batches',
+        url: getBatchEndpoint('together'),
         data: {
           requests: data.batch.requests || [{
             customId: data.batch.customId || `batch-${Date.now()}`,
@@ -278,7 +212,7 @@ const create_batch_jsonl = (requests) => {
   return requests.map(req => JSON.stringify({
     custom_id: req.customId,
     method: 'POST',
-    url: '/v1/chat/completions',
+    url: CHAT_ENDPOINTS[req.provider] || '/v1/chat/completions',
     body: {
       model: req.model,
       messages: req.messages,
@@ -352,8 +286,8 @@ const create_request = (schema, data, options = {}) => {
         return batchRequest;
       }
     } catch (error) {
-      console.error(`Batch processing error for provider ${validatedData.provider}:`, error.message);
-      throw new Error(`Failed to create batch request: ${error.message}`);
+      // Don't wrap the error message, just let it propagate
+      throw error;
     }
   }
   
