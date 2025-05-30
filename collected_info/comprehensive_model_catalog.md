@@ -15,17 +15,18 @@ This comprehensive catalog lists all publicly available models from LLM provider
 4. [Hugging Face (50 models)](#hugging-face)
 5. [GitHub Models (58 models)](#github-models)
 6. [OpenRouter (322 models)](#openrouter)
-7. [Providers without Public Model Lists](#providers-without-public-model-lists)
+7. [Providers without Public Model Lists](#providers-without-public-model-lists-but-notable-capabilities)
 
 ---
 
 ## Ollama
 
 **Provider Info:**
+
 - **Models Found:** 1
 - **Public Endpoints:** All accessible
-- **Documentation:** https://github.com/ollama/ollama/blob/main/docs/api.md
-- **Model Library:** https://ollama.com/library
+- **Documentation:** <https://github.com/ollama/ollama/blob/main/docs/api.md>
+- **Model Library:** <https://ollama.com/library>
 
 ### Ollama v0.5.6
 
@@ -46,10 +47,11 @@ This comprehensive catalog lists all publicly available models from LLM provider
 ## Anthropic
 
 **Provider Info:**
+
 - **Models Found:** 4
 - **Access:** Via web scraping (no public API)
-- **Documentation:** https://docs.anthropic.com/en/docs/about-claude
-- **Pricing:** https://www.anthropic.com/pricing
+- **Documentation:** <https://docs.anthropic.com/en/docs/about-claude>
+- **Pricing:** <https://www.anthropic.com/pricing>
 
 ### Claude 3.5 Sonnet
 
