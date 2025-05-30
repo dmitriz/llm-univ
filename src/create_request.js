@@ -273,22 +273,17 @@ const create_request = (schema, data, options = {}) => {
   
   // Check if this is a batch processing request
   if (validatedData.batch?.enabled) {
-    try {
-      const batchRequest = create_batch_request(validatedData);
-      if (batchRequest) {
-        // Override URL if provided in options
-        if (options.url) {
-          batchRequest.url = options.url;
-        }
-        // Merge custom headers if provided
-        if (options.headers) {
-          batchRequest.headers = { ...batchRequest.headers, ...options.headers };
-        }
-        return batchRequest;
+    const batchRequest = create_batch_request(validatedData);
+    if (batchRequest) {
+      // Override URL if provided in options
+      if (options.url) {
+        batchRequest.url = options.url;
       }
-    } catch (error) {
-      // Don't wrap the error message, just let it propagate
-      throw error;
+      // Merge custom headers if provided
+      if (options.headers) {
+        batchRequest.headers = { ...batchRequest.headers, ...options.headers };
+      }
+      return batchRequest;
     }
   }
   
