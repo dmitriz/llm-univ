@@ -18,8 +18,6 @@ This document summarizes the information collected by the provider_info_collecto
 |-------|--------|---------|
 | Math Validation | ✅ PASSED | Calculated total: 408, Reported total: 408 |
 
-
-
 ## Provider Accessibility Analysis
 
 ### Providers with Public Model APIs
