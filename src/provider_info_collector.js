@@ -88,7 +88,7 @@ const PUBLIC_ENDPOINTS = {
 
   // GitHub Models - Public repository info
   'gh-models': {
-    models: 'https://models.inference.ai.azure.com/models', // May work
+    models: 'https://models.github.ai/catalog/models', // GitHub Models catalog endpoint
     pricing: 'https://docs.github.com/en/github-models/prototyping-with-ai-models',
     documentation: 'https://docs.github.com/en/github-models',
     publicInfo: [
@@ -348,6 +348,22 @@ function extractModels(provider, response) {
           context_length: model.context_length || model.max_tokens || null,
           pricing: model.pricing || null,
           created: model.created || null
+        }));
+      }
+      break;
+
+    case 'gh-models':
+      // GitHub Models format
+      if (Array.isArray(response.json)) {
+        return response.json.map(model => ({
+          id: model.id,
+          name: model.name || model.id,
+          publisher: model.publisher || null,
+          summary: model.summary || null,
+          rate_limit_tier: model.rate_limit_tier || null,
+          supported_input_modalities: model.supported_input_modalities || [],
+          supported_output_modalities: model.supported_output_modalities || [],
+          tags: model.tags || []
         }));
       }
       break;

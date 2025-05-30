@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-05-30T09:33:45.673Z",
+  "timestamp": "2025-05-30T05:51:41.750Z",
   "total_providers": 19,
   "providers_with_models": 6,
-  "total_models": 442,
+  "total_models": 408,
   "provider_summary": {
     "openai": {
       "models_found": 0,
@@ -63,11 +63,16 @@
       }
     },
     "gh-models": {
-      "models_found": 58,
+      "models_found": 24,
       "accessible_endpoints": 2,
       "total_endpoints": 3,
       "has_public_models": true,
-      "search_capabilities": null
+      "search_capabilities": {
+        "capabilities": [
+          "potential-search-capability"
+        ],
+        "evidence": "Search-related keywords found in model descriptions"
+      }
     },
     "huggingface": {
       "models_found": 50,
@@ -175,11 +180,11 @@
   },
   "validation": {
     "math_check_passed": true,
-    "calculated_total": 442,
+    "calculated_total": 408,
     "discrepancies": []
   },
   "data_freshness": {
-    "collection_time": "2025-05-30T09:33:45.673Z",
+    "collection_time": "2025-05-30T05:51:41.750Z",
     "is_latest": true,
     "note": "This is the most recent data collection run"
   }

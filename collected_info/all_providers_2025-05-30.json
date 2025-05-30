@@ -1,8 +1,8 @@
 [
   {
     "provider": "openai",
-    "timestamp": "2025-05-30T05:51:06.266Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:13.361Z",
+    "models": [],
     "endpoints": {
       "pricing": {
         "url": "https://openai.com/pricing",
@@ -27,7 +27,7 @@
   },
   {
     "provider": "anthropic",
-    "timestamp": "2025-05-30T05:51:07.179Z",
+    "timestamp": "2025-05-30T09:33:14.035Z",
     "models": [
       {
         "id": "claude haiku 3.5",
@@ -72,8 +72,8 @@
   },
   {
     "provider": "google",
-    "timestamp": "2025-05-30T05:51:09.070Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:15.408Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://generativelanguage.googleapis.com/v1beta/models",
@@ -97,8 +97,8 @@
   },
   {
     "provider": "groq",
-    "timestamp": "2025-05-30T05:51:11.319Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:18.400Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.groq.com/openai/v1/models",
@@ -122,8 +122,8 @@
   },
   {
     "provider": "together",
-    "timestamp": "2025-05-30T05:51:13.792Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:20.857Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.together.xyz/v1/models",
@@ -147,7 +147,7 @@
   },
   {
     "provider": "openrouter",
-    "timestamp": "2025-05-30T05:51:16.182Z",
+    "timestamp": "2025-05-30T09:33:22.408Z",
     "models": [
       {
         "id": "deepseek/deepseek-r1-0528-qwen3-8b:free",
@@ -3045,6 +3045,21 @@
         "created": 1729555200
       },
       {
+        "id": "anthracite-org/magnum-v4-72b",
+        "name": "anthracite-org/magnum-v4-72b",
+        "description": "This is a series of models designed to replicate the prose quality of the Claude 3 models, specifically Sonnet(https://openrouter.ai/anthropic/claude-3.5-sonnet) and Opus(https://openrouter.ai/anthropic/claude-3-opus).\n\nThe model is fine-tuned on top of [Qwen2.5 72B](https://openrouter.ai/qwen/qwen-2.5-72b-instruct).",
+        "context_length": 16384,
+        "pricing": {
+          "prompt": "0.0000025",
+          "completion": "0.000003",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1729555200
+      },
+      {
         "id": "anthropic/claude-3.5-sonnet:beta",
         "name": "anthropic/claude-3.5-sonnet:beta",
         "description": "New Claude 3.5 Sonnet delivers better-than-Opus capabilities, faster-than-Sonnet speeds, at the same Sonnet prices. Sonnet is particularly good at:\n\n- Coding: Scores ~49% on SWE-Bench Verified, higher than the last best score, and without any fancy prompt scaffolding\n- Data science: Augments human data science expertise; navigates unstructured data while using multiple tools for insights\n- Visual processing: excelling at interpreting charts, graphs, and images, accurately transcribing text to derive insights beyond just the text alone\n- Agentic tasks: exceptional tool use, making it great at agentic tasks (i.e. complex, multi-step problem solving tasks that require engaging with other systems)\n\n#multimodal",
@@ -3075,21 +3090,6 @@
           "internal_reasoning": "0",
           "input_cache_read": "0.0000003",
           "input_cache_write": "0.00000375"
-        },
-        "created": 1729555200
-      },
-      {
-        "id": "anthracite-org/magnum-v4-72b",
-        "name": "anthracite-org/magnum-v4-72b",
-        "description": "This is a series of models designed to replicate the prose quality of the Claude 3 models, specifically Sonnet(https://openrouter.ai/anthropic/claude-3.5-sonnet) and Opus(https://openrouter.ai/anthropic/claude-3-opus).\n\nThe model is fine-tuned on top of [Qwen2.5 72B](https://openrouter.ai/qwen/qwen-2.5-72b-instruct).",
-        "context_length": 16384,
-        "pricing": {
-          "prompt": "0.0000025",
-          "completion": "0.000003",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
         },
         "created": 1729555200
       },
@@ -3231,13 +3231,13 @@
         "created": 1727913600
       },
       {
-        "id": "anthracite-org/magnum-v2-72b",
-        "name": "anthracite-org/magnum-v2-72b",
-        "description": "From the maker of [Goliath](https://openrouter.ai/models/alpindale/goliath-120b), Magnum 72B is the seventh in a family of models designed to achieve the prose quality of the Claude 3 models, notably Opus & Sonnet.\n\nThe model is based on [Qwen2 72B](https://openrouter.ai/models/qwen/qwen-2-72b-instruct) and trained with 55 million tokens of highly curated roleplay (RP) data.",
+        "id": "thedrummer/rocinante-12b",
+        "name": "thedrummer/rocinante-12b",
+        "description": "Rocinante 12B is designed for engaging storytelling and rich prose.\n\nEarly testers have reported:\n- Expanded vocabulary with unique and expressive word choices\n- Enhanced creativity for vivid narratives\n- Adventure-filled and captivating stories",
         "context_length": 32768,
         "pricing": {
-          "prompt": "0.000003",
-          "completion": "0.000003",
+          "prompt": "0.00000025",
+          "completion": "0.0000005",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -3246,13 +3246,13 @@
         "created": 1727654400
       },
       {
-        "id": "thedrummer/rocinante-12b",
-        "name": "thedrummer/rocinante-12b",
-        "description": "Rocinante 12B is designed for engaging storytelling and rich prose.\n\nEarly testers have reported:\n- Expanded vocabulary with unique and expressive word choices\n- Enhanced creativity for vivid narratives\n- Adventure-filled and captivating stories",
+        "id": "anthracite-org/magnum-v2-72b",
+        "name": "anthracite-org/magnum-v2-72b",
+        "description": "From the maker of [Goliath](https://openrouter.ai/models/alpindale/goliath-120b), Magnum 72B is the seventh in a family of models designed to achieve the prose quality of the Claude 3 models, notably Opus & Sonnet.\n\nThe model is based on [Qwen2 72B](https://openrouter.ai/models/qwen/qwen-2-72b-instruct) and trained with 55 million tokens of highly curated roleplay (RP) data.",
         "context_length": 32768,
         "pricing": {
-          "prompt": "0.00000025",
-          "completion": "0.0000005",
+          "prompt": "0.000003",
+          "completion": "0.000003",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -3274,6 +3274,66 @@
           "internal_reasoning": "0"
         },
         "created": 1727654400
+      },
+      {
+        "id": "meta-llama/llama-3.2-3b-instruct:free",
+        "name": "meta-llama/llama-3.2-3b-instruct:free",
+        "description": "Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it supports eight languages, including English, Spanish, and Hindi, and is adaptable for additional languages.\n\nTrained on 9 trillion tokens, the Llama 3.2 3B model excels in instruction-following, complex reasoning, and tool use. Its balanced performance makes it ideal for applications needing accuracy and efficiency in text generation across multilingual settings.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
+        "context_length": 20000,
+        "pricing": {
+          "prompt": "0",
+          "completion": "0",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1727222400
+      },
+      {
+        "id": "meta-llama/llama-3.2-3b-instruct",
+        "name": "meta-llama/llama-3.2-3b-instruct",
+        "description": "Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it supports eight languages, including English, Spanish, and Hindi, and is adaptable for additional languages.\n\nTrained on 9 trillion tokens, the Llama 3.2 3B model excels in instruction-following, complex reasoning, and tool use. Its balanced performance makes it ideal for applications needing accuracy and efficiency in text generation across multilingual settings.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.00000001",
+          "completion": "0.00000002",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1727222400
+      },
+      {
+        "id": "meta-llama/llama-3.2-1b-instruct:free",
+        "name": "meta-llama/llama-3.2-1b-instruct:free",
+        "description": "Llama 3.2 1B is a 1-billion-parameter language model focused on efficiently performing natural language tasks, such as summarization, dialogue, and multilingual text analysis. Its smaller size allows it to operate efficiently in low-resource environments while maintaining strong task performance.\n\nSupporting eight core languages and fine-tunable for more, Llama 1.3B is ideal for businesses or developers seeking lightweight yet powerful AI solutions that can operate in diverse multilingual settings without the high computational demand of larger models.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0",
+          "completion": "0",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1727222400
+      },
+      {
+        "id": "meta-llama/llama-3.2-1b-instruct",
+        "name": "meta-llama/llama-3.2-1b-instruct",
+        "description": "Llama 3.2 1B is a 1-billion-parameter language model focused on efficiently performing natural language tasks, such as summarization, dialogue, and multilingual text analysis. Its smaller size allows it to operate efficiently in low-resource environments while maintaining strong task performance.\n\nSupporting eight core languages and fine-tunable for more, Llama 1.3B is ideal for businesses or developers seeking lightweight yet powerful AI solutions that can operate in diverse multilingual settings without the high computational demand of larger models.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.000000005",
+          "completion": "0.00000001",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1727222400
       },
       {
         "id": "meta-llama/llama-3.2-90b-vision-instruct",
@@ -3315,66 +3375,6 @@
           "completion": "0.000000049",
           "request": "0",
           "image": "0.00007948",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1727222400
-      },
-      {
-        "id": "meta-llama/llama-3.2-1b-instruct:free",
-        "name": "meta-llama/llama-3.2-1b-instruct:free",
-        "description": "Llama 3.2 1B is a 1-billion-parameter language model focused on efficiently performing natural language tasks, such as summarization, dialogue, and multilingual text analysis. Its smaller size allows it to operate efficiently in low-resource environments while maintaining strong task performance.\n\nSupporting eight core languages and fine-tunable for more, Llama 1.3B is ideal for businesses or developers seeking lightweight yet powerful AI solutions that can operate in diverse multilingual settings without the high computational demand of larger models.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
-        "context_length": 131072,
-        "pricing": {
-          "prompt": "0",
-          "completion": "0",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1727222400
-      },
-      {
-        "id": "meta-llama/llama-3.2-1b-instruct",
-        "name": "meta-llama/llama-3.2-1b-instruct",
-        "description": "Llama 3.2 1B is a 1-billion-parameter language model focused on efficiently performing natural language tasks, such as summarization, dialogue, and multilingual text analysis. Its smaller size allows it to operate efficiently in low-resource environments while maintaining strong task performance.\n\nSupporting eight core languages and fine-tunable for more, Llama 1.3B is ideal for businesses or developers seeking lightweight yet powerful AI solutions that can operate in diverse multilingual settings without the high computational demand of larger models.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
-        "context_length": 131072,
-        "pricing": {
-          "prompt": "0.000000005",
-          "completion": "0.00000001",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1727222400
-      },
-      {
-        "id": "meta-llama/llama-3.2-3b-instruct:free",
-        "name": "meta-llama/llama-3.2-3b-instruct:free",
-        "description": "Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it supports eight languages, including English, Spanish, and Hindi, and is adaptable for additional languages.\n\nTrained on 9 trillion tokens, the Llama 3.2 3B model excels in instruction-following, complex reasoning, and tool use. Its balanced performance makes it ideal for applications needing accuracy and efficiency in text generation across multilingual settings.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
-        "context_length": 20000,
-        "pricing": {
-          "prompt": "0",
-          "completion": "0",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1727222400
-      },
-      {
-        "id": "meta-llama/llama-3.2-3b-instruct",
-        "name": "meta-llama/llama-3.2-3b-instruct",
-        "description": "Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it supports eight languages, including English, Spanish, and Hindi, and is adaptable for additional languages.\n\nTrained on 9 trillion tokens, the Llama 3.2 3B model excels in instruction-following, complex reasoning, and tool use. Its balanced performance makes it ideal for applications needing accuracy and efficiency in text generation across multilingual settings.\n\nClick here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).\n\nUsage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).",
-        "context_length": 131072,
-        "pricing": {
-          "prompt": "0.00000001",
-          "completion": "0.00000002",
-          "request": "0",
-          "image": "0",
           "web_search": "0",
           "internal_reasoning": "0"
         },
@@ -3458,8 +3458,8 @@
         "created": 1726099200
       },
       {
-        "id": "openai/o1-mini-2024-09-12",
-        "name": "openai/o1-mini-2024-09-12",
+        "id": "openai/o1-mini",
+        "name": "openai/o1-mini",
         "description": "The latest and strongest model family from OpenAI, o1 is designed to spend more time thinking before responding.\n\nThe o1 models are optimized for math, science, programming, and other STEM-related tasks. They consistently exhibit PhD-level accuracy on benchmarks in physics, chemistry, and biology. Learn more in the [launch announcement](https://openai.com/o1).\n\nNote: This model is currently experimental and not suitable for production use-cases, and may be heavily rate-limited.",
         "context_length": 128000,
         "pricing": {
@@ -3474,8 +3474,8 @@
         "created": 1726099200
       },
       {
-        "id": "openai/o1-mini",
-        "name": "openai/o1-mini",
+        "id": "openai/o1-mini-2024-09-12",
+        "name": "openai/o1-mini-2024-09-12",
         "description": "The latest and strongest model family from OpenAI, o1 is designed to spend more time thinking before responding.\n\nThe o1 models are optimized for math, science, programming, and other STEM-related tasks. They consistently exhibit PhD-level accuracy on benchmarks in physics, chemistry, and biology. Learn more in the [launch announcement](https://openai.com/o1).\n\nNote: This model is currently experimental and not suitable for production use-cases, and may be heavily rate-limited.",
         "context_length": 128000,
         "pricing": {
@@ -3505,21 +3505,6 @@
         "created": 1725926400
       },
       {
-        "id": "cohere/command-r-08-2024",
-        "name": "cohere/command-r-08-2024",
-        "description": "command-r-08-2024 is an update of the [Command R](/models/cohere/command-r) with improved performance for multilingual retrieval-augmented generation (RAG) and tool use. More broadly, it is better at math, code and reasoning and is competitive with the previous version of the larger Command R+ model.\n\nRead the launch post [here](https://docs.cohere.com/changelog/command-gets-refreshed).\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
-        "context_length": 128000,
-        "pricing": {
-          "prompt": "0.00000015",
-          "completion": "0.0000006",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1724976000
-      },
-      {
         "id": "cohere/command-r-plus-08-2024",
         "name": "cohere/command-r-plus-08-2024",
         "description": "command-r-plus-08-2024 is an update of the [Command R+](/models/cohere/command-r-plus) with roughly 50% higher throughput and 25% lower latencies as compared to the previous Command R+ version, while keeping the hardware footprint the same.\n\nRead the launch post [here](https://docs.cohere.com/changelog/command-gets-refreshed).\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
@@ -3535,19 +3520,19 @@
         "created": 1724976000
       },
       {
-        "id": "sao10k/l3.1-euryale-70b",
-        "name": "sao10k/l3.1-euryale-70b",
-        "description": "Euryale L3.1 70B v2.2 is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k). It is the successor of [Euryale L3 70B v2.1](/models/sao10k/l3-euryale-70b).",
-        "context_length": 131072,
+        "id": "cohere/command-r-08-2024",
+        "name": "cohere/command-r-08-2024",
+        "description": "command-r-08-2024 is an update of the [Command R](/models/cohere/command-r) with improved performance for multilingual retrieval-augmented generation (RAG) and tool use. More broadly, it is better at math, code and reasoning and is competitive with the previous version of the larger Command R+ model.\n\nRead the launch post [here](https://docs.cohere.com/changelog/command-gets-refreshed).\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
+        "context_length": 128000,
         "pricing": {
-          "prompt": "0.0000007",
-          "completion": "0.0000008",
+          "prompt": "0.00000015",
+          "completion": "0.0000006",
           "request": "0",
           "image": "0",
           "web_search": "0",
           "internal_reasoning": "0"
         },
-        "created": 1724803200
+        "created": 1724976000
       },
       {
         "id": "qwen/qwen-2.5-vl-7b-instruct:free",
@@ -3574,6 +3559,21 @@
           "completion": "0.0000002",
           "request": "0",
           "image": "0.0001445",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1724803200
+      },
+      {
+        "id": "sao10k/l3.1-euryale-70b",
+        "name": "sao10k/l3.1-euryale-70b",
+        "description": "Euryale L3.1 70B v2.2 is a model focused on creative roleplay from [Sao10k](https://ko-fi.com/sao10k). It is the successor of [Euryale L3 70B v2.1](/models/sao10k/l3-euryale-70b).",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.0000007",
+          "completion": "0.0000008",
+          "request": "0",
+          "image": "0",
           "web_search": "0",
           "internal_reasoning": "0"
         },
@@ -3790,13 +3790,13 @@
         "created": 1721692800
       },
       {
-        "id": "meta-llama/llama-3.1-70b-instruct",
-        "name": "meta-llama/llama-3.1-70b-instruct",
-        "description": "Meta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 70B instruct-tuned version is optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-        "context_length": 131072,
+        "id": "meta-llama/llama-3.1-405b-instruct",
+        "name": "meta-llama/llama-3.1-405b-instruct",
+        "description": "The highly anticipated 400B class of Llama3 is here! Clocking in at 128k context with impressive eval scores, the Meta AI team continues to push the frontier of open-source LLMs.\n\nMeta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 405B instruct-tuned version is optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models including GPT-4o and Claude 3.5 Sonnet in evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+        "context_length": 32768,
         "pricing": {
-          "prompt": "0.0000001",
-          "completion": "0.00000028",
+          "prompt": "0.0000008",
+          "completion": "0.0000008",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -3805,13 +3805,13 @@
         "created": 1721692800
       },
       {
-        "id": "meta-llama/llama-3.1-405b-instruct",
-        "name": "meta-llama/llama-3.1-405b-instruct",
-        "description": "The highly anticipated 400B class of Llama3 is here! Clocking in at 128k context with impressive eval scores, the Meta AI team continues to push the frontier of open-source LLMs.\n\nMeta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 405B instruct-tuned version is optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models including GPT-4o and Claude 3.5 Sonnet in evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-        "context_length": 32768,
+        "id": "meta-llama/llama-3.1-70b-instruct",
+        "name": "meta-llama/llama-3.1-70b-instruct",
+        "description": "Meta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 70B instruct-tuned version is optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+        "context_length": 131072,
         "pricing": {
-          "prompt": "0.0000008",
-          "completion": "0.0000008",
+          "prompt": "0.0000001",
+          "completion": "0.00000028",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -3850,22 +3850,6 @@
         "created": 1721347200
       },
       {
-        "id": "openai/gpt-4o-mini-2024-07-18",
-        "name": "openai/gpt-4o-mini-2024-07-18",
-        "description": "GPT-4o mini is OpenAI's newest model after [GPT-4 Omni](/models/openai/gpt-4o), supporting both text and image inputs with text outputs.\n\nAs their most advanced small model, it is many multiples more affordable than other recent frontier models, and more than 60% cheaper than [GPT-3.5 Turbo](/models/openai/gpt-3.5-turbo). It maintains SOTA intelligence, while being significantly more cost-effective.\n\nGPT-4o mini achieves an 82% score on MMLU and presently ranks higher than GPT-4 on chat preferences [common leaderboards](https://arena.lmsys.org/).\n\nCheck out the [launch announcement](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) to learn more.\n\n#multimodal",
-        "context_length": 128000,
-        "pricing": {
-          "prompt": "0.00000015",
-          "completion": "0.0000006",
-          "request": "0",
-          "image": "0.007225",
-          "web_search": "0",
-          "internal_reasoning": "0",
-          "input_cache_read": "0.000000075"
-        },
-        "created": 1721260800
-      },
-      {
         "id": "openai/gpt-4o-mini",
         "name": "openai/gpt-4o-mini",
         "description": "GPT-4o mini is OpenAI's newest model after [GPT-4 Omni](/models/openai/gpt-4o), supporting both text and image inputs with text outputs.\n\nAs their most advanced small model, it is many multiples more affordable than other recent frontier models, and more than 60% cheaper than [GPT-3.5 Turbo](/models/openai/gpt-3.5-turbo). It maintains SOTA intelligence, while being significantly more cost-effective.\n\nGPT-4o mini achieves an 82% score on MMLU and presently ranks higher than GPT-4 on chat preferences [common leaderboards](https://arena.lmsys.org/).\n\nCheck out the [launch announcement](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) to learn more.\n\n#multimodal",
@@ -3875,6 +3859,22 @@
           "completion": "0.0000006",
           "request": "0",
           "image": "0.000217",
+          "web_search": "0",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.000000075"
+        },
+        "created": 1721260800
+      },
+      {
+        "id": "openai/gpt-4o-mini-2024-07-18",
+        "name": "openai/gpt-4o-mini-2024-07-18",
+        "description": "GPT-4o mini is OpenAI's newest model after [GPT-4 Omni](/models/openai/gpt-4o), supporting both text and image inputs with text outputs.\n\nAs their most advanced small model, it is many multiples more affordable than other recent frontier models, and more than 60% cheaper than [GPT-3.5 Turbo](/models/openai/gpt-3.5-turbo). It maintains SOTA intelligence, while being significantly more cost-effective.\n\nGPT-4o mini achieves an 82% score on MMLU and presently ranks higher than GPT-4 on chat preferences [common leaderboards](https://arena.lmsys.org/).\n\nCheck out the [launch announcement](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) to learn more.\n\n#multimodal",
+        "context_length": 128000,
+        "pricing": {
+          "prompt": "0.00000015",
+          "completion": "0.0000006",
+          "request": "0",
+          "image": "0.007225",
           "web_search": "0",
           "internal_reasoning": "0",
           "input_cache_read": "0.000000075"
@@ -4036,9 +4036,24 @@
         "created": 1717718400
       },
       {
-        "id": "mistralai/mistral-7b-instruct-v0.3",
-        "name": "mistralai/mistral-7b-instruct-v0.3",
-        "description": "A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.\n\nAn improved version of [Mistral 7B Instruct v0.2](/models/mistralai/mistral-7b-instruct-v0.2), with the following changes:\n\n- Extended vocabulary to 32768\n- Supports v3 Tokenizer\n- Supports function calling\n\nNOTE: Support for function calling depends on the provider.",
+        "id": "mistralai/mistral-7b-instruct:free",
+        "name": "mistralai/mistral-7b-instruct:free",
+        "description": "A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.\n\n*Mistral 7B Instruct has multiple version variants, and this is intended to be the latest version.*",
+        "context_length": 32768,
+        "pricing": {
+          "prompt": "0",
+          "completion": "0",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1716768000
+      },
+      {
+        "id": "mistralai/mistral-7b-instruct",
+        "name": "mistralai/mistral-7b-instruct",
+        "description": "A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.\n\n*Mistral 7B Instruct has multiple version variants, and this is intended to be the latest version.*",
         "context_length": 32768,
         "pricing": {
           "prompt": "0.000000028",
@@ -4066,24 +4081,9 @@
         "created": 1716768000
       },
       {
-        "id": "mistralai/mistral-7b-instruct:free",
-        "name": "mistralai/mistral-7b-instruct:free",
-        "description": "A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.\n\n*Mistral 7B Instruct has multiple version variants, and this is intended to be the latest version.*",
-        "context_length": 32768,
-        "pricing": {
-          "prompt": "0",
-          "completion": "0",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1716768000
-      },
-      {
-        "id": "mistralai/mistral-7b-instruct",
-        "name": "mistralai/mistral-7b-instruct",
-        "description": "A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.\n\n*Mistral 7B Instruct has multiple version variants, and this is intended to be the latest version.*",
+        "id": "mistralai/mistral-7b-instruct-v0.3",
+        "name": "mistralai/mistral-7b-instruct-v0.3",
+        "description": "A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.\n\nAn improved version of [Mistral 7B Instruct v0.2](/models/mistralai/mistral-7b-instruct-v0.2), with the following changes:\n\n- Extended vocabulary to 32768\n- Supports v3 Tokenizer\n- Supports function calling\n\nNOTE: Support for function calling depends on the provider.",
         "context_length": 32768,
         "pricing": {
           "prompt": "0.000000028",
@@ -4158,36 +4158,6 @@
         "created": 1715644800
       },
       {
-        "id": "openai/gpt-4o-2024-05-13",
-        "name": "openai/gpt-4o-2024-05-13",
-        "description": "GPT-4o (\"o\" for \"omni\") is OpenAI's latest AI model, supporting both text and image inputs with text outputs. It maintains the intelligence level of [GPT-4 Turbo](/models/openai/gpt-4-turbo) while being twice as fast and 50% more cost-effective. GPT-4o also offers improved performance in processing non-English languages and enhanced visual capabilities.\n\nFor benchmarking against other models, it was briefly called [\"im-also-a-good-gpt2-chatbot\"](https://twitter.com/LiamFedus/status/1790064963966370209)\n\n#multimodal",
-        "context_length": 128000,
-        "pricing": {
-          "prompt": "0.000005",
-          "completion": "0.000015",
-          "request": "0",
-          "image": "0.007225",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1715558400
-      },
-      {
-        "id": "meta-llama/llama-guard-2-8b",
-        "name": "meta-llama/llama-guard-2-8b",
-        "description": "This safeguard model has 8B parameters and is based on the Llama 3 family. Just like is predecessor, [LlamaGuard 1](https://huggingface.co/meta-llama/LlamaGuard-7b), it can do both prompt and response classification.\n\nLlamaGuard 2 acts as a normal LLM would, generating text that indicates whether the given input/output is safe/unsafe. If deemed unsafe, it will also share the content categories violated.\n\nFor best results, please use raw prompt input or the `/completions` endpoint, instead of the chat API.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
-        "context_length": 8192,
-        "pricing": {
-          "prompt": "0.0000002",
-          "completion": "0.0000002",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1715558400
-      },
-      {
         "id": "openai/gpt-4o",
         "name": "openai/gpt-4o",
         "description": "GPT-4o (\"o\" for \"omni\") is OpenAI's latest AI model, supporting both text and image inputs with text outputs. It maintains the intelligence level of [GPT-4 Turbo](/models/openai/gpt-4-turbo) while being twice as fast and 50% more cost-effective. GPT-4o also offers improved performance in processing non-English languages and enhanced visual capabilities.\n\nFor benchmarking against other models, it was briefly called [\"im-also-a-good-gpt2-chatbot\"](https://twitter.com/LiamFedus/status/1790064963966370209)\n\n#multimodal",
@@ -4211,6 +4181,36 @@
         "pricing": {
           "prompt": "0.000006",
           "completion": "0.000018",
+          "request": "0",
+          "image": "0.007225",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1715558400
+      },
+      {
+        "id": "meta-llama/llama-guard-2-8b",
+        "name": "meta-llama/llama-guard-2-8b",
+        "description": "This safeguard model has 8B parameters and is based on the Llama 3 family. Just like is predecessor, [LlamaGuard 1](https://huggingface.co/meta-llama/LlamaGuard-7b), it can do both prompt and response classification.\n\nLlamaGuard 2 acts as a normal LLM would, generating text that indicates whether the given input/output is safe/unsafe. If deemed unsafe, it will also share the content categories violated.\n\nFor best results, please use raw prompt input or the `/completions` endpoint, instead of the chat API.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+        "context_length": 8192,
+        "pricing": {
+          "prompt": "0.0000002",
+          "completion": "0.0000002",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1715558400
+      },
+      {
+        "id": "openai/gpt-4o-2024-05-13",
+        "name": "openai/gpt-4o-2024-05-13",
+        "description": "GPT-4o (\"o\" for \"omni\") is OpenAI's latest AI model, supporting both text and image inputs with text outputs. It maintains the intelligence level of [GPT-4 Turbo](/models/openai/gpt-4-turbo) while being twice as fast and 50% more cost-effective. GPT-4o also offers improved performance in processing non-English languages and enhanced visual capabilities.\n\nFor benchmarking against other models, it was briefly called [\"im-also-a-good-gpt2-chatbot\"](https://twitter.com/LiamFedus/status/1790064963966370209)\n\n#multimodal",
+        "context_length": 128000,
+        "pricing": {
+          "prompt": "0.000005",
+          "completion": "0.000015",
           "request": "0",
           "image": "0.007225",
           "web_search": "0",
@@ -4249,13 +4249,13 @@
         "created": 1713657600
       },
       {
-        "id": "meta-llama/llama-3-70b-instruct",
-        "name": "meta-llama/llama-3-70b-instruct",
-        "description": "Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 70B instruct-tuned version was optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+        "id": "meta-llama/llama-3-8b-instruct",
+        "name": "meta-llama/llama-3-8b-instruct",
+        "description": "Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 8B instruct-tuned version was optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
         "context_length": 8192,
         "pricing": {
-          "prompt": "0.0000003",
-          "completion": "0.0000004",
+          "prompt": "0.00000003",
+          "completion": "0.00000006",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4264,13 +4264,13 @@
         "created": 1713398400
       },
       {
-        "id": "meta-llama/llama-3-8b-instruct",
-        "name": "meta-llama/llama-3-8b-instruct",
-        "description": "Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 8B instruct-tuned version was optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
+        "id": "meta-llama/llama-3-70b-instruct",
+        "name": "meta-llama/llama-3-70b-instruct",
+        "description": "Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 70B instruct-tuned version was optimized for high quality dialogue usecases.\n\nIt has demonstrated strong performance compared to leading closed-source models in human evaluations.\n\nTo read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).",
         "context_length": 8192,
         "pricing": {
-          "prompt": "0.00000003",
-          "completion": "0.00000006",
+          "prompt": "0.0000003",
+          "completion": "0.0000004",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4309,21 +4309,6 @@
         "created": 1713225600
       },
       {
-        "id": "openai/gpt-4-turbo",
-        "name": "openai/gpt-4-turbo",
-        "description": "The latest GPT-4 Turbo model with vision capabilities. Vision requests can now use JSON mode and function calling.\n\nTraining data: up to December 2023.",
-        "context_length": 128000,
-        "pricing": {
-          "prompt": "0.00001",
-          "completion": "0.00003",
-          "request": "0",
-          "image": "0.01445",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1712620800
-      },
-      {
         "id": "google/gemini-pro-1.5",
         "name": "google/gemini-pro-1.5",
         "description": "Google's latest multimodal model, supports image and video[0] in text or chat prompts.\n\nOptimized for language tasks including:\n\n- Code generation\n- Text generation\n- Text editing\n- Problem solving\n- Recommendations\n- Information extraction\n- Data extraction or generation\n- AI agents\n\nUsage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).\n\n* [0]: Video input is not available through OpenRouter at this time.",
@@ -4333,6 +4318,21 @@
           "completion": "0.000005",
           "request": "0",
           "image": "0.0006575",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1712620800
+      },
+      {
+        "id": "openai/gpt-4-turbo",
+        "name": "openai/gpt-4-turbo",
+        "description": "The latest GPT-4 Turbo model with vision capabilities. Vision requests can now use JSON mode and function calling.\n\nTraining data: up to December 2023.",
+        "context_length": 128000,
+        "pricing": {
+          "prompt": "0.00001",
+          "completion": "0.00003",
+          "request": "0",
+          "image": "0.01445",
           "web_search": "0",
           "internal_reasoning": "0"
         },
@@ -4384,13 +4384,13 @@
         "created": 1711065600
       },
       {
-        "id": "cohere/command-r",
-        "name": "cohere/command-r",
-        "description": "Command-R is a 35B parameter model that performs conversational language tasks at a higher quality, more reliably, and with a longer context than previous models. It can be used for complex workflows like code generation, retrieval augmented generation (RAG), tool use, and agents.\n\nRead the launch post [here](https://txt.cohere.com/command-r/).\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
-        "context_length": 128000,
+        "id": "cohere/command",
+        "name": "cohere/command",
+        "description": "Command is an instruction-following conversational model that performs language tasks with high quality, more reliably and with a longer context than our base generative models.\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
+        "context_length": 4096,
         "pricing": {
-          "prompt": "0.0000005",
-          "completion": "0.0000015",
+          "prompt": "0.000001",
+          "completion": "0.000002",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4399,13 +4399,13 @@
         "created": 1710374400
       },
       {
-        "id": "cohere/command",
-        "name": "cohere/command",
-        "description": "Command is an instruction-following conversational model that performs language tasks with high quality, more reliably and with a longer context than our base generative models.\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
-        "context_length": 4096,
+        "id": "cohere/command-r",
+        "name": "cohere/command-r",
+        "description": "Command-R is a 35B parameter model that performs conversational language tasks at a higher quality, more reliably, and with a longer context than previous models. It can be used for complex workflows like code generation, retrieval augmented generation (RAG), tool use, and agents.\n\nRead the launch post [here](https://txt.cohere.com/command-r/).\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
+        "context_length": 128000,
         "pricing": {
-          "prompt": "0.000001",
-          "completion": "0.000002",
+          "prompt": "0.0000005",
+          "completion": "0.0000015",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4448,40 +4448,6 @@
         "created": 1710288000
       },
       {
-        "id": "anthropic/claude-3-sonnet:beta",
-        "name": "anthropic/claude-3-sonnet:beta",
-        "description": "Claude 3 Sonnet is an ideal balance of intelligence and speed for enterprise workloads. Maximum utility at a lower price, dependable, balanced for scaled deployments.\n\nSee the launch announcement and benchmark results [here](https://www.anthropic.com/news/claude-3-family)\n\n#multimodal",
-        "context_length": 200000,
-        "pricing": {
-          "prompt": "0.000003",
-          "completion": "0.000015",
-          "request": "0",
-          "image": "0.0048",
-          "web_search": "0",
-          "internal_reasoning": "0",
-          "input_cache_read": "0.0000003",
-          "input_cache_write": "0.00000375"
-        },
-        "created": 1709596800
-      },
-      {
-        "id": "anthropic/claude-3-sonnet",
-        "name": "anthropic/claude-3-sonnet",
-        "description": "Claude 3 Sonnet is an ideal balance of intelligence and speed for enterprise workloads. Maximum utility at a lower price, dependable, balanced for scaled deployments.\n\nSee the launch announcement and benchmark results [here](https://www.anthropic.com/news/claude-3-family)\n\n#multimodal",
-        "context_length": 200000,
-        "pricing": {
-          "prompt": "0.000003",
-          "completion": "0.000015",
-          "request": "0",
-          "image": "0.0048",
-          "web_search": "0",
-          "internal_reasoning": "0",
-          "input_cache_read": "0.0000003",
-          "input_cache_write": "0.00000375"
-        },
-        "created": 1709596800
-      },
-      {
         "id": "anthropic/claude-3-opus:beta",
         "name": "anthropic/claude-3-opus:beta",
         "description": "Claude 3 Opus is Anthropic's most powerful model for highly complex tasks. It boasts top-level performance, intelligence, fluency, and understanding.\n\nSee the launch announcement and benchmark results [here](https://www.anthropic.com/news/claude-3-family)\n\n#multimodal",
@@ -4516,6 +4482,40 @@
         "created": 1709596800
       },
       {
+        "id": "anthropic/claude-3-sonnet:beta",
+        "name": "anthropic/claude-3-sonnet:beta",
+        "description": "Claude 3 Sonnet is an ideal balance of intelligence and speed for enterprise workloads. Maximum utility at a lower price, dependable, balanced for scaled deployments.\n\nSee the launch announcement and benchmark results [here](https://www.anthropic.com/news/claude-3-family)\n\n#multimodal",
+        "context_length": 200000,
+        "pricing": {
+          "prompt": "0.000003",
+          "completion": "0.000015",
+          "request": "0",
+          "image": "0.0048",
+          "web_search": "0",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.0000003",
+          "input_cache_write": "0.00000375"
+        },
+        "created": 1709596800
+      },
+      {
+        "id": "anthropic/claude-3-sonnet",
+        "name": "anthropic/claude-3-sonnet",
+        "description": "Claude 3 Sonnet is an ideal balance of intelligence and speed for enterprise workloads. Maximum utility at a lower price, dependable, balanced for scaled deployments.\n\nSee the launch announcement and benchmark results [here](https://www.anthropic.com/news/claude-3-family)\n\n#multimodal",
+        "context_length": 200000,
+        "pricing": {
+          "prompt": "0.000003",
+          "completion": "0.000015",
+          "request": "0",
+          "image": "0.0048",
+          "web_search": "0",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.0000003",
+          "input_cache_write": "0.00000375"
+        },
+        "created": 1709596800
+      },
+      {
         "id": "cohere/command-r-03-2024",
         "name": "cohere/command-r-03-2024",
         "description": "Command-R is a 35B parameter model that performs conversational language tasks at a higher quality, more reliably, and with a longer context than previous models. It can be used for complex workflows like code generation, retrieval augmented generation (RAG), tool use, and agents.\n\nRead the launch post [here](https://txt.cohere.com/command-r/).\n\nUse of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).",
@@ -4546,13 +4546,13 @@
         "created": 1708905600
       },
       {
-        "id": "openai/gpt-4-turbo-preview",
-        "name": "openai/gpt-4-turbo-preview",
-        "description": "The preview GPT-4 model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Training data: up to Dec 2023.\n\n**Note:** heavily rate limited by OpenAI while in preview.",
-        "context_length": 128000,
+        "id": "openai/gpt-3.5-turbo-0613",
+        "name": "openai/gpt-3.5-turbo-0613",
+        "description": "GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.\n\nTraining data up to Sep 2021.",
+        "context_length": 4095,
         "pricing": {
-          "prompt": "0.00001",
-          "completion": "0.00003",
+          "prompt": "0.000001",
+          "completion": "0.000002",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4561,13 +4561,13 @@
         "created": 1706140800
       },
       {
-        "id": "openai/gpt-3.5-turbo-0613",
-        "name": "openai/gpt-3.5-turbo-0613",
-        "description": "GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.\n\nTraining data up to Sep 2021.",
-        "context_length": 4095,
+        "id": "openai/gpt-4-turbo-preview",
+        "name": "openai/gpt-4-turbo-preview",
+        "description": "The preview GPT-4 model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Training data: up to Dec 2023.\n\n**Note:** heavily rate limited by OpenAI while in preview.",
+        "context_length": 128000,
         "pricing": {
-          "prompt": "0.000001",
-          "completion": "0.000002",
+          "prompt": "0.00001",
+          "completion": "0.00003",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4591,13 +4591,13 @@
         "created": 1705363200
       },
       {
-        "id": "mistralai/mistral-tiny",
-        "name": "mistralai/mistral-tiny",
-        "description": "Note: This model is being deprecated. Recommended replacement is the newer [Ministral 8B](/mistral/ministral-8b)\n\nThis model is currently powered by Mistral-7B-v0.2, and incorporates a \"better\" fine-tuning than [Mistral 7B](/models/mistralai/mistral-7b-instruct-v0.1), inspired by community work. It's best used for large batch processing tasks where cost is a significant factor but reasoning capabilities are not crucial.",
+        "id": "mistralai/mistral-medium",
+        "name": "mistralai/mistral-medium",
+        "description": "This is Mistral AI's closed-source, medium-sided model. It's powered by a closed-source prototype and excels at reasoning, code, JSON, chat, and more. In benchmarks, it compares with many of the flagship models of other companies.",
         "context_length": 32768,
         "pricing": {
-          "prompt": "0.00000025",
-          "completion": "0.00000025",
+          "prompt": "0.00000275",
+          "completion": "0.0000081",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4621,13 +4621,13 @@
         "created": 1704844800
       },
       {
-        "id": "mistralai/mistral-medium",
-        "name": "mistralai/mistral-medium",
-        "description": "This is Mistral AI's closed-source, medium-sided model. It's powered by a closed-source prototype and excels at reasoning, code, JSON, chat, and more. In benchmarks, it compares with many of the flagship models of other companies.",
+        "id": "mistralai/mistral-tiny",
+        "name": "mistralai/mistral-tiny",
+        "description": "Note: This model is being deprecated. Recommended replacement is the newer [Ministral 8B](/mistral/ministral-8b)\n\nThis model is currently powered by Mistral-7B-v0.2, and incorporates a \"better\" fine-tuning than [Mistral 7B](/models/mistralai/mistral-7b-instruct-v0.1), inspired by community work. It's best used for large batch processing tasks where cost is a significant factor but reasoning capabilities are not crucial.",
         "context_length": 32768,
         "pricing": {
-          "prompt": "0.00000275",
-          "completion": "0.0000081",
+          "prompt": "0.00000025",
+          "completion": "0.00000025",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4741,13 +4741,13 @@
         "created": 1700611200
       },
       {
-        "id": "alpindale/goliath-120b",
-        "name": "alpindale/goliath-120b",
-        "description": "A large LLM created by combining two fine-tuned Llama 70B models into one 120B model. Combines Xwin and Euryale.\n\nCredits to\n- [@chargoddard](https://huggingface.co/chargoddard) for developing the framework used to merge the model - [mergekit](https://github.com/cg123/mergekit).\n- [@Undi95](https://huggingface.co/Undi95) for helping with the merge ratios.\n\n#merge",
-        "context_length": 6144,
+        "id": "undi95/toppy-m-7b",
+        "name": "undi95/toppy-m-7b",
+        "description": "A wild 7B parameter model that merges several models using the new task_arithmetic merge method from mergekit.\nList of merged models:\n- NousResearch/Nous-Capybara-7B-V1.9\n- [HuggingFaceH4/zephyr-7b-beta](/models/huggingfaceh4/zephyr-7b-beta)\n- lemonilia/AshhLimaRP-Mistral-7B\n- Vulkane/120-Days-of-Sodom-LoRA-Mistral-7b\n- Undi95/Mistral-pippa-sharegpt-7b-qlora\n\n#merge #uncensored",
+        "context_length": 4096,
         "pricing": {
-          "prompt": "0.00001",
-          "completion": "0.0000125",
+          "prompt": "0.0000008",
+          "completion": "0.0000012",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4756,13 +4756,13 @@
         "created": 1699574400
       },
       {
-        "id": "undi95/toppy-m-7b",
-        "name": "undi95/toppy-m-7b",
-        "description": "A wild 7B parameter model that merges several models using the new task_arithmetic merge method from mergekit.\nList of merged models:\n- NousResearch/Nous-Capybara-7B-V1.9\n- [HuggingFaceH4/zephyr-7b-beta](/models/huggingfaceh4/zephyr-7b-beta)\n- lemonilia/AshhLimaRP-Mistral-7B\n- Vulkane/120-Days-of-Sodom-LoRA-Mistral-7b\n- Undi95/Mistral-pippa-sharegpt-7b-qlora\n\n#merge #uncensored",
-        "context_length": 4096,
+        "id": "alpindale/goliath-120b",
+        "name": "alpindale/goliath-120b",
+        "description": "A large LLM created by combining two fine-tuned Llama 70B models into one 120B model. Combines Xwin and Euryale.\n\nCredits to\n- [@chargoddard](https://huggingface.co/chargoddard) for developing the framework used to merge the model - [mergekit](https://github.com/cg123/mergekit).\n- [@Undi95](https://huggingface.co/Undi95) for helping with the merge ratios.\n\n#merge",
+        "context_length": 6144,
         "pricing": {
-          "prompt": "0.0000008",
-          "completion": "0.0000012",
+          "prompt": "0.00001",
+          "completion": "0.0000125",
           "request": "0",
           "image": "0",
           "web_search": "0",
@@ -4872,8 +4872,8 @@
         "created": 1693180800
       },
       {
-        "id": "openai/gpt-4-32k-0314",
-        "name": "openai/gpt-4-32k-0314",
+        "id": "openai/gpt-4-32k",
+        "name": "openai/gpt-4-32k",
         "description": "GPT-4-32k is an extended version of GPT-4, with the same capabilities but quadrupled context length, allowing for processing up to 40 pages of text in a single pass. This is particularly beneficial for handling longer content like interacting with PDFs without an external vector database. Training data: up to Sep 2021.",
         "context_length": 32767,
         "pricing": {
@@ -4887,8 +4887,8 @@
         "created": 1693180800
       },
       {
-        "id": "openai/gpt-4-32k",
-        "name": "openai/gpt-4-32k",
+        "id": "openai/gpt-4-32k-0314",
+        "name": "openai/gpt-4-32k-0314",
         "description": "GPT-4-32k is an extended version of GPT-4, with the same capabilities but quadrupled context length, allowing for processing up to 40 pages of text in a single pass. This is particularly beneficial for handling longer content like interacting with PDFs without an external vector database. Training data: up to Sep 2021.",
         "context_length": 32767,
         "pricing": {
@@ -5007,21 +5007,6 @@
         "created": 1685232000
       },
       {
-        "id": "openai/gpt-4-0314",
-        "name": "openai/gpt-4-0314",
-        "description": "GPT-4-0314 is the first version of GPT-4 released, with a context length of 8,192 tokens, and was supported until June 14. Training data: up to Sep 2021.",
-        "context_length": 8191,
-        "pricing": {
-          "prompt": "0.00003",
-          "completion": "0.00006",
-          "request": "0",
-          "image": "0",
-          "web_search": "0",
-          "internal_reasoning": "0"
-        },
-        "created": 1685232000
-      },
-      {
         "id": "openai/gpt-3.5-turbo-0125",
         "name": "openai/gpt-3.5-turbo-0125",
         "description": "The latest GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Training data: up to Sep 2021.\n\nThis version has a higher accuracy at responding in requested formats and a fix for a bug which caused a text encoding issue for non-English language function calls.",
@@ -5040,6 +5025,21 @@
         "id": "openai/gpt-4",
         "name": "openai/gpt-4",
         "description": "OpenAI's flagship model, GPT-4 is a large-scale multimodal language model capable of solving difficult problems with greater accuracy than previous models due to its broader general knowledge and advanced reasoning capabilities. Training data: up to Sep 2021.",
+        "context_length": 8191,
+        "pricing": {
+          "prompt": "0.00003",
+          "completion": "0.00006",
+          "request": "0",
+          "image": "0",
+          "web_search": "0",
+          "internal_reasoning": "0"
+        },
+        "created": 1685232000
+      },
+      {
+        "id": "openai/gpt-4-0314",
+        "name": "openai/gpt-4-0314",
+        "description": "GPT-4-0314 is the first version of GPT-4 released, with a context length of 8,192 tokens, and was supported until June 14. Training data: up to Sep 2021.",
         "context_length": 8191,
         "pricing": {
           "prompt": "0.00003",
@@ -5075,424 +5075,1046 @@
   },
   {
     "provider": "gh-models",
-    "timestamp": "2025-05-30T05:51:19.400Z",
+    "timestamp": "2025-05-30T09:33:23.712Z",
     "models": [
       {
-        "id": "azureml://registries/azureml-ai21/models/AI21-Jamba-Instruct/versions/2",
-        "name": "AI21-Jamba-Instruct",
-        "friendly_name": "AI21-Jamba-Instruct",
-        "model_version": 2,
-        "publisher": "AI21 Labs",
-        "model_family": "AI21 Labs",
-        "model_registry": "azureml-ai21",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Jamba-Instruct is the world's first production-grade Mamba-based LLM model and leverages its hybrid Mamba-Transformer architecture to achieve best-in-class performance, quality, and cost efficiency.\n\n**Model Developer Name**: _AI21 Labs_\n\n## Model Architecture\n\nJamba-Instruct leverages a hybrid Mamba-Transformer architecture to achieve best-in-class performance, quality, and cost efficiency.\nAI21's Jamba architecture features a blocks-and-layers approach that allows Jamba to successfully integrate the two architectures. Each Jamba block contains either an attention or a Mamba layer, followed by a multi-layer perceptron (MLP), producing an overall ratio of one Transformer layer out of every eight total layers.\n",
-        "summary": "Jamba-Instruct is the world's first production-grade Mamba-based LLM model and leverages its hybrid Mamba-Transformer architecture to achieve best-in-class performance, quality, and cost efficiency.",
+        "id": "openai/gpt-4.1",
+        "name": "OpenAI GPT-4.1",
+        "publisher": "OpenAI",
+        "summary": "gpt-4.1 outperforms gpt-4o across the board, with major gains in coding, instruction following, and long-context understanding",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
-          "chat",
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/gpt-4.1-mini",
+        "name": "OpenAI GPT-4.1-mini",
+        "publisher": "OpenAI",
+        "summary": "gpt-4.1-mini outperform gpt-4o-mini across the board, with major gains in coding, instruction following, and long-context handling",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/gpt-4.1-nano",
+        "name": "OpenAI GPT-4.1-nano",
+        "publisher": "OpenAI",
+        "summary": "gpt-4.1-nano provides gains in coding, instruction following, and long-context handling along with lower latency and cost",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/gpt-4o",
+        "name": "OpenAI GPT-4o",
+        "publisher": "OpenAI",
+        "summary": "OpenAI's most advanced multimodal model in the gpt-4o family. Can handle both text and image inputs.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/gpt-4o-mini",
+        "name": "OpenAI GPT-4o mini",
+        "publisher": "OpenAI",
+        "summary": "An affordable, efficient AI solution for diverse text and image tasks.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/o1",
+        "name": "OpenAI o1",
+        "publisher": "OpenAI",
+        "summary": "Focused on advanced reasoning and solving complex problems, including math and science tasks. Ideal for applications that require deep contextual understanding and agentic workflows.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "multilingual",
+          "coding"
+        ]
+      },
+      {
+        "id": "openai/o1-mini",
+        "name": "OpenAI o1-mini",
+        "publisher": "OpenAI",
+        "summary": "Smaller, faster, and 80% cheaper than o1-preview, performs well at code generation and small context operations.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "multilingual",
+          "coding"
+        ]
+      },
+      {
+        "id": "openai/o1-preview",
+        "name": "OpenAI o1-preview",
+        "publisher": "OpenAI",
+        "summary": "Focused on advanced reasoning and solving complex problems, including math and science tasks. Ideal for applications that require deep contextual understanding and agentic workflows.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "multilingual",
+          "coding"
+        ]
+      },
+      {
+        "id": "openai/o3",
+        "name": "OpenAI o3",
+        "publisher": "OpenAI",
+        "summary": "o3 includes significant improvements on quality and safety while supporting the existing features of o1 and delivering comparable or better performance.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/o3-mini",
+        "name": "OpenAI o3-mini",
+        "publisher": "OpenAI",
+        "summary": "o3-mini includes the o1 features with significant cost-efficiencies for scenarios requiring high performance.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "multilingual",
+          "coding"
+        ]
+      },
+      {
+        "id": "openai/o4-mini",
+        "name": "OpenAI o4-mini",
+        "publisher": "OpenAI",
+        "summary": "o4-mini includes significant improvements on quality and safety while supporting the existing features of o3-mini and delivering comparable or better performance.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "multilingual",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "openai/text-embedding-3-large",
+        "name": "OpenAI Text Embedding 3 (large)",
+        "publisher": "OpenAI",
+        "summary": "Text-embedding-3 series models are the latest and most capable embedding model from OpenAI.",
+        "rate_limit_tier": "embeddings",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "embeddings"
+        ],
+        "tags": [
           "rag"
         ]
       },
       {
-        "id": "azureml://registries/azureml-cohere/models/Cohere-command-r/versions/3",
-        "name": "Cohere-command-r",
-        "friendly_name": "Cohere Command R",
-        "model_version": 3,
-        "publisher": "cohere",
-        "model_family": "cohere",
-        "model_registry": "azureml-cohere",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Command R is a highly performant generative large language model, optimized for a variety of use cases including reasoning, summarization, and question answering. \n\nThe model is optimized to perform well in the following languages: English, French, Spanish, Italian, German, Brazilian Portuguese, Japanese, Korean, Simplified Chinese, and Arabic.\n\nPre-training data additionally included the following 13 languages: Russian, Polish, Turkish, Vietnamese, Dutch, Czech, Indonesian, Ukrainian, Romanian, Greek, Hindi, Hebrew, Persian.\n\n## Resources\n\nFor full details of this model, [release blog post](https://aka.ms/cohere-blog).\n\n## Model Architecture\n\nThis is an auto-regressive language model that uses an optimized transformer architecture. After pretraining, this model uses supervised fine-tuning (SFT) and preference training to align model behavior to human preferences for helpfulness and safety.\n\n### Tool use capabilities\n\nCommand R has been specifically trained with conversational tool use capabilities. These have been trained into the model via a mixture of supervised fine-tuning and preference fine-tuning, using a specific prompt template. Deviating from this prompt template will likely reduce performance, but we encourage experimentation.\n\nCommand R's tool use functionality takes a conversation as input (with an optional user-system preamble), along with a list of available tools. The model will then generate a json-formatted list of actions to execute on a subset of those tools. Command R may use one of its supplied tools more than once.\n\nThe model has been trained to recognise a special directly_answer tool, which it uses to indicate that it doesn't want to use any of its other tools. The ability to abstain from calling a specific tool can be useful in a range of situations, such as greeting a user, or asking clarifying questions. We recommend including the directly_answer tool, but it can be removed or renamed if required.\n\n### Grounded Generation and RAG Capabilities\n\nCommand R has been specifically trained with grounded generation capabilities. This means that it can generate responses based on a list of supplied document snippets, and it will include grounding spans (citations) in its response indicating the source of the information. This can be used to enable behaviors such as grounded summarization and the final step of Retrieval Augmented Generation (RAG).This behavior has been trained into the model via a mixture of supervised fine-tuning and preference fine-tuning, using a specific prompt template. Deviating from this prompt template may reduce performance, but we encourage experimentation.\n\nCommand R's grounded generation behavior takes a conversation as input (with an optional user-supplied system preamble, indicating task, context and desired output style), along with a list of retrieved document snippets. The document snippets should be chunks, rather than long documents, typically around 100-400 words per chunk. Document snippets consist of key-value pairs. The keys should be short descriptive strings, the values can be text or semi-structured.\n\nBy default, Command R will generate grounded responses by first predicting which documents are relevant, then predicting which ones it will cite, then generating an answer. Finally, it will then insert grounding spans into the answer. See below for an example. This is referred to as accurate grounded generation.\n\nThe model is trained with a number of other answering modes, which can be selected by prompt changes . A fast citation mode is supported in the tokenizer, which will directly generate an answer with grounding spans in it, without first writing the answer out in full. This sacrifices some grounding accuracy in favor of generating fewer tokens.\n\n### Code Capabilities\n\nCommand R has been optimized to interact with your code, by requesting code snippets, code explanations, or code rewrites. It might not perform well out-of-the-box for pure code completion. For better performance, we also recommend using a low temperature (and even greedy decoding) for code-generation related instructions.\n",
+        "id": "openai/text-embedding-3-small",
+        "name": "OpenAI Text Embedding 3 (small)",
+        "publisher": "OpenAI",
+        "summary": "Text-embedding-3 series models are the latest and most capable embedding model from OpenAI.",
+        "rate_limit_tier": "embeddings",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "embeddings"
+        ],
+        "tags": [
+          "rag"
+        ]
+      },
+      {
+        "id": "ai21-labs/AI21-Jamba-1.5-Large",
+        "name": "AI21 Jamba 1.5 Large",
+        "publisher": "AI21 Labs",
+        "summary": "A 398B parameters (94B active) multilingual model, offering a 256K long context window, function calling, structured output, and grounded generation.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "rag",
+          "multilingual",
+          "large context"
+        ]
+      },
+      {
+        "id": "ai21-labs/AI21-Jamba-1.5-Mini",
+        "name": "AI21 Jamba 1.5 Mini",
+        "publisher": "AI21 Labs",
+        "summary": "A 52B parameters (12B active) multilingual model, offering a 256K long context window, function calling, structured output, and grounded generation.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "rag",
+          "multilingual",
+          "large context"
+        ]
+      },
+      {
+        "id": "cohere/cohere-command-a",
+        "name": "Cohere Command A",
+        "publisher": "Cohere",
+        "summary": "Command A is a highly efficient generative model that excels at agentic and multilingual use cases.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "rag",
+          " multilingual"
+        ]
+      },
+      {
+        "id": "cohere/Cohere-command-r",
+        "name": "Cohere Command R",
+        "publisher": "Cohere",
         "summary": "Command R is a scalable generative model targeting RAG and Tool Use to enable production-scale AI for enterprise.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "rag",
           "multilingual"
         ]
       },
       {
-        "id": "azureml://registries/azureml-cohere/models/Cohere-command-r-plus/versions/3",
-        "name": "Cohere-command-r-plus",
-        "friendly_name": "Cohere Command R+",
-        "model_version": 3,
-        "publisher": "cohere",
-        "model_family": "cohere",
-        "model_registry": "azureml-cohere",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Command R+ is a highly performant generative large language model, optimized for a variety of use cases including reasoning, summarization, and question answering. \n\nThe model is optimized to perform well in the following languages: English, French, Spanish, Italian, German, Brazilian Portuguese, Japanese, Korean, Simplified Chinese, and Arabic.\n\nPre-training data additionally included the following 13 languages: Russian, Polish, Turkish, Vietnamese, Dutch, Czech, Indonesian, Ukrainian, Romanian, Greek, Hindi, Hebrew, Persian.\n\n## Resources\n\nFor full details of this model, [release blog post](https://aka.ms/cohere-blog).\n\n## Model Architecture\n\nThis is an auto-regressive language model that uses an optimized transformer architecture. After pretraining, this model uses supervised fine-tuning (SFT) and preference training to align model behavior to human preferences for helpfulness and safety.\n\n### Tool use capabilities\n\nCommand R+ has been specifically trained with conversational tool use capabilities. These have been trained into the model via a mixture of supervised fine-tuning and preference fine-tuning, using a specific prompt template. Deviating from this prompt template will likely reduce performance, but we encourage experimentation.\n\nCommand R+'s tool use functionality takes a conversation as input (with an optional user-system preamble), along with a list of available tools. The model will then generate a json-formatted list of actions to execute on a subset of those tools. Command R+ may use one of its supplied tools more than once.\n\nThe model has been trained to recognise a special directly_answer tool, which it uses to indicate that it doesn't want to use any of its other tools. The ability to abstain from calling a specific tool can be useful in a range of situations, such as greeting a user, or asking clarifying questions. We recommend including the directly_answer tool, but it can be removed or renamed if required.\n\n### Grounded Generation and RAG Capabilities\n\nCommand R+ has been specifically trained with grounded generation capabilities. This means that it can generate responses based on a list of supplied document snippets, and it will include grounding spans (citations) in its response indicating the source of the information. This can be used to enable behaviors such as grounded summarization and the final step of Retrieval Augmented Generation (RAG).This behavior has been trained into the model via a mixture of supervised fine-tuning and preference fine-tuning, using a specific prompt template. Deviating from this prompt template may reduce performance, but we encourage experimentation.\n\nCommand R+'s grounded generation behavior takes a conversation as input (with an optional user-supplied system preamble, indicating task, context and desired output style), along with a list of retrieved document snippets. The document snippets should be chunks, rather than long documents, typically around 100-400 words per chunk. Document snippets consist of key-value pairs. The keys should be short descriptive strings, the values can be text or semi-structured.\n\nBy default, Command R+ will generate grounded responses by first predicting which documents are relevant, then predicting which ones it will cite, then generating an answer. Finally, it will then insert grounding spans into the answer. See below for an example. This is referred to as accurate grounded generation.\n\nThe model is trained with a number of other answering modes, which can be selected by prompt changes . A fast citation mode is supported in the tokenizer, which will directly generate an answer with grounding spans in it, without first writing the answer out in full. This sacrifices some grounding accuracy in favor of generating fewer tokens.\n\n### Code Capabilities\n\nCommand R+ has been optimized to interact with your code, by requesting code snippets, code explanations, or code rewrites. It might not perform well out-of-the-box for pure code completion. For better performance, we also recommend using a low temperature (and even greedy decoding) for code-generation related instructions.\n",
+        "id": "cohere/Cohere-command-r-08-2024",
+        "name": "Cohere Command R 08-2024",
+        "publisher": "Cohere",
+        "summary": "Command R is a scalable generative model targeting RAG and Tool Use to enable production-scale AI for enterprise.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "rag",
+          "multilingual"
+        ]
+      },
+      {
+        "id": "cohere/Cohere-command-r-plus",
+        "name": "Cohere Command R+",
+        "publisher": "Cohere",
         "summary": "Command R+ is a state-of-the-art RAG-optimized model designed to tackle enterprise-grade workloads.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "rag",
           "multilingual"
         ]
       },
       {
-        "id": "azureml://registries/azureml-cohere/models/Cohere-embed-v3-english/versions/3",
-        "name": "Cohere-embed-v3-english",
-        "friendly_name": "Cohere Embed v3 English",
-        "model_version": 3,
-        "publisher": "cohere",
-        "model_family": "cohere",
-        "model_registry": "azureml-cohere",
-        "license": "custom",
-        "task": "embeddings",
-        "description": "Cohere Embed English is the market's leading text representation model used for semantic search, retrieval-augmented generation (RAG), classification, and clustering. Embed English has top performance on the HuggingFace MTEB benchmark and performs well on a variety of industries such as Finance, Legal, and General-Purpose Corpora.The model was trained on nearly 1B English training pairs. For full details of this model, [release blog post](https://aka.ms/cohere-blog).",
+        "id": "cohere/Cohere-command-r-plus-08-2024",
+        "name": "Cohere Command R+ 08-2024",
+        "publisher": "Cohere",
+        "summary": "Command R+ is a state-of-the-art RAG-optimized model designed to tackle enterprise-grade workloads.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "rag",
+          "multilingual"
+        ]
+      },
+      {
+        "id": "cohere/Cohere-embed-v3-english",
+        "name": "Cohere Embed v3 English",
+        "publisher": "Cohere",
         "summary": "Cohere Embed English is the market's leading text representation model used for semantic search, retrieval-augmented generation (RAG), classification, and clustering.",
+        "rate_limit_tier": "embeddings",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "embeddings"
+        ],
         "tags": [
-          "RAG",
-          "search"
+          "rag"
         ]
       },
       {
-        "id": "azureml://registries/azureml-cohere/models/Cohere-embed-v3-multilingual/versions/3",
-        "name": "Cohere-embed-v3-multilingual",
-        "friendly_name": "Cohere Embed v3 Multilingual",
-        "model_version": 3,
-        "publisher": "cohere",
-        "model_family": "cohere",
-        "model_registry": "azureml-cohere",
-        "license": "custom",
-        "task": "embeddings",
-        "description": "Cohere Embed Multilingual is the market's leading text representation model used for semantic search, retrieval-augmented generation (RAG), classification, and clustering. Embed Multilingual supports 100+ languages and can be used to search within a language (e.g., search with a French query on French documents) and across languages (e.g., search with an English query on Chinese documents). This model was trained on nearly 1B English training pairs and nearly 0.5B Non-English training pairs from 100+ languages. For full details of this model, [release blog post](https://aka.ms/cohere-blog).",
-        "summary": "Supporting over 100 languages, Cohere Embed Multilingual is the market's leading text representation model used for semantic search, retrieval-augmented generation (RAG), classification, and clustering.",
+        "id": "cohere/Cohere-embed-v3-multilingual",
+        "name": "Cohere Embed v3 Multilingual",
+        "publisher": "Cohere",
+        "summary": "Cohere Embed Multilingual is the market's leading text representation model used for semantic search, retrieval-augmented generation (RAG), classification, and clustering.",
+        "rate_limit_tier": "embeddings",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "embeddings"
+        ],
         "tags": [
-          "RAG",
-          "search"
+          "rag"
         ]
       },
       {
-        "id": "azureml://registries/azureml-meta/models/Meta-Llama-3-70B-Instruct/versions/6",
-        "name": "Meta-Llama-3-70B-Instruct",
-        "friendly_name": "Meta-Llama-3-70B-Instruct",
-        "model_version": 6,
-        "publisher": "meta",
-        "model_family": "meta",
-        "model_registry": "azureml-meta",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Meta developed and released the Meta Llama 3 family of large language models (LLMs), a collection of pretrained and instruction tuned generative text models in 8 and 70B sizes. The Llama 3 instruction tuned models are optimized for dialogue use cases and outperform many of the available open source chat models on common industry benchmarks. Further, in developing these models, we took great care to optimize helpfulness and safety. \n\n## Model Architecture\n\nLlama 3 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align with human preferences for helpfulness and safety.\n\n## Training Datasets\n\n**Overview** Llama 3 was pretrained on over 15 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction datasets, as well as over 10M human-annotated examples. Neither the pretraining nor the fine-tuning datasets include Meta user data.\n\n**Data Freshness** The pretraining data has a cutoff of March 2023 for the 8B and December 2023 for the 70B models respectively. \n",
-        "summary": "A powerful 70-billion parameter model excelling in reasoning, coding, and broad language applications.",
+        "id": "core42/jais-30b-chat",
+        "name": "JAIS 30b Chat",
+        "publisher": "Core42",
+        "summary": "JAIS 30b Chat is an auto-regressive bilingual LLM for Arabic & English with state-of-the-art capabilities in Arabic.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "conversation",
+          "multilingual",
+          "rag"
+        ]
+      },
+      {
+        "id": "deepseek/DeepSeek-R1",
+        "name": "DeepSeek-R1",
+        "publisher": "DeepSeek",
+        "summary": "DeepSeek-R1 excels at reasoning tasks using a step-by-step training process, such as language, scientific reasoning, and coding tasks.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "coding",
+          "agents"
+        ]
+      },
+      {
+        "id": "deepseek/DeepSeek-V3-0324",
+        "name": "DeepSeek-V3-0324",
+        "publisher": "DeepSeek",
+        "summary": "DeepSeek-V3-0324 demonstrates notable improvements over its predecessor, DeepSeek-V3, in several key aspects, including enhanced reasoning, improved function calling, and superior code generation capabilities.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "coding",
+          "agents"
+        ]
+      },
+      {
+        "id": "meta/Llama-3.2-11B-Vision-Instruct",
+        "name": "Llama-3.2-11B-Vision-Instruct",
+        "publisher": "Meta",
+        "summary": "Excels in image reasoning capabilities on high-res images for visual understanding apps.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multimodal",
+          "reasoning",
+          "conversation"
+        ]
+      },
+      {
+        "id": "meta/Llama-3.2-90B-Vision-Instruct",
+        "name": "Llama-3.2-90B-Vision-Instruct",
+        "publisher": "Meta",
+        "summary": "Advanced image reasoning capabilities for visual understanding agentic apps.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multimodal",
+          "reasoning",
+          "conversation"
+        ]
+      },
+      {
+        "id": "meta/Llama-3.3-70B-Instruct",
+        "name": "Llama-3.3-70B-Instruct",
+        "publisher": "Meta",
+        "summary": "Llama 3.3 70B Instruct offers enhanced reasoning, math, and instruction following with performance comparable to Llama 3.1 405B.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "conversation"
         ]
       },
       {
-        "id": "azureml://registries/azureml-meta/models/Meta-Llama-3-8B-Instruct/versions/6",
-        "name": "Meta-Llama-3-8B-Instruct",
-        "friendly_name": "Meta-Llama-3-8B-Instruct",
-        "model_version": 6,
-        "publisher": "meta",
-        "model_family": "meta",
-        "model_registry": "azureml-meta",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Meta developed and released the Meta Llama 3 family of large language models (LLMs), a collection of pretrained and instruction tuned generative text models in 8 and 70B sizes. The Llama 3 instruction tuned models are optimized for dialogue use cases and outperform many of the available open source chat models on common industry benchmarks. Further, in developing these models, we took great care to optimize helpfulness and safety. \n\n## Model Architecture\n\nLlama 3 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align with human preferences for helpfulness and safety.\n\n## Training Datasets\n\n**Overview** Llama 3 was pretrained on over 15 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction datasets, as well as over 10M human-annotated examples. Neither the pretraining nor the fine-tuning datasets include Meta user data.\n\n**Data Freshness** The pretraining data has a cutoff of March 2023 for the 8B and December 2023 for the 70B models respectively. \n",
-        "summary": "A versatile 8-billion parameter model optimized for dialogue and text generation tasks.",
+        "id": "meta/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        "name": "Llama 4 Maverick 17B 128E Instruct FP8",
+        "publisher": "Meta",
+        "summary": "Llama 4 Maverick 17B 128E Instruct FP8 is great at precise image understanding and creative writing, offering high quality at a lower price compared to Llama 3.3 70B",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
-          "conversation"
+          "multimodal",
+          "conversation",
+          "multilingual"
         ]
       },
       {
-        "id": "azureml://registries/azureml-meta/models/Meta-Llama-3.1-405B-Instruct/versions/1",
+        "id": "meta/Llama-4-Scout-17B-16E-Instruct",
+        "name": "Llama 4 Scout 17B 16E Instruct",
+        "publisher": "Meta",
+        "summary": "Llama 4 Scout 17B 16E Instruct is great at multi-document summarization, parsing extensive user activity for personalized tasks, and reasoning over vast codebases.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multimodal",
+          "conversation",
+          "multilingual"
+        ]
+      },
+      {
+        "id": "meta/Meta-Llama-3.1-405B-Instruct",
         "name": "Meta-Llama-3.1-405B-Instruct",
-        "friendly_name": "Meta-Llama-3.1-405B-Instruct",
-        "model_version": 1,
-        "publisher": "meta",
-        "model_family": "meta",
-        "model_registry": "azureml-meta",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "The Meta Llama 3.1 collection of multilingual large language models (LLMs) is a collection of pretrained and instruction tuned\ngenerative models in 8B, 70B and 405B sizes (text in/text out). The Llama 3.1 instruction tuned text only models (8B, 70B, 405B) are optimized for multilingual dialogue use cases and outperform many of the available open source and closed chat models on\ncommon industry benchmarks.\n\n## Model Architecture\n\nLlama 3.1 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align with human preferences for helpfulness and safety.\n\n## Training Datasets\n\n**Overview:** Llama 3.1 was pretrained on ~15 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction datasets, as well as over 25M synthetically generated examples.\n\n**Data Freshness:** The pretraining data has a cutoff of December 2023.\n",
+        "publisher": "Meta",
         "summary": "The Llama 3.1 instruction tuned text only models are optimized for multilingual dialogue use cases and outperform many of the available open source and closed chat models on common industry benchmarks.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "conversation"
         ]
       },
       {
-        "id": "azureml://registries/azureml-meta/models/Meta-Llama-3.1-70B-Instruct/versions/1",
+        "id": "meta/Meta-Llama-3.1-70B-Instruct",
         "name": "Meta-Llama-3.1-70B-Instruct",
-        "friendly_name": "Meta-Llama-3.1-70B-Instruct",
-        "model_version": 1,
-        "publisher": "meta",
-        "model_family": "meta",
-        "model_registry": "azureml-meta",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "The Meta Llama 3.1 collection of multilingual large language models (LLMs) is a collection of pretrained and instruction tuned\ngenerative models in 8B, 70B and 405B sizes (text in/text out). The Llama 3.1 instruction tuned text only models (8B, 70B, 405B) are optimized for multilingual dialogue use cases and outperform many of the available open source and closed chat models on\ncommon industry benchmarks.\n\n## Model Architecture\n\nLlama 3.1 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align with human preferences for helpfulness and safety.\n\n## Training Datasets\n\n**Overview:** Llama 3.1 was pretrained on ~15 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction datasets, as well as over 25M synthetically generated examples.\n\n**Data Freshness:** The pretraining data has a cutoff of December 2023.\n",
+        "publisher": "Meta",
         "summary": "The Llama 3.1 instruction tuned text only models are optimized for multilingual dialogue use cases and outperform many of the available open source and closed chat models on common industry benchmarks.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "conversation"
         ]
       },
       {
-        "id": "azureml://registries/azureml-meta/models/Meta-Llama-3.1-8B-Instruct/versions/1",
+        "id": "meta/Meta-Llama-3.1-8B-Instruct",
         "name": "Meta-Llama-3.1-8B-Instruct",
-        "friendly_name": "Meta-Llama-3.1-8B-Instruct",
-        "model_version": 1,
-        "publisher": "meta",
-        "model_family": "meta",
-        "model_registry": "azureml-meta",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "The Meta Llama 3.1 collection of multilingual large language models (LLMs) is a collection of pretrained and instruction tuned\ngenerative models in 8B, 70B and 405B sizes (text in/text out). The Llama 3.1 instruction tuned text only models (8B, 70B, 405B) are optimized for multilingual dialogue use cases and outperform many of the available open source and closed chat models on\ncommon industry benchmarks.\n\n## Model Architecture\n\nLlama 3.1 is an auto-regressive language model that uses an optimized transformer architecture. The tuned versions use supervised fine-tuning (SFT) and reinforcement learning with human feedback (RLHF) to align with human preferences for helpfulness and safety.\n\n## Training Datasets\n\n**Overview:** Llama 3.1 was pretrained on ~15 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction datasets, as well as over 25M synthetically generated examples.\n\n**Data Freshness:** The pretraining data has a cutoff of December 2023.\n",
+        "publisher": "Meta",
         "summary": "The Llama 3.1 instruction tuned text only models are optimized for multilingual dialogue use cases and outperform many of the available open source and closed chat models on common industry benchmarks.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "conversation"
         ]
       },
       {
-        "id": "azureml://registries/azureml-mistral/models/Mistral-large-2407/versions/1",
-        "name": "Mistral-large-2407",
-        "friendly_name": "Mistral Large (2407)",
-        "model_version": 1,
-        "publisher": "mistralai",
-        "model_family": "mistralai",
-        "model_registry": "azureml-mistral",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Mistral Large (2407) is an advanced Large Language Model (LLM) with state-of-the-art reasoning, knowledge and coding capabilities.\n\n**Multi-lingual by design.** Dozens of languages supported, including English, French, German, Spanish, Italian, Chinese, Japanese, Korean, Portuguese, Dutch and Polish\n\n**Proficient in coding.** Trained on 80+ coding languages such as Python, Java, C, C++, JavaScript, and Bash. Also trained on more specific languages such as Swift and Fortran\n\n**Agent-centric.** Best-in-class agentic capabilities with native function calling and JSON outputting \n\n**Advanced Reasoning.** State-of-the-art mathematical and reasoning capabilities\n",
-        "summary": "Mistral Large (2407) is an advanced Large Language Model (LLM) with state-of-the-art reasoning, knowledge and coding capabilities.",
+        "id": "meta/Meta-Llama-3-70B-Instruct",
+        "name": "Meta-Llama-3-70B-Instruct",
+        "publisher": "Meta",
+        "summary": "A powerful 70-billion parameter model excelling in reasoning, coding, and broad language applications.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
-          "reasoning",
-          "rag",
-          "agents"
+          "conversation"
         ]
       },
       {
-        "id": "azureml://registries/azureml-mistral/models/Mistral-Nemo/versions/1",
-        "name": "Mistral-Nemo",
-        "friendly_name": "Mistral Nemo",
-        "model_version": 1,
-        "publisher": "mistralai",
-        "model_family": "mistralai",
-        "model_registry": "azureml-mistral",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Mistral Nemo is a cutting-edge Language Model (LLM) boasting state-of-the-art reasoning, world knowledge, and coding capabilities within its size category.\n\n**Jointly developed with Nvidia.** This collaboration has resulted in a powerful 12B model that pushes the boundaries of language understanding and generation.\n\n**Multilingual proficiency.** Mistral Nemo is equipped with a new tokenizer, Tekken, designed for multilingual applications. It supports over 100 languages, including but not limited to English, French, German, Spanish, Italian, Chinese, Japanese, Korean, Portuguese, Dutch, Polish, and many more. Tekken has proven to be more efficient than the Llama 3 tokenizer in compressing text for approximately 85% of all languages, with significant improvements in Malayalam, Hindi, Arabic, and prevalent European languages.\n\n**Agent-centric.** Mistral Nemo possesses top-tier agentic capabilities, including native function calling and JSON outputting.\n\n**Advanced Reasoning.** Mistral Nemo demonstrates state-of-the-art mathematical and reasoning capabilities within its size category.\n",
-        "summary": "Mistral Nemo is a cutting-edge Language Model (LLM) boasting state-of-the-art reasoning, world knowledge, and coding capabilities within its size category.",
+        "id": "meta/Meta-Llama-3-8B-Instruct",
+        "name": "Meta-Llama-3-8B-Instruct",
+        "publisher": "Meta",
+        "summary": "A versatile 8-billion parameter model optimized for dialogue and text generation tasks.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
-          "reasoning",
-          "rag",
-          "agents"
+          "conversation"
         ]
       },
       {
-        "id": "azureml://registries/azureml-mistral/models/Mistral-small/versions/1",
-        "name": "Mistral-small",
-        "friendly_name": "Mistral Small",
-        "model_version": 1,
-        "publisher": "mistralai",
-        "model_family": "mistralai",
-        "model_registry": "azureml-mistral",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "Mistral Small is Mistral AI's most efficient Large Language Model (LLM). It can be used on any language-based task that requires high efficiency and low latency.\n\nMistral Small is:\n\n- **A small model optimized for low latency.** Very efficient for high volume and low latency workloads. Mistral Small is Mistral's smallest proprietary model, it outperforms Mixtral 8x7B and has lower latency. \n- **Specialized in RAG.** Crucial information is not lost in the middle of long context windows (up to 32K tokens).\n- **Strong in coding.** Code generation, review and comments. Supports all mainstream coding languages.\n- **Multi-lingual by design.** Best-in-class performance in French, German, Spanish, and Italian - in addition to English. Dozens of other languages are supported.\n- **Responsible AI.** Efficient guardrails baked in the model, with additional safety layer with safe_mode option\n\n## Resources\n\nFor full details of this model, please read [release blog post](https://aka.ms/mistral-blog).\n",
-        "summary": "Mistral Small can be used on any language-based task that requires high efficiency and low latency.",
+        "id": "mistral-ai/Codestral-2501",
+        "name": "Codestral 25.01",
+        "publisher": "Mistral AI",
+        "summary": "Codestral 25.01 by Mistral AI is designed for code generation, supporting 80+ programming languages, and optimized for tasks like code completion and fill-in-the-middle",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "coding"
+        ]
+      },
+      {
+        "id": "mistral-ai/Ministral-3B",
+        "name": "Ministral 3B",
+        "publisher": "Mistral AI",
+        "summary": "Ministral 3B is a state-of-the-art Small Language Model (SLM) optimized for edge computing and on-device applications. As it is designed for low-latency and compute-efficient inference, it it also the perfect model for standard GenAI applications that have",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "low latency",
+          "agents",
+          "reasoning"
+        ]
+      },
+      {
+        "id": "mistral-ai/Mistral-Large-2411",
+        "name": "Mistral Large 24.11",
+        "publisher": "Mistral AI",
+        "summary": "Mistral Large 24.11 offers enhanced system prompts, advanced reasoning and function calling capabilities.",
+        "rate_limit_tier": "high",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "rag",
+          "agents"
+        ]
+      },
+      {
+        "id": "mistral-ai/mistral-medium-2505",
+        "name": "Mistral Medium 3 (25.05)",
+        "publisher": "Mistral AI",
+        "summary": "Mistral Medium 3 is an advanced Large Language Model (LLM) with state-of-the-art reasoning, knowledge, coding and vision capabilities.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "vision",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "mistral-ai/Mistral-Nemo",
+        "name": "Mistral Nemo",
+        "publisher": "Mistral AI",
+        "summary": "Mistral Nemo is a cutting-edge Language Model (LLM) boasting state-of-the-art reasoning, world knowledge, and coding capabilities within its size category.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "rag",
+          "agents"
+        ]
+      },
+      {
+        "id": "mistral-ai/mistral-small-2503",
+        "name": "Mistral Small 3.1",
+        "publisher": "Mistral AI",
+        "summary": "Enhanced Mistral Small 3 with multimodal capabilities and a 128k context length.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "multipurpose",
+          "vision",
+          "multimodal"
+        ]
+      },
+      {
+        "id": "xai/grok-3",
+        "name": "Grok 3",
+        "publisher": "xAI",
+        "summary": "Grok 3 is xAI's debut model, pretrained by Colossus at supermassive scale to excel in specialized domains like finance, healthcare, and the law.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "understanding",
+          "instruction",
+          "summarization"
+        ]
+      },
+      {
+        "id": "xai/grok-3-mini",
+        "name": "Grok 3 Mini",
+        "publisher": "xAI",
+        "summary": "Grok 3 Mini is a lightweight model that thinks before responding. Trained on mathematic and scientific problems, it is great for logic-based tasks.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "agents",
+          "reasoning",
+          "coding"
+        ]
+      },
+      {
+        "id": "microsoft/MAI-DS-R1",
+        "name": "MAI-DS-R1",
+        "publisher": "Microsoft",
+        "summary": "MAI-DS-R1 is a DeepSeek-R1 reasoning model that has been post-trained by the Microsoft AI team to fill in information gaps in the previous version of the model and improve its harm protections while maintaining R1 reasoning capabilities.",
+        "rate_limit_tier": "custom",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "coding",
+          "agents"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3.5-mini-instruct",
+        "name": "Phi-3.5-mini instruct (128k)",
+        "publisher": "Microsoft",
+        "summary": "Refresh of Phi-3-mini model.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "low latency"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3.5-MoE-instruct",
+        "name": "Phi-3.5-MoE instruct (128k)",
+        "publisher": "Microsoft",
+        "summary": "A new mixture of experts model",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "low latency"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3.5-vision-instruct",
+        "name": "Phi-3.5-vision instruct (128k)",
+        "publisher": "Microsoft",
+        "summary": "Refresh of Phi-3-vision model.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text",
+          "image"
+        ],
+        "supported_output_modalities": [],
+        "tags": [
+          "multimodal",
+          "reasoning",
+          "low latency"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3-medium-128k-instruct",
+        "name": "Phi-3-medium instruct (128k)",
+        "publisher": "Microsoft",
+        "summary": "Same Phi-3-medium model, but with a larger context size for RAG or few shot prompting.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "large context"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3-medium-4k-instruct",
+        "name": "Phi-3-medium instruct (4k)",
+        "publisher": "Microsoft",
+        "summary": "A 14B parameters model, proves better quality than Phi-3-mini, with a focus on high-quality, reasoning-dense data.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3-mini-128k-instruct",
+        "name": "Phi-3-mini instruct (128k)",
+        "publisher": "Microsoft",
+        "summary": "Same Phi-3-mini model, but with a larger context size for RAG or few shot prompting.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "low latency"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3-mini-4k-instruct",
+        "name": "Phi-3-mini instruct (4k)",
+        "publisher": "Microsoft",
+        "summary": "Tiniest member of the Phi-3 family. Optimized for both quality and low latency.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "low latency"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3-small-128k-instruct",
+        "name": "Phi-3-small instruct (128k)",
+        "publisher": "Microsoft",
+        "summary": "Same Phi-3-small model, but with a larger context size for RAG or few shot prompting.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "large context"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-3-small-8k-instruct",
+        "name": "Phi-3-small instruct (8k)",
+        "publisher": "Microsoft",
+        "summary": "A 7B parameters model, proves better quality than Phi-3-mini, with a focus on high-quality, reasoning-dense data.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-4",
+        "name": "Phi-4",
+        "publisher": "Microsoft",
+        "summary": "Phi-4 14B, a highly capable model for low latency scenarios.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "understanding",
+          "low latency"
+        ]
+      },
+      {
+        "id": "microsoft/Phi-4-mini-instruct",
+        "name": "Phi-4-mini-instruct",
+        "publisher": "Microsoft",
+        "summary": "3.8B parameters Small Language Model outperforming larger models in reasoning, math, coding, and function-calling",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
+        "tags": [
+          "reasoning",
+          "agents",
           "multilingual"
         ]
       },
       {
-        "id": "azureml://registries/azure-openai/models/gpt-4o/versions/2",
-        "name": "gpt-4o",
-        "friendly_name": "OpenAI GPT-4o",
-        "model_version": 2,
-        "publisher": "Azure OpenAI Service",
-        "model_family": "openai",
-        "model_registry": "azure-openai",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "GPT-4o offers a shift in how AI models interact with multimodal inputs. By seamlessly combining text, images, and audio, GPT-4o provides a richer, more engaging user experience.\n\nMatching the intelligence of GPT-4 Turbo, it is remarkably more efficient, delivering text at twice the speed and at half the cost. Additionally, GPT-4o exhibits the highest vision performance and excels in non-English languages compared to previous OpenAI models.\n\nGPT-4o is engineered for speed and efficiency. Its advanced ability to handle complex queries with minimal resources can translate into cost savings and performance.\n\nThe introduction of GPT-4o opens numerous possibilities for businesses in various sectors: \n\n1. **Enhanced customer service**: By integrating diverse data inputs, GPT-4o enables more dynamic and comprehensive customer support interactions.\n2. **Advanced analytics**: Leverage GPT-4o's capability to process and analyze different types of data to enhance decision-making and uncover deeper insights.\n3. **Content innovation**: Use GPT-4o's generative capabilities to create engaging and diverse content formats, catering to a broad range of consumer preferences.\n\n## Resources\n\n- [\"Hello GPT-4o\" (OpenAI announcement)](https://openai.com/index/hello-gpt-4o/)\n- [Introducing GPT-4o: OpenAI's new flagship multimodal model now in preview on Azure](https://azure.microsoft.com/en-us/blog/introducing-gpt-4o-openais-new-flagship-multimodal-model-now-in-preview-on-azure/)\n",
-        "summary": "OpenAI's most advanced multimodal model in the GPT-4 family. Can handle both text and image inputs.",
-        "tags": [
-          "multipurpose",
-          "multilingual",
-          "multimodal"
-        ]
-      },
-      {
-        "id": "azureml://registries/azure-openai/models/gpt-4o-mini/versions/1",
-        "name": "gpt-4o-mini",
-        "friendly_name": "OpenAI GPT-4o mini",
-        "model_version": 1,
-        "publisher": "Azure OpenAI Service",
-        "model_family": "OpenAI",
-        "model_registry": "azure-openai",
-        "license": "custom",
-        "task": "chat-completion",
-        "description": "GPT-4o mini enables a broad range of tasks with its low cost and latency, such as applications that chain or parallelize multiple model calls (e.g., calling multiple APIs), pass a large volume of context to the model (e.g., full code base or conversation history), or interact with customers through fast, real-time text responses (e.g., customer support chatbots).\n\nToday, GPT-4o mini supports text and vision in the API, with support for text, image, video and audio inputs and outputs coming in the future. The model has a context window of 128K tokens and knowledge up to October 2023. Thanks to the improved tokenizer shared with GPT-4o, handling non-English text is now even more cost effective.\n\nGPT-4o mini surpasses GPT-3.5 Turbo and other small models on academic benchmarks across both textual intelligence and multimodal reasoning, and supports the same range of languages as GPT-4o. It also demonstrates strong performance in function calling, which can enable developers to build applications that fetch data or take actions with external systems, and improved long-context performance compared to GPT-3.5 Turbo.\n\n## Resources\n\n- [OpenAI announcement](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/)\n",
-        "summary": "An affordable, efficient AI solution for diverse text and image tasks.",
-        "tags": [
-          "multipurpose",
-          "multilingual",
-          "multimodal"
-        ]
-      },
-      {
-        "id": "azureml://registries/azure-openai/models/text-embedding-3-large/versions/1",
-        "name": "text-embedding-3-large",
-        "friendly_name": "OpenAI Text Embedding 3 (large)",
-        "model_version": 1,
-        "publisher": "Azure OpenAI Service",
-        "model_family": "openai",
-        "model_registry": "azure-openai",
-        "license": "custom",
-        "task": "embeddings",
-        "description": "Text-embedding-3 series models are the latest and most capable embedding model. The text-embedding-3 models offer better average multi-language retrieval performance with the MIRACL benchmark while still maintaining performance for English tasks with the MTEB benchmark.",
-        "summary": "Text-embedding-3 series models are the latest and most capable embedding model from OpenAI.",
-        "tags": [
-          "RAG",
-          "search"
-        ]
-      },
-      {
-        "id": "azureml://registries/azure-openai/models/text-embedding-3-small/versions/1",
-        "name": "text-embedding-3-small",
-        "friendly_name": "OpenAI Text Embedding 3 (small)",
-        "model_version": 1,
-        "publisher": "Azure OpenAI Service",
-        "model_family": "openai",
-        "model_registry": "azure-openai",
-        "license": "custom",
-        "task": "embeddings",
-        "description": "Text-embedding-3 series models are the latest and most capable embedding model. The text-embedding-3 models offer better average multi-language retrieval performance with the MIRACL benchmark while still maintaining performance for English tasks with the MTEB benchmark.",
-        "summary": "Text-embedding-3 series models are the latest and most capable embedding model from OpenAI.",
-        "tags": [
-          "RAG",
-          "search"
-        ]
-      },
-      {
-        "id": "azureml://registries/azureml/models/Phi-3-medium-128k-instruct/versions/3",
-        "name": "Phi-3-medium-128k-instruct",
-        "friendly_name": "Phi-3-medium instruct (128k)",
-        "model_version": 3,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "The Phi-3-Medium-128K-Instruct is a 14B parameters, lightweight, state-of-the-art open model trained with the Phi-3 datasets that includes both synthetic data and the filtered publicly available websites data with a focus on high-quality and reasoning dense properties.\nThe model belongs to the Phi-3 family with the Medium version in two variants 4k and 128K which is the context length (in tokens) that it can support.\n\nThe model underwent a post-training process that incorporates both supervised fine-tuning and direct preference optimization for the instruction following and safety measures.\nWhen assessed against benchmarks testing common sense, language understanding, math, code, long context and logical reasoning, Phi-3-Medium-128K-Instruct showcased a robust and state-of-the-art performance among models of the same-size and next-size-up.\n\n## Resources\n\n🏡 [Phi-3 Portal](https://azure.microsoft.com/en-us/products/phi-3) <br>\n📰 [Phi-3 Microsoft Blog](https://aka.ms/Phi-3Build2024) <br>\n📖 [Phi-3 Technical Report](https://aka.ms/phi3-tech-report) <br>\n🛠️ [Phi-3 on Azure AI Studio](https://aka.ms/phi3-azure-ai) <br>\n👩‍🍳 [Phi-3 Cookbook](https://github.com/microsoft/Phi-3CookBook) <br>\n\n## Model Architecture\n\nPhi-3-Medium-128k-Instruct has 14B parameters and is a dense decoder-only Transformer model. The model is fine-tuned with Supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) to ensure alignment with human preferences and safety guidelines.\n\n## Training Datasets\n\nOur training data includes a wide variety of sources, totaling 4.8 trillion tokens (including 10% multilingual), and is a combination of \n1) Publicly available documents filtered rigorously for quality, selected high-quality educational data, and code; \n2) Newly created synthetic, \"textbook - like\" data for the purpose of teaching math, coding, common sense reasoning, general knowledge of the world (science, daily activities, theory of mind, etc.); \n3) High quality chat format supervised data covering various topics to reflect human preferences on different aspects such as instruct-following, truthfulness, honesty and helpfulness.\n\nWe are focusing on the quality of data that could potentially improve the reasoning ability for the model, and we filter the publicly available documents to contain the correct level of knowledge. As an example, the result of a game in premier league in a particular day might be good training data for frontier models, but we need to remove such information to leave more model capacity for reasoning for the small size models. More details about data can be found in the [Phi-3 Technical Report](https://aka.ms/phi3-tech-report).\n",
-        "summary": "Same model as Phi-3-medium (4k) but with larger context size. Use this for RAG or few shot prompting.",
+        "id": "microsoft/Phi-4-mini-reasoning",
+        "name": "Phi-4-mini-reasoning",
+        "publisher": "Microsoft",
+        "summary": "Lightweight math reasoning model optimized for multi-step problem solving",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "reasoning",
-          "understanding",
-          "large context"
+          " large context",
+          " low latency"
         ]
       },
       {
-        "id": "azureml://registries/azureml/models/Phi-3-medium-4k-instruct/versions/3",
-        "name": "Phi-3-medium-4k-instruct",
-        "friendly_name": "Phi-3-medium instruct (4k)",
-        "model_version": 3,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "The Phi-3-Medium-4K-Instruct is a 14B parameters, lightweight, state-of-the-art open model trained with the Phi-3 datasets that includes both synthetic data and the filtered publicly available websites data with a focus on high-quality and reasoning dense properties.\nThe model belongs to the Phi-3 family with the Medium version in two variants 4K and 128K which is the context length (in tokens) that it can support.\n\nThe model underwent a post-training process that incorporates both supervised fine-tuning and direct preference optimization for the instruction following and safety measures.\nWhen assessed against benchmarks testing common sense, language understanding, math, code, long context and logical reasoning, Phi-3-Medium-4K-Instruct showcased a robust and state-of-the-art performance among models of the same-size and next-size-up.\n\n## Resources\n\n🏡 [Phi-3 Portal](https://azure.microsoft.com/en-us/products/phi-3) <br>\n📰 [Phi-3 Microsoft Blog](https://aka.ms/Phi-3Build2024) <br>\n📖 [Phi-3 Technical Report](https://aka.ms/phi3-tech-report) <br>\n🛠️ [Phi-3 on Azure AI Studio](https://aka.ms/phi3-azure-ai) <br>\n👩‍🍳 [Phi-3 Cookbook](https://github.com/microsoft/Phi-3CookBook) <br>\n\n## Model Architecture\n\nPhi-3-Medium-4K-Instruct has 14B parameters and is a dense decoder-only Transformer model. The model is fine-tuned with Supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) to ensure alignment with human preferences and safety guidelines.\n\n## Training Datasets\n\nOur training data includes a wide variety of sources, totaling 4.8 trillion tokens (including 10% multilingual), and is a combination of \n1) Publicly available documents filtered rigorously for quality, selected high-quality educational data, and code; \n2) Newly created synthetic, \"textbook-like\" data for the purpose of teaching math, coding, common sense reasoning, general knowledge of the world (science, daily activities, theory of mind, etc.); \n3) High quality chat format supervised data covering various topics to reflect human preferences on different aspects such as instruct-following, truthfulness, honesty and helpfulness.\n\nWe are focusing on the quality of data that could potentially improve the reasoning ability for the model, and we filter the publicly available documents to contain the correct level of knowledge. As an example, the result of a game in premier league in a particular day might be good training data for frontier models, but we need to remove such information to leave more model capacity for reasoning for the small size models. More details about data can be found in the [Phi-3 Technical Report](https://aka.ms/phi3-tech-report).\n",
-        "summary": "A 14B parameter model. Use this larger model for better quality than Phi-3-mini, and with reasoning-dense data.",
+        "id": "microsoft/Phi-4-multimodal-instruct",
+        "name": "Phi-4-multimodal-instruct",
+        "publisher": "Microsoft",
+        "summary": "First small multimodal model to have 3 modality inputs (text, audio, image), excelling in quality and efficiency",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "audio",
+          "image",
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
-          "reasoning",
-          "understanding"
+          "vision",
+          " audio",
+          " summarization"
         ]
       },
       {
-        "id": "azureml://registries/azureml/models/Phi-3-mini-128k-instruct/versions/10",
-        "name": "Phi-3-mini-128k-instruct",
-        "friendly_name": "Phi-3-mini instruct (128k)",
-        "model_version": 10,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "The Phi-3-Mini-128K-Instruct is a 3.8 billion-parameter, lightweight, state-of-the-art open model trained using the Phi-3 datasets.\nThis dataset includes both synthetic data and filtered publicly available website data, with an emphasis on high-quality and reasoning-dense properties.\n\nAfter initial training, the model underwent a post-training process that involved supervised fine-tuning and direct preference optimization to enhance its ability to follow instructions and adhere to safety measures.\nWhen evaluated against benchmarks that test common sense, language understanding, mathematics, coding, long-term context, and logical reasoning, the Phi-3 Mini-128K-Instruct demonstrated robust and state-of-the-art performance among models with fewer than 13 billion parameters.\n\n## Resources\n\n🏡 [Phi-3 Portal](https://azure.microsoft.com/en-us/products/phi-3) <br>\n📰 [Phi-3 Microsoft Blog](https://aka.ms/Phi-3Build2024) <br>\n📖 [Phi-3 Technical Report](https://aka.ms/phi3-tech-report) <br>\n🛠️ [Phi-3 on Azure AI Studio](https://aka.ms/phi3-azure-ai) <br>\n👩‍🍳 [Phi-3 Cookbook](https://github.com/microsoft/Phi-3CookBook) <br>\n\n## Model Architecture\n\nPhi-3 Mini-128K-Instruct has 3.8B parameters and is a dense decoder-only Transformer model. The model is fine-tuned with Supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) to ensure alignment with human preferences and safety guidelines.\n\n## Training Datasets\n\nOur training data includes a wide variety of sources, totaling 4.9 trillion tokens, and is a combination of \n1) Publicly available documents filtered rigorously for quality, selected high-quality educational data, and code; \n2) Newly created synthetic, \"textbook - like\" data for the purpose of teaching math, coding, common sense reasoning, general knowledge of the world (science, daily activities, theory of mind, etc.); \n3) High quality chat format supervised data covering various topics to reflect human preferences on different aspects such as instruct-following, truthfulness, honesty and helpfulness.\n\nWe are focusing on the quality of data that could potentially improve the reasoning ability for the model, and we filter the publicly available documents to contain the correct level of knowledge. As an example, the result of a game in premier league in a particular day might be good training data for frontier models, but we need to remove such information to leave more model capacity for reasoning for the small size models. More details about data can be found in the [Phi-3 Technical Report](https://aka.ms/phi3-tech-report).\n",
-        "summary": "Same model as Phi-3-mini (4k) but with larger context size. Use this for RAG or few shot prompting.",
+        "id": "microsoft/Phi-4-reasoning",
+        "name": "Phi-4-Reasoning",
+        "publisher": "Microsoft",
+        "summary": "State-of-the-art open-weight reasoning model.",
+        "rate_limit_tier": "low",
+        "supported_input_modalities": [
+          "text"
+        ],
+        "supported_output_modalities": [
+          "text"
+        ],
         "tags": [
           "reasoning",
-          "understanding",
-          "low latency"
-        ]
-      },
-      {
-        "id": "azureml://registries/azureml/models/Phi-3-mini-4k-instruct/versions/10",
-        "name": "Phi-3-mini-4k-instruct",
-        "friendly_name": "Phi-3-mini instruct (4k)",
-        "model_version": 10,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "The Phi-3-Mini-4K-Instruct is a 3.8B parameters, lightweight, state-of-the-art open model trained with the Phi-3 datasets that includes both synthetic data and the filtered publicly available websites data with a focus on high-quality and reasoning dense properties.\nThe model belongs to the Phi-3 family with the Mini version in two variants 4K and 128K which is the context length (in tokens) that it can support.\n\nThe model underwent a post-training process that incorporates both supervised fine-tuning and direct preference optimization for the instruction following and safety measures.\nWhen assessed against benchmarks testing common sense, language understanding, math, code, long context and logical reasoning, Phi-3 Mini-4K-Instruct showcased a robust and state-of-the-art performance among models with less than 13 billion parameters.\n\n## Resources\n\n🏡 [Phi-3 Portal](https://azure.microsoft.com/en-us/products/phi-3) <br>\n📰 [Phi-3 Microsoft Blog](https://aka.ms/Phi-3Build2024) <br>\n📖 [Phi-3 Technical Report](https://aka.ms/phi3-tech-report) <br>\n🛠️ [Phi-3 on Azure AI Studio](https://aka.ms/phi3-azure-ai) <br>\n👩‍🍳 [Phi-3 Cookbook](https://github.com/microsoft/Phi-3CookBook) <br>\n\n## Model Architecture\n\nPhi-3 Mini-4K-Instruct has 3.8B parameters and is a dense decoder-only Transformer model. The model is fine-tuned with Supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) to ensure alignment with human preferences and safety guidelines.\n\n## Training Datasets\n\nOur training data includes a wide variety of sources, totaling 4.9 trillion tokens, and is a combination of \n1) Publicly available documents filtered rigorously for quality, selected high-quality educational data, and code; \n2) Newly created synthetic, \"textbook - like\" data for the purpose of teaching math, coding, common sense reasoning, general knowledge of the world (science, daily activities, theory of mind, etc.); \n3) High quality chat format supervised data covering various topics to reflect human preferences on different aspects such as instruct-following, truthfulness, honesty and helpfulness.\n\nWe are focusing on the quality of data that could potentially improve the reasoning ability for the model, and we filter the publicly available documents to contain the correct level of knowledge. As an example, the result of a game in premier league in a particular day might be good training data for frontier models, but we need to remove such information to leave more model capacity for reasoning for the small size models. More details about data can be found in the [Phi-3 Technical Report](https://aka.ms/phi3-tech-report).\n",
-        "summary": "Tiniest Phi-3 model. Optimized for both quality and low latency.",
-        "tags": [
-          "reasoning",
-          "understanding",
-          "low latency"
-        ]
-      },
-      {
-        "id": "azureml://registries/azureml/models/Phi-3-small-128k-instruct/versions/3",
-        "name": "Phi-3-small-128k-instruct",
-        "friendly_name": "Phi-3-small instruct (128k)",
-        "model_version": 3,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "The Phi-3-Small-128K-Instruct is a 7B parameters, lightweight, state-of-the-art open model trained with the Phi-3 datasets that includes both synthetic data and the filtered publicly available websites data with a focus on high-quality and reasoning dense properties. The model supports 128K context length (in tokens).\n\nThe model underwent a post-training process that incorporates both supervised fine-tuning and direct preference optimization for the instruction following and safety measures.\nWhen assessed against benchmarks testing common sense, language understanding, math, code, long context and logical reasoning, Phi-3-Small-128K-Instruct showcased a robust and state-of-the-art performance among models of the same-size and next-size-up.\n\n## Resources\n\n+ [Phi-3 Microsoft Blog](https://aka.ms/phi3blog-april)\n+ [Phi-3 Technical Report](https://aka.ms/phi3-tech-report)\n\n## Model Architecture\n\nPhi-3 Small-128K-Instruct has 7B parameters and is a dense decoder-only Transformer model. The model is fine-tuned with Supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) to ensure alignment with human preferences and safety guidelines.\n\n## Training Datasets\n\nOur training data includes a wide variety of sources, totaling 4.8 trillion tokens (including 10% multilingual), and is a combination of \n1) Publicly available documents filtered rigorously for quality, selected high-quality educational data, and code; \n2) Newly created synthetic, “textbook-like” data for the purpose of teaching math, coding, common sense reasoning, general knowledge of the world (science, daily activities, theory of mind, etc.); \n3) High quality chat format supervised data covering various topics to reflect human preferences on different aspects such as instruct-following, truthfulness, honesty and helpfulness.\n\nWe are focusing on the quality of data that could potentially improve the reasoning ability for the model, and we filter the publicly available documents to contain the correct level of knowledge. As an example, the result of a game in premier league in a particular day might be good training data for frontier models, but we need to remove such information to leave more model capacity for reasoning for the small size models. More details about data can be found in the [Phi-3 Technical Report](https://aka.ms/phi3-tech-report).",
-        "summary": "Same Phi-3-small model, but with a larger context size for RAG or few shot prompting.",
-        "tags": [
-          "reasoning",
-          "understanding",
-          "large context"
-        ]
-      },
-      {
-        "id": "azureml://registries/azureml/models/Phi-3-small-8k-instruct/versions/3",
-        "name": "Phi-3-small-8k-instruct",
-        "friendly_name": "Phi-3-small instruct (8k)",
-        "model_version": 3,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "The Phi-3-Small-8K-Instruct is a 7B parameters, lightweight, state-of-the-art open model trained with the Phi-3 datasets that includes both synthetic data and the filtered publicly available websites data with a focus on high-quality and reasoning dense properties. The model supports 8K context length (in tokens).\n\nThe model underwent a post-training process that incorporates both supervised fine-tuning and direct preference optimization for the instruction following and safety measures.\nWhen assessed against benchmarks testing common sense, language understanding, math, code, long context and logical reasoning, Phi-3-Small-8K-Instruct showcased a robust and state-of-the-art performance among models of the same-size and next-size-up.\n\n## Resources\n\n🏡 [Phi-3 Portal](https://azure.microsoft.com/en-us/products/phi-3) <br>\n📰 [Phi-3 Microsoft Blog](https://aka.ms/Phi-3Build2024) <br>\n📖 [Phi-3 Technical Report](https://aka.ms/phi3-tech-report) <br>\n🛠️ [Phi-3 on Azure AI Studio](https://aka.ms/phi3-azure-ai) <br>\n👩‍🍳 [Phi-3 Cookbook](https://github.com/microsoft/Phi-3CookBook) <br>\n\n## Model Architecture\n\nPhi-3 Small-8K-Instruct has 7B parameters and is a dense decoder-only Transformer model. The model is fine-tuned with Supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) to ensure alignment with human preferences and safety guidelines.\n\n## Training Datasets\n\nOur training data includes a wide variety of sources, totaling 4.8 trillion tokens (including 10% multilingual), and is a combination of \n1) Publicly available documents filtered rigorously for quality, selected high-quality educational data, and code; \n2) Newly created synthetic, “textbook-like” data for the purpose of teaching math, coding, common sense reasoning, general knowledge of the world (science, daily activities, theory of mind, etc.); \n3) High quality chat format supervised data covering various topics to reflect human preferences on different aspects such as instruct-following, truthfulness, honesty and helpfulness.\n\nWe are focusing on the quality of data that could potentially improve the reasoning ability for the model, and we filter the publicly available documents to contain the correct level of knowledge. As an example, the result of a game in premier league in a particular day might be good training data for frontier models, but we need to remove such information to leave more model capacity for reasoning for the small size models. More details about data can be found in the [Phi-3 Technical Report](https://aka.ms/phi3-tech-report).",
-        "summary": "A 7B parameters model. Use this larger model for better quality than Phi-3-mini, and with reasoning-dense data.",
-        "tags": [
-          "reasoning",
-          "understanding"
-        ]
-      },
-      {
-        "id": "azureml://registries/azureml/models/Phi-3.5-mini-instruct/versions/2",
-        "name": "Phi-3.5-mini-instruct",
-        "friendly_name": "Phi-3.5-mini instruct (128k)",
-        "model_version": 2,
-        "publisher": "microsoft",
-        "model_family": "microsoft",
-        "model_registry": "azureml",
-        "license": "mit",
-        "task": "chat-completion",
-        "description": "Phi-3.5-mini is a lightweight, state-of-the-art open model built upon datasets used for Phi-3 - synthetic data and filtered publicly available websites - with a focus on very high-quality, reasoning dense data. The model belongs to the Phi-3 model family and supports 128K token context length. The model underwent a rigorous enhancement process, incorporating both supervised fine-tuning, proximal policy optimization, and direct preference optimization to ensure precise instruction adherence and robust safety measures.\n\n### Resources\n🏡 [Phi-3 Portal](https://azure.microsoft.com/en-us/products/phi-3) <br>\n📰 [Phi-3 Microsoft Blog](https://aka.ms/phi3.5-techblog) <br>\n📖 [Phi-3 Technical Report](https://arxiv.org/abs/2404.14219) <br>\n👩‍🍳 [Phi-3 Cookbook](https://github.com/microsoft/Phi-3CookBook) <br>\n\n### Model Architecture\nPhi-3.5-mini has 3.8B parameters and is a dense decoder-only Transformer model using the same tokenizer as Phi-3 Mini. It is a text-only model best suited for prompts using chat format.\n\n### Training Data\nPhi-3.5-mini is a static model trained on an offline dataset with 3.4T tokens and a cutoff date October 2023 for publicly available data. Future versions of the tuned models may be released as we improve models.\n",
-        "summary": "Refresh of Phi-3-mini model",
-        "tags": [
-          "reasoning",
-          "understanding",
-          "low latency"
+          " large context",
+          " low latency"
         ]
       }
     ],
     "endpoints": {
       "models": {
-        "url": "https://models.inference.ai.azure.com/models",
+        "url": "https://models.github.ai/catalog/models",
         "status": 200,
         "accessible": true
       },
@@ -5512,13 +6134,13 @@
   },
   {
     "provider": "huggingface",
-    "timestamp": "2025-05-30T05:51:21.247Z",
+    "timestamp": "2025-05-30T09:33:25.117Z",
     "models": [
       {
         "id": "deepseek-ai/DeepSeek-R1-0528",
         "name": "deepseek-ai/DeepSeek-R1-0528",
         "downloads": 4556,
-        "likes": 1309,
+        "likes": 1355,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5541,7 +6163,7 @@
         "id": "ByteDance-Seed/BAGEL-7B-MoT",
         "name": "ByteDance-Seed/BAGEL-7B-MoT",
         "downloads": 6759,
-        "likes": 848,
+        "likes": 853,
         "library_name": "bagel-mot",
         "pipeline_tag": "any-to-any",
         "tags": [
@@ -5558,7 +6180,7 @@
         "id": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
         "name": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
         "downloads": 0,
-        "likes": 343,
+        "likes": 389,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5576,10 +6198,27 @@
         ]
       },
       {
+        "id": "ResembleAI/chatterbox",
+        "name": "ResembleAI/chatterbox",
+        "downloads": 0,
+        "likes": 275,
+        "library_name": "chatterbox",
+        "pipeline_tag": "text-to-speech",
+        "tags": [
+          "chatterbox",
+          "text-to-speech",
+          "speech generation",
+          "voice-cloning",
+          "en",
+          "license:mit",
+          "region:us"
+        ]
+      },
+      {
         "id": "google/gemma-3n-E4B-it-litert-preview",
         "name": "google/gemma-3n-E4B-it-litert-preview",
         "downloads": 0,
-        "likes": 654,
+        "likes": 658,
         "library_name": null,
         "pipeline_tag": "image-text-to-text",
         "tags": [
@@ -5609,7 +6248,7 @@
         "id": "mistralai/Devstral-Small-2505",
         "name": "mistralai/Devstral-Small-2505",
         "downloads": 138489,
-        "likes": 657,
+        "likes": 666,
         "library_name": "vllm",
         "pipeline_tag": "text2text-generation",
         "tags": [
@@ -5646,27 +6285,10 @@
         ]
       },
       {
-        "id": "ResembleAI/chatterbox",
-        "name": "ResembleAI/chatterbox",
-        "downloads": 0,
-        "likes": 252,
-        "library_name": "chatterbox",
-        "pipeline_tag": "text-to-speech",
-        "tags": [
-          "chatterbox",
-          "text-to-speech",
-          "speech generation",
-          "voice-cloning",
-          "en",
-          "license:mit",
-          "region:us"
-        ]
-      },
-      {
         "id": "sarvamai/sarvam-m",
         "name": "sarvamai/sarvam-m",
         "downloads": 2875,
-        "likes": 197,
+        "likes": 199,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5737,7 +6359,7 @@
         "id": "nari-labs/Dia-1.6B",
         "name": "nari-labs/Dia-1.6B",
         "downloads": 167044,
-        "likes": 2467,
+        "likes": 2469,
         "library_name": null,
         "pipeline_tag": "text-to-speech",
         "tags": [
@@ -5755,7 +6377,7 @@
         "id": "ByteDance/Dolphin",
         "name": "ByteDance/Dolphin",
         "downloads": 2422,
-        "likes": 230,
+        "likes": 233,
         "library_name": "transformers",
         "pipeline_tag": "image-text-to-text",
         "tags": [
@@ -5783,7 +6405,7 @@
         "id": "Tongyi-Zhiwen/QwenLong-L1-32B",
         "name": "Tongyi-Zhiwen/QwenLong-L1-32B",
         "downloads": 683,
-        "likes": 108,
+        "likes": 109,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5800,6 +6422,29 @@
           "base_model:deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
           "base_model:finetune:deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
           "license:apache-2.0",
+          "autotrain_compatible",
+          "text-generation-inference",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "FractalAIResearch/Fathom-R1-14B",
+        "name": "FractalAIResearch/Fathom-R1-14B",
+        "downloads": 3739,
+        "likes": 108,
+        "library_name": "transformers",
+        "pipeline_tag": "text-generation",
+        "tags": [
+          "transformers",
+          "safetensors",
+          "qwen2",
+          "text-generation",
+          "conversational",
+          "arxiv:2503.21934",
+          "arxiv:2502.16666",
+          "arxiv:2502.08226",
+          "license:mit",
           "autotrain_compatible",
           "text-generation-inference",
           "endpoints_compatible",
@@ -5838,7 +6483,7 @@
         "id": "PKU-DS-LAB/FairyR1-32B",
         "name": "PKU-DS-LAB/FairyR1-32B",
         "downloads": 708,
-        "likes": 91,
+        "likes": 92,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5860,45 +6505,10 @@
         ]
       },
       {
-        "id": "black-forest-labs/FLUX.1-dev",
-        "name": "black-forest-labs/FLUX.1-dev",
-        "downloads": 2394938,
-        "likes": 10353,
-        "library_name": "diffusers",
-        "pipeline_tag": "text-to-image",
-        "tags": [
-          "diffusers",
-          "safetensors",
-          "text-to-image",
-          "image-generation",
-          "flux",
-          "en",
-          "license:other",
-          "endpoints_compatible",
-          "diffusers:FluxPipeline",
-          "region:us"
-        ]
-      },
-      {
-        "id": "tencent/HunyuanVideo-Avatar",
-        "name": "tencent/HunyuanVideo-Avatar",
-        "downloads": 0,
-        "likes": 85,
-        "library_name": null,
-        "pipeline_tag": "image-to-video",
-        "tags": [
-          "safetensors",
-          "image-to-video",
-          "en",
-          "arxiv:2505.20156",
-          "region:us"
-        ]
-      },
-      {
         "id": "unsloth/DeepSeek-R1-0528-GGUF",
         "name": "unsloth/DeepSeek-R1-0528-GGUF",
         "downloads": 143,
-        "likes": 85,
+        "likes": 91,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5916,15 +6526,51 @@
           "license:mit",
           "autotrain_compatible",
           "endpoints_compatible",
+          "fp8",
           "region:us",
           "conversational"
+        ]
+      },
+      {
+        "id": "tencent/HunyuanVideo-Avatar",
+        "name": "tencent/HunyuanVideo-Avatar",
+        "downloads": 0,
+        "likes": 86,
+        "library_name": null,
+        "pipeline_tag": "image-to-video",
+        "tags": [
+          "safetensors",
+          "image-to-video",
+          "en",
+          "arxiv:2505.20156",
+          "region:us"
+        ]
+      },
+      {
+        "id": "black-forest-labs/FLUX.1-dev",
+        "name": "black-forest-labs/FLUX.1-dev",
+        "downloads": 1954983,
+        "likes": 10355,
+        "library_name": "diffusers",
+        "pipeline_tag": "text-to-image",
+        "tags": [
+          "diffusers",
+          "safetensors",
+          "text-to-image",
+          "image-generation",
+          "flux",
+          "en",
+          "license:other",
+          "endpoints_compatible",
+          "diffusers:FluxPipeline",
+          "region:us"
         ]
       },
       {
         "id": "google/gemma-3n-E2B-it-litert-preview",
         "name": "google/gemma-3n-E2B-it-litert-preview",
         "downloads": 0,
-        "likes": 194,
+        "likes": 197,
         "library_name": null,
         "pipeline_tag": "image-text-to-text",
         "tags": [
@@ -5954,7 +6600,7 @@
         "id": "deepseek-ai/DeepSeek-R1",
         "name": "deepseek-ai/DeepSeek-R1",
         "downloads": 700778,
-        "likes": 12281,
+        "likes": 12282,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -5977,7 +6623,7 @@
         "id": "google/medgemma-27b-text-it",
         "name": "google/medgemma-27b-text-it",
         "downloads": 9496,
-        "likes": 191,
+        "likes": 193,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -6002,6 +6648,46 @@
           "autotrain_compatible",
           "text-generation-inference",
           "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "osmosis-ai/Osmosis-Structure-0.6B",
+        "name": "osmosis-ai/Osmosis-Structure-0.6B",
+        "downloads": 2,
+        "likes": 68,
+        "library_name": null,
+        "pipeline_tag": null,
+        "tags": [
+          "safetensors",
+          "gguf",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Wan-AI/Wan2.1-VACE-14B",
+        "name": "Wan-AI/Wan2.1-VACE-14B",
+        "downloads": 18934,
+        "likes": 332,
+        "library_name": "diffusers",
+        "pipeline_tag": "image-to-video",
+        "tags": [
+          "diffusers",
+          "safetensors",
+          "vace",
+          "video generation",
+          "video-to-video editing",
+          "refernce-to-video",
+          "image-to-video",
+          "en",
+          "zh",
+          "arxiv:2503.20314",
+          "arxiv:2503.07598",
+          "arxiv:2309.14509",
+          "arxiv:2310.01889",
+          "license:apache-2.0",
           "region:us"
         ]
       },
@@ -6034,45 +6720,28 @@
         ]
       },
       {
-        "id": "Wan-AI/Wan2.1-VACE-14B",
-        "name": "Wan-AI/Wan2.1-VACE-14B",
-        "downloads": 18934,
-        "likes": 327,
-        "library_name": "diffusers",
-        "pipeline_tag": "image-to-video",
-        "tags": [
-          "diffusers",
-          "safetensors",
-          "vace",
-          "video generation",
-          "video-to-video editing",
-          "refernce-to-video",
-          "image-to-video",
-          "en",
-          "zh",
-          "arxiv:2503.20314",
-          "arxiv:2503.07598",
-          "arxiv:2309.14509",
-          "arxiv:2310.01889",
-          "license:apache-2.0",
-          "region:us"
-        ]
-      },
-      {
-        "id": "lodestones/Chroma",
-        "name": "lodestones/Chroma",
+        "id": "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF",
+        "name": "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF",
         "downloads": 0,
-        "likes": 692,
-        "library_name": "pytorch",
-        "pipeline_tag": "text-to-image",
+        "likes": 59,
+        "library_name": "transformers",
+        "pipeline_tag": "text-generation",
         "tags": [
-          "pytorch",
-          "text-to-image",
-          "image-generation",
-          "chroma",
-          "en",
-          "license:apache-2.0",
-          "region:us"
+          "transformers",
+          "gguf",
+          "qwen3",
+          "text-generation",
+          "unsloth",
+          "deepseek",
+          "qwen",
+          "arxiv:2501.12948",
+          "base_model:deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+          "base_model:quantized:deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+          "license:mit",
+          "autotrain_compatible",
+          "endpoints_compatible",
+          "region:us",
+          "conversational"
         ]
       },
       {
@@ -6092,17 +6761,38 @@
         ]
       },
       {
-        "id": "osmosis-ai/Osmosis-Structure-0.6B",
-        "name": "osmosis-ai/Osmosis-Structure-0.6B",
-        "downloads": 2,
-        "likes": 55,
-        "library_name": null,
-        "pipeline_tag": null,
+        "id": "lodestones/Chroma",
+        "name": "lodestones/Chroma",
+        "downloads": 0,
+        "likes": 693,
+        "library_name": "pytorch",
+        "pipeline_tag": "text-to-image",
         "tags": [
-          "safetensors",
-          "gguf",
+          "pytorch",
+          "text-to-image",
+          "image-generation",
+          "chroma",
+          "en",
           "license:apache-2.0",
-          "endpoints_compatible",
+          "region:us"
+        ]
+      },
+      {
+        "id": "Lightricks/LTX-Video",
+        "name": "Lightricks/LTX-Video",
+        "downloads": 416553,
+        "likes": 1629,
+        "library_name": "diffusers",
+        "pipeline_tag": "text-to-video",
+        "tags": [
+          "diffusers",
+          "safetensors",
+          "ltx-video",
+          "image-to-video",
+          "text-to-video",
+          "en",
+          "license:other",
+          "diffusers:LTXPipeline",
           "region:us"
         ]
       },
@@ -6123,50 +6813,6 @@
           "doi:10.57967/hf/4329",
           "license:apache-2.0",
           "region:us"
-        ]
-      },
-      {
-        "id": "Lightricks/LTX-Video",
-        "name": "Lightricks/LTX-Video",
-        "downloads": 416553,
-        "likes": 1628,
-        "library_name": "diffusers",
-        "pipeline_tag": "text-to-video",
-        "tags": [
-          "diffusers",
-          "safetensors",
-          "ltx-video",
-          "image-to-video",
-          "text-to-video",
-          "en",
-          "license:other",
-          "diffusers:LTXPipeline",
-          "region:us"
-        ]
-      },
-      {
-        "id": "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF",
-        "name": "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF",
-        "downloads": 0,
-        "likes": 53,
-        "library_name": "transformers",
-        "pipeline_tag": "text-generation",
-        "tags": [
-          "transformers",
-          "gguf",
-          "qwen3",
-          "text-generation",
-          "unsloth",
-          "deepseek",
-          "qwen",
-          "arxiv:2501.12948",
-          "base_model:deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
-          "base_model:quantized:deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
-          "license:mit",
-          "autotrain_compatible",
-          "endpoints_compatible",
-          "region:us",
-          "conversational"
         ]
       },
       {
@@ -6226,10 +6872,21 @@
         ]
       },
       {
+        "id": "Kijai/WanVideo_comfy",
+        "name": "Kijai/WanVideo_comfy",
+        "downloads": 0,
+        "likes": 608,
+        "library_name": null,
+        "pipeline_tag": null,
+        "tags": [
+          "region:us"
+        ]
+      },
+      {
         "id": "Datadog/Toto-Open-Base-1.0",
         "name": "Datadog/Toto-Open-Base-1.0",
         "downloads": 10780,
-        "likes": 71,
+        "likes": 72,
         "library_name": "transformers",
         "pipeline_tag": "time-series-forecasting",
         "tags": [
@@ -6248,40 +6905,6 @@
           "arxiv:2505.14766",
           "license:apache-2.0",
           "endpoints_compatible",
-          "region:us"
-        ]
-      },
-      {
-        "id": "FractalAIResearch/Fathom-R1-14B",
-        "name": "FractalAIResearch/Fathom-R1-14B",
-        "downloads": 3739,
-        "likes": 42,
-        "library_name": "transformers",
-        "pipeline_tag": "text-generation",
-        "tags": [
-          "transformers",
-          "safetensors",
-          "qwen2",
-          "text-generation",
-          "conversational",
-          "arxiv:2503.21934",
-          "arxiv:2502.16666",
-          "arxiv:2502.08226",
-          "license:mit",
-          "autotrain_compatible",
-          "text-generation-inference",
-          "endpoints_compatible",
-          "region:us"
-        ]
-      },
-      {
-        "id": "Kijai/WanVideo_comfy",
-        "name": "Kijai/WanVideo_comfy",
-        "downloads": 0,
-        "likes": 604,
-        "library_name": null,
-        "pipeline_tag": null,
-        "tags": [
           "region:us"
         ]
       },
@@ -6313,8 +6936,8 @@
       {
         "id": "sentence-transformers/all-MiniLM-L6-v2",
         "name": "sentence-transformers/all-MiniLM-L6-v2",
-        "downloads": 86803585,
-        "likes": 3458,
+        "downloads": 87128394,
+        "likes": 3459,
         "library_name": "sentence-transformers",
         "pipeline_tag": "sentence-similarity",
         "tags": [
@@ -6366,7 +6989,7 @@
       {
         "id": "meta-llama/Llama-3.1-8B-Instruct",
         "name": "meta-llama/Llama-3.1-8B-Instruct",
-        "downloads": 5983687,
+        "downloads": 5868177,
         "likes": 4028,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
@@ -6399,24 +7022,10 @@
         ]
       },
       {
-        "id": "coqui/XTTS-v2",
-        "name": "coqui/XTTS-v2",
-        "downloads": 2100142,
-        "likes": 2722,
-        "library_name": "coqui",
-        "pipeline_tag": "text-to-speech",
-        "tags": [
-          "coqui",
-          "text-to-speech",
-          "license:other",
-          "region:us"
-        ]
-      },
-      {
         "id": "facebook/KernelLLM",
         "name": "facebook/KernelLLM",
         "downloads": 7171,
-        "likes": 122,
+        "likes": 124,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -6437,10 +7046,24 @@
         ]
       },
       {
+        "id": "coqui/XTTS-v2",
+        "name": "coqui/XTTS-v2",
+        "downloads": 2132129,
+        "likes": 2722,
+        "library_name": "coqui",
+        "pipeline_tag": "text-to-speech",
+        "tags": [
+          "coqui",
+          "text-to-speech",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
         "id": "Qwen/Qwen3-235B-A22B",
         "name": "Qwen/Qwen3-235B-A22B",
         "downloads": 209672,
-        "likes": 915,
+        "likes": 916,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -6458,31 +7081,10 @@
         ]
       },
       {
-        "id": "tencent/Hunyuan3D-2",
-        "name": "tencent/Hunyuan3D-2",
-        "downloads": 328654,
-        "likes": 1482,
-        "library_name": "hunyuan3d-2",
-        "pipeline_tag": "image-to-3d",
-        "tags": [
-          "hunyuan3d-2",
-          "diffusers",
-          "safetensors",
-          "image-to-3d",
-          "text-to-3d",
-          "en",
-          "zh",
-          "arxiv:2501.12202",
-          "arxiv:2411.02293",
-          "license:other",
-          "region:us"
-        ]
-      },
-      {
         "id": "stabilityai/stable-diffusion-3.5-large",
         "name": "stabilityai/stable-diffusion-3.5-large",
         "downloads": 106664,
-        "likes": 2831,
+        "likes": 2832,
         "library_name": "diffusers",
         "pipeline_tag": "text-to-image",
         "tags": [
@@ -6514,9 +7116,30 @@
         ]
       },
       {
+        "id": "tencent/Hunyuan3D-2",
+        "name": "tencent/Hunyuan3D-2",
+        "downloads": 328654,
+        "likes": 1482,
+        "library_name": "hunyuan3d-2",
+        "pipeline_tag": "image-to-3d",
+        "tags": [
+          "hunyuan3d-2",
+          "diffusers",
+          "safetensors",
+          "image-to-3d",
+          "text-to-3d",
+          "en",
+          "zh",
+          "arxiv:2501.12202",
+          "arxiv:2411.02293",
+          "license:other",
+          "region:us"
+        ]
+      },
+      {
         "id": "openai/whisper-large-v3",
         "name": "openai/whisper-large-v3",
-        "downloads": 6765138,
+        "downloads": 6437650,
         "likes": 4436,
         "library_name": "transformers",
         "pipeline_tag": "automatic-speech-recognition",
@@ -6635,6 +7258,26 @@
         ]
       },
       {
+        "id": "black-forest-labs/FLUX.1-schnell",
+        "name": "black-forest-labs/FLUX.1-schnell",
+        "downloads": 960886,
+        "likes": 3846,
+        "library_name": "diffusers",
+        "pipeline_tag": "text-to-image",
+        "tags": [
+          "diffusers",
+          "safetensors",
+          "text-to-image",
+          "image-generation",
+          "flux",
+          "en",
+          "license:apache-2.0",
+          "endpoints_compatible",
+          "diffusers:FluxPipeline",
+          "region:us"
+        ]
+      },
+      {
         "id": "multimodalart/isometric-skeumorphic-3d-bnb",
         "name": "multimodalart/isometric-skeumorphic-3d-bnb",
         "downloads": 2558,
@@ -6654,30 +7297,10 @@
         ]
       },
       {
-        "id": "black-forest-labs/FLUX.1-schnell",
-        "name": "black-forest-labs/FLUX.1-schnell",
-        "downloads": 930662,
-        "likes": 3845,
-        "library_name": "diffusers",
-        "pipeline_tag": "text-to-image",
-        "tags": [
-          "diffusers",
-          "safetensors",
-          "text-to-image",
-          "image-generation",
-          "flux",
-          "en",
-          "license:apache-2.0",
-          "endpoints_compatible",
-          "diffusers:FluxPipeline",
-          "region:us"
-        ]
-      },
-      {
         "id": "deepseek-ai/DeepSeek-V3-0324",
         "name": "deepseek-ai/DeepSeek-V3-0324",
         "downloads": 294924,
-        "likes": 2946,
+        "likes": 2947,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -6693,100 +7316,6 @@
           "text-generation-inference",
           "endpoints_compatible",
           "fp8",
-          "region:us"
-        ]
-      },
-      {
-        "id": "PocketDoc/Dans-PersonalityEngine-V1.3.0-24b",
-        "name": "PocketDoc/Dans-PersonalityEngine-V1.3.0-24b",
-        "downloads": 653,
-        "likes": 30,
-        "library_name": "transformers",
-        "pipeline_tag": "text-generation",
-        "tags": [
-          "transformers",
-          "safetensors",
-          "mistral",
-          "text-generation",
-          "general-purpose",
-          "roleplay",
-          "storywriting",
-          "chemistry",
-          "biology",
-          "code",
-          "climate",
-          "axolotl",
-          "text-generation-inference",
-          "finetune",
-          "legal",
-          "medical",
-          "finance",
-          "conversational",
-          "en",
-          "ar",
-          "de",
-          "fr",
-          "es",
-          "hi",
-          "pt",
-          "ja",
-          "ko",
-          "dataset:PocketDoc/Dans-Prosemaxx-RP",
-          "dataset:PocketDoc/Dans-Personamaxx-Logs-2",
-          "dataset:PocketDoc/Dans-Personamaxx-VN",
-          "dataset:PocketDoc/Dans-Kinomaxx-VanillaBackrooms",
-          "dataset:PocketDoc/Dans-Prosemaxx-Gutenberg",
-          "dataset:PocketDoc/Dans-Prosemaxx-Cowriter-3-XL",
-          "dataset:PocketDoc/Dans-Prosemaxx-Adventure",
-          "dataset:PocketDoc/Dans-Failuremaxx-Adventure-3",
-          "dataset:PocketDoc/Dans-Prosemaxx-InstructWriter-ZeroShot-2",
-          "dataset:PocketDoc/Dans-Prosemaxx-InstructWriter-ZeroShot-3",
-          "dataset:PocketDoc/Dans-Prosemaxx-InstructWriter-Continue-2",
-          "dataset:PocketDoc/Dans-Prosemaxx-Instructwriter-Long",
-          "dataset:PocketDoc/Dans-Prosemaxx-RepRemover-1",
-          "dataset:PocketDoc/Dans-MemoryCore-CoreCurriculum-Small",
-          "dataset:AquaV/US-Army-Survival-Sharegpt",
-          "dataset:AquaV/Multi-Environment-Operations-Sharegpt",
-          "dataset:AquaV/Resistance-Sharegpt",
-          "dataset:AquaV/Interrogation-Sharegpt",
-          "dataset:AquaV/Chemical-Biological-Safety-Applications-Sharegpt",
-          "dataset:AquaV/Energetic-Materials-Sharegpt",
-          "dataset:PocketDoc/Dans-Mathmaxx",
-          "dataset:PJMixers/Math-Multiturn-1K-ShareGPT",
-          "dataset:PocketDoc/Dans-Taskmaxx",
-          "dataset:PocketDoc/Dans-Taskmaxx-DataPrepper",
-          "dataset:PocketDoc/Dans-Taskmaxx-ConcurrentQA-Reworked",
-          "dataset:PocketDoc/Dans-Taskmaxx-TableGPT",
-          "dataset:PocketDoc/Dans-Taskmaxx-SciRIFF",
-          "dataset:PocketDoc/Dans-Taskmaxx-Edit",
-          "dataset:PocketDoc/Dans-Toolmaxx-Agent",
-          "dataset:PocketDoc/Dans-Toolmaxx-ShellCommands",
-          "dataset:PocketDoc/Dans-Toolmaxx-Functions-Toolbench",
-          "dataset:PocketDoc/Dans-Toolmaxx-Functions-ToolACE",
-          "dataset:PocketDoc/Dans-Toolmaxx-Functions-apigen-subset",
-          "dataset:PocketDoc/Dans-Assistantmaxx-OpenAssistant2",
-          "dataset:PocketDoc/Dans-Assistantmaxx-Opus-Merge-2",
-          "dataset:PocketDoc/Dans-Assistantmaxx-sonnetorca-subset",
-          "dataset:PocketDoc/Dans-Assistantmaxx-sonnetorca-subset-2",
-          "dataset:PocketDoc/Dans-Assistantmaxx-Synthia",
-          "dataset:PocketDoc/Dans-Assistantmaxx-ASL",
-          "dataset:PocketDoc/Dans-Assistantmaxx-PersonaLLM-Opus",
-          "dataset:PocketDoc/Dans-Assistantmaxx-LongAlign",
-          "dataset:PocketDoc/Dans-Assistantmaxx-OpenLeecher-Instruct",
-          "dataset:PocketDoc/Dans-Assistantmaxx-Tulu3-IF",
-          "dataset:PocketDoc/Dans-Systemmaxx",
-          "dataset:PocketDoc/Dans-Logicmaxx-SAT-AP",
-          "dataset:PJMixers/grimulkan_theory-of-mind-ShareGPT",
-          "dataset:PJMixers/grimulkan_physical-reasoning-ShareGPT",
-          "dataset:PocketDoc/Dans-Reasoningmaxx-NaturalReasoning",
-          "dataset:PocketDoc/Dans-Reasoningmaxx-WebInstruct",
-          "dataset:PocketDoc/Dans-Reasoningmaxx-GeneralReasoning",
-          "dataset:PocketDoc/Dans-Assistantmaxx-ClosedInstruct",
-          "base_model:mistralai/Mistral-Small-3.1-24B-Base-2503",
-          "base_model:finetune:mistralai/Mistral-Small-3.1-24B-Base-2503",
-          "license:apache-2.0",
-          "autotrain_compatible",
-          "endpoints_compatible",
           "region:us"
         ]
       },
@@ -6876,7 +7405,7 @@
         "id": "Qwen/Qwen3-0.6B",
         "name": "Qwen/Qwen3-0.6B",
         "downloads": 743140,
-        "likes": 306,
+        "likes": 307,
         "library_name": "transformers",
         "pipeline_tag": "text-generation",
         "tags": [
@@ -6893,6 +7422,49 @@
           "text-generation-inference",
           "endpoints_compatible",
           "region:us"
+        ]
+      },
+      {
+        "id": "unsloth/Devstral-Small-2505-GGUF",
+        "name": "unsloth/Devstral-Small-2505-GGUF",
+        "downloads": 83490,
+        "likes": 71,
+        "library_name": null,
+        "pipeline_tag": "text2text-generation",
+        "tags": [
+          "gguf",
+          "mistral",
+          "unsloth",
+          "text2text-generation",
+          "en",
+          "fr",
+          "de",
+          "es",
+          "pt",
+          "it",
+          "ja",
+          "ko",
+          "ru",
+          "zh",
+          "ar",
+          "fa",
+          "id",
+          "ms",
+          "ne",
+          "pl",
+          "ro",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "hi",
+          "bn",
+          "base_model:mistralai/Devstral-Small-2505",
+          "base_model:quantized:mistralai/Devstral-Small-2505",
+          "license:apache-2.0",
+          "region:us",
+          "conversational"
         ]
       }
     ],
@@ -6924,8 +7496,8 @@
   },
   {
     "provider": "deepseek",
-    "timestamp": "2025-05-30T05:51:23.478Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:27.074Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.deepseek.com/v1/models",
@@ -6949,7 +7521,7 @@
   },
   {
     "provider": "qwen",
-    "timestamp": "2025-05-30T05:51:24.067Z",
+    "timestamp": "2025-05-30T09:33:27.524Z",
     "models": [
       {
         "id": "tps-32-32",
@@ -7010,8 +7582,8 @@
   },
   {
     "provider": "siliconflow",
-    "timestamp": "2025-05-30T05:51:25.296Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:28.742Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.siliconflow.cn/v1/models",
@@ -7034,8 +7606,8 @@
   },
   {
     "provider": "grok",
-    "timestamp": "2025-05-30T05:51:27.336Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:31.847Z",
+    "models": [],
     "endpoints": {
       "pricing": {
         "url": "https://x.ai/pricing",
@@ -7054,7 +7626,7 @@
   },
   {
     "provider": "ollama",
-    "timestamp": "2025-05-30T05:51:27.554Z",
+    "timestamp": "2025-05-30T09:33:32.106Z",
     "models": [
       {
         "id": "ollama",
@@ -7087,8 +7659,8 @@
   },
   {
     "provider": "perplexity",
-    "timestamp": "2025-05-30T05:51:31.209Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:34.411Z",
+    "models": [],
     "endpoints": {
       "pricing": {
         "url": "https://www.perplexity.ai/pro",
@@ -7106,8 +7678,8 @@
   },
   {
     "provider": "cohere",
-    "timestamp": "2025-05-30T05:51:31.555Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:34.940Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.cohere.ai/v1/models",
@@ -7131,8 +7703,8 @@
   },
   {
     "provider": "ai21",
-    "timestamp": "2025-05-30T05:51:32.678Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:36.349Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.ai21.com/studio/v1/models",
@@ -7156,8 +7728,8 @@
   },
   {
     "provider": "fireworks",
-    "timestamp": "2025-05-30T05:51:34.521Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:38.330Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.fireworks.ai/inference/v1/models",
@@ -7181,8 +7753,8 @@
   },
   {
     "provider": "replicate",
-    "timestamp": "2025-05-30T05:51:35.536Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:39.659Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.replicate.com/v1/models",
@@ -7206,8 +7778,8 @@
   },
   {
     "provider": "mistral",
-    "timestamp": "2025-05-30T05:51:40.540Z",
-    "models": null,
+    "timestamp": "2025-05-30T09:33:44.576Z",
+    "models": [],
     "endpoints": {
       "models": {
         "url": "https://api.mistral.ai/v1/models",

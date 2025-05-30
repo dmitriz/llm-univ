@@ -117,7 +117,7 @@ const get_default_url = (provider) => {
     case 'google':
       return 'https://generativelanguage.googleapis.com/v1/models';
     case 'gh-models':
-      return 'https://models.inference.ai.azure.com/chat/completions';
+      return 'https://models.github.ai/inference/chat/completions';
     case 'huggingface':
       return 'https://api-inference.huggingface.co/models';
     case 'together':

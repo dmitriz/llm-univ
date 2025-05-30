@@ -63,7 +63,7 @@ describe('create_request', () => {
 
       expect(requestConfig).toEqual({
         method: 'POST',
-        url: 'https://models.inference.ai.azure.com/chat/completions',
+        url: 'https://models.github.ai/inference/chat/completions',
         data: basePayload,
         headers: {
           'Content-Type': 'application/json'
