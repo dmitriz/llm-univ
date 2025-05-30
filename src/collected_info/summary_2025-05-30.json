@@ -1,0 +1,92 @@
+{
+  "timestamp": "2025-05-30T03:24:35.580Z",
+  "total_providers": 14,
+  "providers_with_models": 4,
+  "total_models": 382,
+  "provider_summary": {
+    "openai": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "anthropic": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 2,
+      "has_public_models": false
+    },
+    "google": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "groq": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "together": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "openrouter": {
+      "models_found": 322,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": true
+    },
+    "gh-models": {
+      "models_found": 24,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": true
+    },
+    "huggingface": {
+      "models_found": 35,
+      "accessible_endpoints": 3,
+      "total_endpoints": 4,
+      "has_public_models": true
+    },
+    "deepseek": {
+      "models_found": 0,
+      "accessible_endpoints": 0,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "qwen": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 2,
+      "has_public_models": false
+    },
+    "siliconflow": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "grok": {
+      "models_found": 0,
+      "accessible_endpoints": 0,
+      "total_endpoints": 2,
+      "has_public_models": false
+    },
+    "ollama": {
+      "models_found": 1,
+      "accessible_endpoints": 3,
+      "total_endpoints": 3,
+      "has_public_models": true
+    },
+    "perplexity": {
+      "models_found": 0,
+      "accessible_endpoints": 0,
+      "total_endpoints": 2,
+      "has_public_models": false
+    }
+  }
+}

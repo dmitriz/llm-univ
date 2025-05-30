@@ -167,6 +167,61 @@ const PUBLIC_ENDPOINTS = {
     publicInfo: [
       'https://www.perplexity.ai/pro'
     ]
+  },
+
+  // Cohere - Enterprise LLM provider
+  cohere: {
+    models: 'https://api.cohere.ai/v1/models', // May work without API key
+    pricing: 'https://cohere.com/pricing',
+    documentation: 'https://docs.cohere.com/docs/models',
+    publicInfo: [
+      'https://cohere.com/pricing',
+      'https://docs.cohere.com/docs/models'
+    ]
+  },
+
+  // AI21 Labs - Jurassic models
+  ai21: {
+    models: 'https://api.ai21.com/studio/v1/models', // May work without API key
+    pricing: 'https://www.ai21.com/pricing',
+    documentation: 'https://docs.ai21.com/docs/overview',
+    publicInfo: [
+      'https://www.ai21.com/pricing',
+      'https://docs.ai21.com/docs/overview'
+    ]
+  },
+
+  // Fireworks AI - Fast inference platform
+  fireworks: {
+    models: 'https://api.fireworks.ai/inference/v1/models', // May work without API key
+    pricing: 'https://fireworks.ai/pricing',
+    documentation: 'https://docs.fireworks.ai/api-reference/introduction',
+    publicInfo: [
+      'https://fireworks.ai/pricing',
+      'https://docs.fireworks.ai/api-reference/introduction'
+    ]
+  },
+
+  // Replicate - Model hosting platform
+  replicate: {
+    models: 'https://api.replicate.com/v1/models', // Public endpoint
+    pricing: 'https://replicate.com/pricing',
+    documentation: 'https://replicate.com/docs/reference/http',
+    publicInfo: [
+      'https://replicate.com/pricing',
+      'https://replicate.com/docs/reference/http'
+    ]
+  },
+
+  // Mistral AI - Direct provider (not through other platforms)
+  mistral: {
+    models: 'https://api.mistral.ai/v1/models', // May work without API key
+    pricing: 'https://mistral.ai/pricing/',
+    documentation: 'https://docs.mistral.ai/api/',
+    publicInfo: [
+      'https://mistral.ai/pricing/',
+      'https://docs.mistral.ai/api/'
+    ]
   }
 };
 
@@ -242,6 +297,37 @@ function makeRequest(url, options = {}) {
 }
 
 /**
+ * Enhanced request with retry logic and rate limit handling
+ */
+async function makeRequestWithRetry(url, options = {}, maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await makeRequest(url, options);
+      
+      // Handle rate limits
+      if (response.statusCode === 429) {
+        const retryAfter = parseInt(response.headers['retry-after'] || '60');
+        console.log(`  ⏳ Rate limited, waiting ${retryAfter}s before retry ${attempt}/${maxRetries}`);
+        
+        if (attempt < maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+          continue;
+        }
+      }
+      
+      return response;
+    } catch (error) {
+      if (attempt === maxRetries) {
+        throw error;
+      }
+      
+      console.log(`  ⚠️  Attempt ${attempt} failed, retrying: ${error.message}`);
+      await new Promise(resolve => setTimeout(resolve, 2000 * attempt)); // Exponential backoff
+    }
+  }
+}
+
+/**
  * Extract models from provider response
  */
 function extractModels(provider, response) {
@@ -309,6 +395,51 @@ function extractModels(provider, response) {
       }
       break;
 
+    case 'cohere':
+    case 'ai21':
+    case 'fireworks':
+    case 'mistral':
+      // OpenAI-compatible format for most providers
+      if (response.json.data && Array.isArray(response.json.data)) {
+        return response.json.data.map(model => ({
+          id: model.id,
+          name: model.name || model.id,
+          description: model.description || null,
+          context_length: model.context_length || model.max_tokens || null,
+          pricing: model.pricing || null,
+          created: model.created || null,
+          capabilities: model.capabilities || null
+        }));
+      } else if (response.json.models && Array.isArray(response.json.models)) {
+        // Alternative format
+        return response.json.models.map(model => ({
+          id: model.id || model.name,
+          name: model.name || model.id,
+          description: model.description || null,
+          context_length: model.context_length || model.max_tokens || null,
+          pricing: model.pricing || null,
+          created: model.created || null
+        }));
+      }
+      break;
+
+    case 'replicate':
+      // Replicate format
+      if (response.json.results && Array.isArray(response.json.results)) {
+        return response.json.results.slice(0, 50).map(model => ({
+          id: model.url || model.name,
+          name: model.name,
+          description: model.description || null,
+          owner: model.owner || null,
+          visibility: model.visibility || null,
+          github_url: model.github_url || null,
+          paper: model.paper || null,
+          license: model.license || null,
+          created_at: model.created_at || null
+        }));
+      }
+      break;
+
     default:
       return response.json;
   }
@@ -340,7 +471,7 @@ async function collectProviderInfo(provider) {
   if (endpoints.models) {
     try {
       console.log(`  📋 Fetching models from ${endpoints.models}`);
-      const response = await makeRequest(endpoints.models);
+      const response = await makeRequestWithRetry(endpoints.models);
       
       if (response.statusCode === 200) {
         const models = extractModels(provider, response);
@@ -368,6 +499,19 @@ async function collectProviderInfo(provider) {
     }
   } else {
     console.log(`  ⚠️  No public models endpoint available`);
+    
+    // Try scraping model information from documentation/pricing pages
+    if (endpoints.publicInfo && endpoints.publicInfo.length > 0) {
+      console.log(`  🔍 Attempting to scrape model information...`);
+      for (const url of endpoints.publicInfo) {
+        const scrapedModels = await scrapeProviderInfo(provider, url);
+        if (scrapedModels && scrapedModels.length > 0) {
+          info.models = scrapedModels;
+          console.log(`  ✅ Found ${scrapedModels.length} models via scraping`);
+          break; // Use first successful scrape
+        }
+      }
+    }
   }
 
   // Check other public endpoints
@@ -486,6 +630,207 @@ function generateSummary(allInfo) {
 }
 
 /**
+ * Web scraping utility for providers without public APIs
+ */
+async function scrapeProviderInfo(provider, url) {
+  try {
+    console.log(`  🌐 Scraping model info from ${url}`);
+    const response = await makeRequest(url);
+    
+    if (response.statusCode !== 200) {
+      return null;
+    }
+
+    const html = response.data;
+    let models = [];
+
+    switch (provider) {
+      case 'openai':
+        // Extract model information from OpenAI pricing page
+        if (url.includes('pricing')) {
+          const modelMatches = html.match(/gpt-[0-9a-zA-Z\.-]+/g);
+          if (modelMatches) {
+            models = [...new Set(modelMatches)].map(model => ({
+              id: model,
+              name: model,
+              provider: 'openai',
+              source: 'pricing_page'
+            }));
+          }
+        }
+        break;
+
+      case 'anthropic':
+        // Extract Claude model information
+        if (url.includes('pricing') || url.includes('claude')) {
+          const claudeMatches = html.match(/claude[^"\s<>]*[0-9][^"\s<>]*/gi);
+          if (claudeMatches) {
+            models = [...new Set(claudeMatches)].map(model => ({
+              id: model.toLowerCase(),
+              name: model,
+              provider: 'anthropic',
+              source: 'documentation'
+            }));
+          }
+        }
+        break;
+
+      case 'perplexity':
+        // Extract Perplexity model information
+        if (url.includes('docs') || url.includes('pricing')) {
+          // Look for model names in documentation
+          const modelPatterns = [
+            /llama[^"\s<>]*[0-9][^"\s<>]*/gi,
+            /sonar[^"\s<>]*[0-9][^"\s<>]*/gi,
+            /perplexity[^"\s<>]*[0-9][^"\s<>]*/gi
+          ];
+          
+          modelPatterns.forEach(pattern => {
+            const matches = html.match(pattern);
+            if (matches) {
+              matches.forEach(model => {
+                models.push({
+                  id: model.toLowerCase(),
+                  name: model,
+                  provider: 'perplexity',
+                  source: 'documentation',
+                  capabilities: url.includes('online') ? ['real-time-search'] : null
+                });
+              });
+            }
+          });
+        }
+        break;
+
+      case 'grok':
+        // Extract Grok model information
+        if (url.includes('pricing') || url.includes('docs')) {
+          const grokMatches = html.match(/grok[^"\s<>]*[0-9][^"\s<>]*/gi);
+          if (grokMatches) {
+            models = [...new Set(grokMatches)].map(model => ({
+              id: model.toLowerCase(),
+              name: model,
+              provider: 'grok',
+              source: 'documentation',
+              capabilities: ['real-time-search', 'live-web-access']
+            }));
+          }
+        }
+        break;
+
+      default:
+        // Generic extraction for other providers
+        const genericPatterns = [
+          new RegExp(`${provider}[^"\\s<>]*[0-9][^"\\s<>]*`, 'gi'),
+          /[a-zA-Z]+-[0-9]+[bBmM]?-?[a-zA-Z]*[0-9]*[kKmMbB]?/g
+        ];
+        
+        genericPatterns.forEach(pattern => {
+          const matches = html.match(pattern);
+          if (matches) {
+            matches.slice(0, 10).forEach(model => { // Limit to 10 to avoid noise
+              models.push({
+                id: model.toLowerCase(),
+                name: model,
+                provider: provider,
+                source: 'scraped'
+              });
+            });
+          }
+        });
+    }
+
+    // Remove duplicates
+    const uniqueModels = models.reduce((acc, model) => {
+      if (!acc.find(m => m.id === model.id)) {
+        acc.push(model);
+      }
+      return acc;
+    }, []);
+
+    console.log(`  ✅ Scraped ${uniqueModels.length} models from ${provider}`);
+    return uniqueModels;
+
+  } catch (error) {
+    console.log(`  ❌ Error scraping ${provider}: ${error.message}`);
+    return null;
+  }
+}
+
+/**
+ * Detect real-time search capabilities from provider responses or documentation
+ */
+function detectSearchCapabilities(provider, modelData, endpoints) {
+  const searchProviders = {
+    'perplexity': {
+      capabilities: ['real-time-search', 'web-search', 'search-augmented-generation'],
+      evidence: 'Perplexity is known for real-time search capabilities'
+    },
+    'grok': {
+      capabilities: ['live-web-access', 'real-time-search', 'x-platform-integration'],
+      evidence: 'Grok has live web access through X platform'
+    },
+    'google': {
+      capabilities: ['grounding-with-search', 'real-time-data'],
+      evidence: 'Google Gemini has Grounding with Search feature'
+    },
+    'openai': {
+      capabilities: ['web-browsing'],
+      evidence: 'GPT models have web browsing capabilities in ChatGPT'
+    }
+  };
+
+  // Check if provider has known search capabilities
+  if (searchProviders[provider]) {
+    return searchProviders[provider];
+  }
+
+  // Look for search-related keywords in model descriptions
+  if (modelData && modelData.length > 0) {
+    const searchKeywords = ['search', 'web', 'online', 'real-time', 'live', 'browse', 'internet', 'current'];
+    const hasSearchCapability = modelData.some(model => {
+      const description = (model.description || '').toLowerCase();
+      const modelName = (model.name || model.id || '').toLowerCase();
+      return searchKeywords.some(keyword => 
+        description.includes(keyword) || modelName.includes(keyword)
+      );
+    });
+
+    if (hasSearchCapability) {
+      return {
+        capabilities: ['potential-search-capability'],
+        evidence: 'Search-related keywords found in model descriptions'
+      };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Collect rate limit information from response headers
+ */
+function extractRateLimitInfo(headers) {
+  const rateLimitKeys = {
+    'x-ratelimit-limit': 'requests_per_period',
+    'x-ratelimit-remaining': 'remaining_requests',
+    'x-ratelimit-reset': 'reset_time',
+    'x-ratelimit-window': 'window_seconds',
+    'retry-after': 'retry_after_seconds'
+  };
+
+  const rateLimitInfo = {};
+  
+  for (const [header, key] of Object.entries(rateLimitKeys)) {
+    if (headers[header]) {
+      rateLimitInfo[key] = headers[header];
+    }
+  }
+
+  return Object.keys(rateLimitInfo).length > 0 ? rateLimitInfo : null;
+}
+
+/**
  * Main execution function
  */
 async function main() {
@@ -506,87 +851,34 @@ async function main() {
     const info = await collectProviderInfo(targetProvider);
     
     if (info) {
-      // Special handling for Hugging Face to get more models
-      if (targetProvider === 'huggingface') {
-        console.log(`  🔍 Collecting additional Hugging Face models...`);
-        const extraModels = await collectHuggingFaceModels();
-        if (extraModels.length > 0) {
-          info.models = extraModels;
-          console.log(`  ✅ Total models collected: ${extraModels.length}`);
-        }
-      }
-      
-      const filename = `${targetProvider}_info_${new Date().toISOString().split('T')[0]}.json`;
+      const filename = `${targetProvider}_info.json`;
       saveToFile(info, filename);
+      
+      // Also save raw model data if available
+      if (info.models && info.models.length > 0) {
+        const modelsFilename = `${targetProvider}_models.json`;
+        saveToFile({ models: info.models }, modelsFilename);
+      }
     }
-    
   } else {
-    console.log('🌍 Collecting from all providers...');
-    
+    // Collect info from all providers
     const allInfo = [];
-    const providers = Object.keys(PUBLIC_ENDPOINTS);
     
-    for (const provider of providers) {
+    for (const provider of Object.keys(PUBLIC_ENDPOINTS)) {
       const info = await collectProviderInfo(provider);
       if (info) {
-        // Special handling for Hugging Face
-        if (provider === 'huggingface') {
-          console.log(`  🔍 Collecting additional Hugging Face models...`);
-          const extraModels = await collectHuggingFaceModels();
-          if (extraModels.length > 0) {
-            info.models = extraModels;
-            console.log(`  ✅ Total models collected: ${extraModels.length}`);
-          }
-        }
-        
         allInfo.push(info);
       }
-      
-      // Small delay between providers to be respectful
-      await new Promise(resolve => setTimeout(resolve, 1000));
     }
     
-    // Save individual files and summary
-    const timestamp = new Date().toISOString().split('T')[0];
-    saveToFile(allInfo, `all_providers_${timestamp}.json`);
-    
+    // Generate summary
     const summary = generateSummary(allInfo);
-    saveToFile(summary, `summary_${timestamp}.json`);
-    
-    console.log('\n📊 Collection Summary:');
-    console.log(`Total providers checked: ${summary.total_providers}`);
-    console.log(`Providers with accessible models: ${summary.providers_with_models}`);
-    console.log(`Total models collected: ${summary.total_models}`);
-    
-    console.log('\n🎯 Providers with public model endpoints:');
-    for (const [provider, data] of Object.entries(summary.provider_summary)) {
-      if (data.has_public_models) {
-        console.log(`  ✅ ${provider}: ${data.models_found} models`);
-      }
-    }
-    
-    console.log('\n🔒 Providers requiring API keys for models:');
-    for (const [provider, data] of Object.entries(summary.provider_summary)) {
-      if (!data.has_public_models) {
-        console.log(`  🔑 ${provider}: ${data.accessible_endpoints}/${data.total_endpoints} endpoints accessible`);
-      }
-    }
+    const summaryFilename = `summary_report.json`;
+    saveToFile(summary, summaryFilename);
   }
-  
-  console.log('\n✨ Collection complete!');
 }
 
-// Run the script
-if (require.main === module) {
-  main().catch(error => {
-    console.error('❌ Script failed:', error);
-    process.exit(1);
-  });
-}
-
-module.exports = {
-  PUBLIC_ENDPOINTS,
-  collectProviderInfo,
-  makeRequest,
-  extractModels
-};
+main().catch(error => {
+  console.error(`❌ Error: ${error.message}`);
+  process.exit(1);
+});
