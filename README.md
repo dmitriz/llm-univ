@@ -215,7 +215,7 @@ const batchRequest = {
 - OpenAI: Complete batch API with 50% cost savings, 24h processing, JSONL format
 - Anthropic: Message Batches API with 50% cost savings, <1h processing, JSON format
 - SiliconFlow: OpenAI-compatible batch API, estimated cost savings, 24h processing, JSONL format
-- Together AI: Batch API with custom format, estimated cost savings, flexible processing
+- Together AI: Batch API with custom format, estimated cost savings, processing time varies by queue and model load (typically minutes to a few hours)
 
 #### Limited Batch Support
 
