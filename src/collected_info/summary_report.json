@@ -1,0 +1,122 @@
+{
+  "timestamp": "2025-05-30T03:33:30.407Z",
+  "total_providers": 19,
+  "providers_with_models": 6,
+  "total_models": 405,
+  "provider_summary": {
+    "openai": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "anthropic": {
+      "models_found": 1,
+      "accessible_endpoints": 1,
+      "total_endpoints": 2,
+      "has_public_models": true
+    },
+    "google": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "groq": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "together": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "openrouter": {
+      "models_found": 322,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": true
+    },
+    "gh-models": {
+      "models_found": 24,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": true
+    },
+    "huggingface": {
+      "models_found": 50,
+      "accessible_endpoints": 3,
+      "total_endpoints": 4,
+      "has_public_models": true
+    },
+    "deepseek": {
+      "models_found": 0,
+      "accessible_endpoints": 0,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "qwen": {
+      "models_found": 7,
+      "accessible_endpoints": 1,
+      "total_endpoints": 2,
+      "has_public_models": true
+    },
+    "siliconflow": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "grok": {
+      "models_found": 0,
+      "accessible_endpoints": 0,
+      "total_endpoints": 2,
+      "has_public_models": false
+    },
+    "ollama": {
+      "models_found": 1,
+      "accessible_endpoints": 3,
+      "total_endpoints": 3,
+      "has_public_models": true
+    },
+    "perplexity": {
+      "models_found": 0,
+      "accessible_endpoints": 0,
+      "total_endpoints": 2,
+      "has_public_models": false
+    },
+    "cohere": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "ai21": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "fireworks": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "replicate": {
+      "models_found": 0,
+      "accessible_endpoints": 2,
+      "total_endpoints": 3,
+      "has_public_models": false
+    },
+    "mistral": {
+      "models_found": 0,
+      "accessible_endpoints": 1,
+      "total_endpoints": 3,
+      "has_public_models": false
+    }
+  }
+}
