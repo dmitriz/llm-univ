@@ -904,19 +904,19 @@ function generateMarkdownSummary(summary, allInfo) {
 
 This document summarizes the information collected by the provider_info_collector.js script as of ${new Date(summary.timestamp).toLocaleDateString()}.
 
-| Metric | Value |
-|--------|-------|
-| Total Providers | ${summary.total_providers} |
-| Providers With Public Models | ${summary.providers_with_models} |
-| Total Models Available | ${summary.total_models} |
-| Last Updated | ${new Date(summary.timestamp).toLocaleDateString()} |
-| Data Collection Time | ${summary.timestamp} |
+### Summary Statistics
 
-## Data Validation
+- **Total Providers:** ${summary.total_providers}
+- **Providers With Public Models:** ${summary.providers_with_models}
+- **Total Models Available:** ${summary.total_models}
+- **Last Updated:** ${new Date(summary.timestamp).toLocaleDateString()}
+- **Data Collection Time:** ${summary.timestamp}
 
-| Check | Status | Details |
-|-------|--------|---------|
-| Math Validation | ${summary.validation.math_check_passed ? '✅ PASSED' : '❌ FAILED'} | Calculated total: ${summary.validation.calculated_total}, Reported total: ${summary.total_models} |
+### Data Validation
+
+- **Math Validation:** ${summary.validation.math_check_passed ? '✅ PASSED' : '❌ FAILED'}
+  - Calculated total: ${summary.validation.calculated_total}
+  - Reported total: ${summary.total_models}
 
 ${summary.validation.discrepancies.length > 0 ? '### ⚠️ Discrepancies Found:\n' + summary.validation.discrepancies.map(d => `- ${d}`).join('\n') + '\n' : ''}
 

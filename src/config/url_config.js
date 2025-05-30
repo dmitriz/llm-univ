@@ -136,7 +136,14 @@ const PUBLIC_ENDPOINTS = {
  * @returns {string} The full URL for chat completions
  */
 function getChatEndpoint(provider) {
-  return `${BASE_URLS[provider]}${CHAT_ENDPOINTS[provider]}`;
+  const baseUrl = BASE_URLS[provider];
+  const chatPath = CHAT_ENDPOINTS[provider];
+  
+  if (!baseUrl || chatPath === undefined) {
+    return undefined;
+  }
+  
+  return `${baseUrl}${chatPath}`;
 }
 
 /**
@@ -145,7 +152,14 @@ function getChatEndpoint(provider) {
  * @returns {string} The full URL for the models list
  */
 function getModelEndpoint(provider) {
-  return `${BASE_URLS[provider]}${MODEL_ENDPOINTS[provider]}`;
+  const baseUrl = BASE_URLS[provider];
+  const modelPath = MODEL_ENDPOINTS[provider];
+  
+  if (!baseUrl || modelPath === undefined) {
+    return undefined;
+  }
+  
+  return `${baseUrl}${modelPath}`;
 }
 
 /**
