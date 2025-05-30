@@ -142,6 +142,95 @@ const get_default_url = (provider) => {
 };
 
 /**
+ * Handles batch processing request creation for supported providers
+ * @param {Object} data - The validated input data with batch configuration
+ * @returns {Object} Batch-specific request configuration
+ */
+const create_batch_request = (data) => {
+  if (!data.batch?.enabled) {
+    return null; // Not a batch request
+  }
+
+  switch (data.provider) {
+    case 'openai':
+      return {
+        method: 'POST',
+        url: 'https://api.openai.com/v1/batches',
+        data: {
+          input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
+          endpoint: '/v1/chat/completions',
+          completion_window: data.batch.completionWindow || '24h'
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.apiKey}`
+        }
+      };
+    
+    case 'anthropic':
+      return {
+        method: 'POST',
+        url: 'https://api.anthropic.com/v1/messages/batches',
+        data: {
+          requests: data.batch.requests || [{
+            custom_id: data.batch.customId || `req-${Date.now()}`,
+            params: {
+              model: data.model,
+              max_tokens: data.maxTokens || 1024,
+              messages: data.messages,
+              ...(data.temperature && { temperature: data.temperature }),
+              ...(data.topP && { top_p: data.topP })
+            }
+          }]
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': data.apiKey,
+          'anthropic-version': '2025-05-22',
+          'anthropic-beta': 'message-batches-2024-09-24'
+        }
+      };
+    
+    case 'groq':
+      return {
+        method: 'POST',
+        url: 'https://api.groq.com/openai/v1/batches',
+        data: {
+          input_file_id: data.batch.inputFileId, // File ID from uploaded JSONL
+          endpoint: '/v1/chat/completions',
+          completion_window: data.batch.completionWindow || '24h'
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.apiKey}`
+        }
+      };
+    
+    default:
+      throw new Error(`Batch processing not supported for provider: ${data.provider}`);
+  }
+};
+
+/**
+ * Creates JSONL batch file content for OpenAI/Groq format
+ * @param {Array} requests - Array of request objects
+ * @returns {string} JSONL format string
+ */
+const create_batch_jsonl = (requests) => {
+  return requests.map(req => JSON.stringify({
+    custom_id: req.customId,
+    method: 'POST',
+    url: '/v1/chat/completions',
+    body: {
+      model: req.model,
+      messages: req.messages,
+      ...(req.maxTokens && { max_tokens: req.maxTokens }),
+      ...(req.temperature && { temperature: req.temperature })
+    }
+  })).join('\n');
+};
+
+/**
  * Creates an axios request configuration from a Zod schema and input data
  * @param {z.ZodSchema} schema - The Zod schema to validate input against
  * @param {Object} data - The input data to validate and convert

@@ -141,7 +141,50 @@ const llm_input_schema = z.object({
    * Same seed with same parameters should produce similar outputs
    * Reference: https://platform.openai.com/docs/api-reference/chat/create#chat-create-seed
    */
-  seed: z.number().optional()
+  seed: z.number().optional(),
+
+  /**
+   * Batch processing configuration for cost optimization and bulk operations
+   * Supported providers: OpenAI (50% discount), Anthropic (50% discount), Groq (25% discount)
+   * Reference: OpenAI Batch API, Anthropic Message Batches, Groq Batch API
+   */
+  batch: z.object({
+    /**
+     * Enable batch processing mode
+     * When true, requests are queued for asynchronous batch processing
+     */
+    enabled: z.boolean(),
+    
+    /**
+     * Custom identifier for tracking this request within the batch
+     * Must be unique within the batch, used for result correlation
+     */
+    customId: z.string().optional(),
+    
+    /**
+     * Processing window for batch completion
+     * OpenAI: '24h' (24 hours)
+     * Anthropic: Auto-determined (typically <1 hour)
+     * Groq: '24h' to '7d' (24 hours to 7 days)
+     */
+    completionWindow: z.enum(['24h', '48h', '7d']).optional(),
+    
+    /**
+     * Multiple requests for batch processing
+     * Used when submitting multiple requests in a single batch
+     */
+    requests: z.array(z.object({
+      customId: z.string(),
+      model: z.string(),
+      messages: z.array(z.object({
+        role: z.enum(['system', 'user', 'assistant', 'tool']),
+        content: z.string()
+      })),
+      maxTokens: z.number().optional(),
+      temperature: z.number().optional(),
+      // Additional parameters can be added as needed
+    })).optional()
+  }).optional()
 });
 
 module.exports = {
