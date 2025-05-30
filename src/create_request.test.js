@@ -1,7 +1,7 @@
 const { z } = require('zod');
-const { createRequest } = require('../src/create_request');
+const { create_request } = require('./create_request');
 
-describe('createRequest', () => {
+describe('create_request', () => {
   // Define the universal LLM input schema
   const llmInputSchema = z.object({
     // Universal provider field
@@ -69,7 +69,7 @@ describe('createRequest', () => {
         method: 'POST'
       };
 
-      const requestConfig = createRequest(llmInputSchema, inputData, options);
+      const requestConfig = create_request(llmInputSchema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -99,7 +99,7 @@ describe('createRequest', () => {
         method: 'POST'
       };
 
-      const requestConfig = createRequest(llmInputSchema, inputData, options);
+      const requestConfig = create_request(llmInputSchema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -131,7 +131,7 @@ describe('createRequest', () => {
         method: 'POST'
       };
 
-      const requestConfig = createRequest(llmInputSchema, inputData, options);
+      const requestConfig = create_request(llmInputSchema, inputData, options);
 
       expect(requestConfig).toEqual({
         method: 'POST',
@@ -157,7 +157,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.test.com' };
 
       expect(() => {
-        createRequest(llmInputSchema, invalidData, options);
+        create_request(llmInputSchema, invalidData, options);
       }).toThrow();
     });
 
@@ -170,7 +170,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        createRequest(llmInputSchema, invalidData, options);
+        create_request(llmInputSchema, invalidData, options);
       }).toThrow();
     });
 
@@ -187,7 +187,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        createRequest(llmInputSchema, invalidData, options);
+        create_request(llmInputSchema, invalidData, options);
       }).toThrow();
     });
 
@@ -203,7 +203,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        createRequest(llmInputSchema, invalidData, options);
+        create_request(llmInputSchema, invalidData, options);
       }).toThrow();
     });
   });
@@ -219,7 +219,7 @@ describe('createRequest', () => {
 
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
-      const requestConfig = createRequest(llmInputSchema, minimalData, options);
+      const requestConfig = create_request(llmInputSchema, minimalData, options);
 
       expect(requestConfig.data).toEqual(minimalData);
       expect(requestConfig.method).toBe('POST'); // Default method
@@ -261,7 +261,7 @@ describe('createRequest', () => {
 
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
-      const requestConfig = createRequest(llmInputSchema, fullData, options);
+      const requestConfig = create_request(llmInputSchema, fullData, options);
 
       expect(requestConfig.data).toEqual(fullData);
     });
@@ -300,7 +300,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        createRequest(llmInputSchema, dataWithTools, options);
+        create_request(llmInputSchema, dataWithTools, options);
       }).not.toThrow();
     });
 
@@ -322,7 +322,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.anthropic.com/v1/messages' };
 
       expect(() => {
-        createRequest(llmInputSchema, conversationData, options);
+        create_request(llmInputSchema, conversationData, options);
       }).not.toThrow();
     });
   });
@@ -340,7 +340,7 @@ describe('createRequest', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        createRequest(llmInputSchema, dataWithEmptyTools, options);
+        create_request(llmInputSchema, dataWithEmptyTools, options);
       }).not.toThrow();
     });
 
@@ -364,11 +364,11 @@ describe('createRequest', () => {
       const options = { url: 'https://api.openai.com/v1/chat/completions' };
 
       expect(() => {
-        createRequest(llmInputSchema, dataWithStringStop, options);
+        create_request(llmInputSchema, dataWithStringStop, options);
       }).not.toThrow();
 
       expect(() => {
-        createRequest(llmInputSchema, dataWithArrayStop, options);
+        create_request(llmInputSchema, dataWithArrayStop, options);
       }).not.toThrow();
     });
   });

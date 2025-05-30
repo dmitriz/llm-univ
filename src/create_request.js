@@ -6,7 +6,7 @@ const axios = require('axios');
  * @param {Object} data - The validated input data
  * @returns {Object} Provider-specific headers
  */
-const createProviderHeaders = (data) => {
+const create_provider_headers = (data) => {
   const baseHeaders = {
     'Content-Type': 'application/json'
   };
@@ -52,12 +52,12 @@ const createProviderHeaders = (data) => {
  * @param {Object} options.headers - Additional headers (will override provider headers)
  * @returns {Object} Axios request configuration object
  */
-const createRequest = (schema, data, options = {}) => {
+const create_request = (schema, data, options = {}) => {
   // Validate input data against schema
   const validatedData = schema.parse(data);
   
   // Create provider-specific headers
-  const providerHeaders = createProviderHeaders(validatedData);
+  const providerHeaders = create_provider_headers(validatedData);
   
   // Create base request configuration
   const requestConfig = {
@@ -80,13 +80,13 @@ const createRequest = (schema, data, options = {}) => {
  * @param {Object} options - Request options (url, method, headers, etc.)
  * @returns {Promise} Axios response promise
  */
-const executeRequest = async (schema, data, options = {}) => {
-  const requestConfig = createRequest(schema, data, options);
+const execute_request = async (schema, data, options = {}) => {
+  const requestConfig = create_request(schema, data, options);
   return axios(requestConfig);
 };
 
 module.exports = {
-  createRequest,
-  executeRequest,
-  createProviderHeaders
+  create_request,
+  execute_request,
+  create_provider_headers
 };
