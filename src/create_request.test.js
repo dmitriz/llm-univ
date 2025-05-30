@@ -17,12 +17,7 @@ describe('create_request', () => {
         stream: false
       };
 
-      const options = {
-        url: 'https://api.openai.com/v1/chat/completions',
-        method: 'POST'
-      };
-
-      const requestConfig = create_request(llm_input_schema, inputData, options);
+      const requestConfig = create_request(llm_input_schema, inputData);
 
       expect(requestConfig).toEqual({
         method: 'POST',
