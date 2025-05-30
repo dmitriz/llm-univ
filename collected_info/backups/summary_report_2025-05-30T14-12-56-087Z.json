@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-05-30T15:59:11.913Z",
+  "timestamp": "2025-05-30T05:51:41.750Z",
   "total_providers": 19,
   "providers_with_models": 6,
   "total_models": 408,
@@ -184,7 +184,7 @@
     "discrepancies": []
   },
   "data_freshness": {
-    "collection_time": "2025-05-30T15:59:11.913Z",
+    "collection_time": "2025-05-30T05:51:41.750Z",
     "is_latest": true,
     "note": "This is the most recent data collection run"
   }

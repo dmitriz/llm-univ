@@ -136,7 +136,14 @@ const PUBLIC_ENDPOINTS = {
  * @returns {string} The full URL for chat completions
  */
 function getChatEndpoint(provider) {
-  return `${BASE_URLS[provider]}${CHAT_ENDPOINTS[provider]}`;
+  const baseUrl = BASE_URLS[provider];
+  const chatPath = CHAT_ENDPOINTS[provider];
+  
+  if (!baseUrl || chatPath === undefined) {
+    return undefined;
+  }
+  
+  return `${baseUrl}${chatPath}`;
 }
 
 /**
@@ -145,7 +152,14 @@ function getChatEndpoint(provider) {
  * @returns {string} The full URL for the models list
  */
 function getModelEndpoint(provider) {
-  return `${BASE_URLS[provider]}${MODEL_ENDPOINTS[provider]}`;
+  const baseUrl = BASE_URLS[provider];
+  const modelPath = MODEL_ENDPOINTS[provider];
+  
+  if (!baseUrl || modelPath === undefined) {
+    return undefined;
+  }
+  
+  return `${baseUrl}${modelPath}`;
 }
 
 /**
@@ -166,14 +180,12 @@ function getHuggingFaceUrl(modelName) {
   return `${BASE_URLS.huggingface}/${modelName}`;
 }
 
-module.exports = {
-  BASE_URLS,
-  CHAT_ENDPOINTS,
-  MODEL_ENDPOINTS,
-  BATCH_ENDPOINTS,
-  PUBLIC_ENDPOINTS,
-  getChatEndpoint,
-  getModelEndpoint,
-  getBatchEndpoint,
-  getHuggingFaceUrl
-};
+exports.BASE_URLS = BASE_URLS;
+exports.CHAT_ENDPOINTS = CHAT_ENDPOINTS;
+exports.MODEL_ENDPOINTS = MODEL_ENDPOINTS;
+exports.BATCH_ENDPOINTS = BATCH_ENDPOINTS;
+exports.PUBLIC_ENDPOINTS = PUBLIC_ENDPOINTS;
+exports.getChatEndpoint = getChatEndpoint;
+exports.getModelEndpoint = getModelEndpoint;
+exports.getBatchEndpoint = getBatchEndpoint;
+exports.getHuggingFaceUrl = getHuggingFaceUrl;
