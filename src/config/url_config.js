@@ -180,14 +180,12 @@ function getHuggingFaceUrl(modelName) {
   return `${BASE_URLS.huggingface}/${modelName}`;
 }
 
-module.exports = {
-  BASE_URLS,
-  CHAT_ENDPOINTS,
-  MODEL_ENDPOINTS,
-  BATCH_ENDPOINTS,
-  PUBLIC_ENDPOINTS,
-  getChatEndpoint,
-  getModelEndpoint,
-  getBatchEndpoint,
-  getHuggingFaceUrl
-};
+exports.BASE_URLS = BASE_URLS;
+exports.CHAT_ENDPOINTS = CHAT_ENDPOINTS;
+exports.MODEL_ENDPOINTS = MODEL_ENDPOINTS;
+exports.BATCH_ENDPOINTS = BATCH_ENDPOINTS;
+exports.PUBLIC_ENDPOINTS = PUBLIC_ENDPOINTS;
+exports.getChatEndpoint = getChatEndpoint;
+exports.getModelEndpoint = getModelEndpoint;
+exports.getBatchEndpoint = getBatchEndpoint;
+exports.getHuggingFaceUrl = getHuggingFaceUrl;
