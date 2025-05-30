@@ -854,124 +854,311 @@ describe('create_request', () => {
 describe('extract_api_payload', () => {
     const { extract_api_payload } = require('./create_request');
 
-    it('should extract only API-relevant fields and exclude internal fields', () => {
-      const inputData = {
-        // API fields that should be included
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }],
-        maxTokens: 1000,
-        temperature: 0.7,
-        topP: 0.9,
-        stream: false,
-        stop: ['END'],
-        presencePenalty: 0.5,
-        frequencyPenalty: 0.3,
-        tools: [{ type: 'function', function: { name: 'test' } }],
-        responseFormat: { type: 'json_object' },
-        seed: 12345,
-        
-        // Internal fields that should be excluded
-        provider: 'openai',
-        apiKey: 'test-key-123',
-        batch: { enabled: true, customId: 'test' }
-      };
+    describe('Core functionality', () => {
+      it('should extract only API-relevant fields and exclude internal fields', () => {
+        const inputData = {
+          // API fields that should be included
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Hello' }],
+          maxTokens: 1000,
+          temperature: 0.7,
+          topP: 0.9,
+          stream: false,
+          stop: ['END'],
+          presencePenalty: 0.5,
+          frequencyPenalty: 0.3,
+          tools: [{ type: 'function', function: { name: 'test' } }],
+          responseFormat: { type: 'json_object' },
+          seed: 12345,
+          
+          // Internal fields that should be excluded
+          provider: 'openai',
+          apiKey: 'test-key-123',
+          batch: { enabled: true, customId: 'test' }
+        };
 
-      const result = extract_api_payload(inputData);
+        const result = extract_api_payload(inputData);
 
-      // Should include all API fields with snake_case keys
-      expect(result).toEqual({
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Hello' }],
-        max_tokens: 1000,
-        temperature: 0.7,
-        top_p: 0.9,
-        stream: false,
-        stop: ['END'],
-        presence_penalty: 0.5,
-        frequency_penalty: 0.3,
-        tools: [{ type: 'function', function: { name: 'test' } }],
-        response_format: { type: 'json_object' },
-        seed: 12345
+        // Should include all API fields with snake_case keys
+        expect(result).toEqual({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Hello' }],
+          max_tokens: 1000,
+          temperature: 0.7,
+          top_p: 0.9,
+          stream: false,
+          stop: ['END'],
+          presence_penalty: 0.5,
+          frequency_penalty: 0.3,
+          tools: [{ type: 'function', function: { name: 'test' } }],
+          response_format: { type: 'json_object' },
+          seed: 12345
+        });
+
+        // Should not include internal fields
+        expect(result).not.toHaveProperty('provider');
+        expect(result).not.toHaveProperty('apiKey');
+        expect(result).not.toHaveProperty('batch');
       });
 
-      // Should not include internal fields
-      expect(result).not.toHaveProperty('provider');
-      expect(result).not.toHaveProperty('apiKey');
-      expect(result).not.toHaveProperty('batch');
+      it('should handle minimal input with only required fields', () => {
+        const inputData = {
+          model: 'gpt-3.5-turbo',
+          messages: [{ role: 'user', content: 'Test' }],
+          provider: 'openai',
+          apiKey: 'sk-test'
+        };
+
+        const result = extract_api_payload(inputData);
+
+        expect(result).toEqual({
+          model: 'gpt-3.5-turbo',
+          messages: [{ role: 'user', content: 'Test' }]
+        });
+
+        expect(result).not.toHaveProperty('provider');
+        expect(result).not.toHaveProperty('apiKey');
+      });
+
+      it('should handle undefined optional fields correctly', () => {
+        const inputData = {
+          model: 'claude-3-haiku',
+          messages: [{ role: 'user', content: 'Test' }],
+          temperature: undefined,
+          maxTokens: 500,
+          provider: 'anthropic',
+          apiKey: 'test-key',
+          unknownField: 'should be excluded'
+        };
+
+        const result = extract_api_payload(inputData);
+
+        expect(result).toEqual({
+          model: 'claude-3-haiku',
+          messages: [{ role: 'user', content: 'Test' }],
+          max_tokens: 500
+        });
+
+        // Should not include undefined fields
+        expect(result).not.toHaveProperty('temperature');
+        // Should not include internal fields
+        expect(result).not.toHaveProperty('provider');
+        expect(result).not.toHaveProperty('apiKey');
+        // Should not include unknown fields
+        expect(result).not.toHaveProperty('unknownField');
+      });
     });
 
-    it('should handle minimal input with only required fields', () => {
-      const inputData = {
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: 'Test' }],
-        provider: 'openai',
-        apiKey: 'sk-test'
-      };
+    describe('Data leakage prevention', () => {
+      it('should prevent data leakage when new internal fields are added', () => {
+        const inputData = {
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          provider: 'openai',
+          apiKey: 'test-key',
+          
+          // Simulate future internal fields that should never leak to API
+          newInternalConfig: { secret: 'value' },
+          internalUserId: 'user-123',
+          debugMode: true,
+          internalMetrics: { calls: 5, errors: 0 },
+          privateSettings: { billing: 'premium' }
+        };
 
-      const result = extract_api_payload(inputData);
+        const result = extract_api_payload(inputData);
 
-      expect(result).toEqual({
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: 'Test' }]
+        expect(result).toEqual({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }]
+        });
+
+        // Verify NO internal fields leaked through
+        expect(result).not.toHaveProperty('provider');
+        expect(result).not.toHaveProperty('apiKey');
+        expect(result).not.toHaveProperty('newInternalConfig');
+        expect(result).not.toHaveProperty('internalUserId');
+        expect(result).not.toHaveProperty('debugMode');
+        expect(result).not.toHaveProperty('internalMetrics');
+        expect(result).not.toHaveProperty('privateSettings');
       });
 
-      expect(result).not.toHaveProperty('provider');
-      expect(result).not.toHaveProperty('apiKey');
+      it('should only include explicitly allowlisted API fields', () => {
+        const inputData = {
+          // Known allowlisted fields
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          maxTokens: 100,
+          
+          // Simulate unknown/future API fields that would need explicit allowlisting
+          newApiField: 'this needs to be explicitly added to allowlist',
+          experimentalFeature: { enabled: true },
+          futureParameter: 42
+        };
+
+        const result = extract_api_payload(inputData);
+
+        // Should only include explicitly allowlisted fields
+        expect(result).toEqual({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          max_tokens: 100
+        });
+
+        // Should NOT include fields not in allowlist, even if they seem API-related
+        expect(result).not.toHaveProperty('newApiField');
+        expect(result).not.toHaveProperty('experimentalFeature');
+        expect(result).not.toHaveProperty('futureParameter');
+      });
     });
 
-    it('should handle undefined optional fields correctly', () => {
-      const inputData = {
-        model: 'claude-3-haiku',
-        messages: [{ role: 'user', content: 'Test' }],
-        temperature: undefined,
-        maxTokens: 500,
-        provider: 'anthropic',
-        apiKey: 'test-key',
-        unknownField: 'should be excluded'
-      };
-
-      const result = extract_api_payload(inputData);
-
-      expect(result).toEqual({
-        model: 'claude-3-haiku',
-        messages: [{ role: 'user', content: 'Test' }],
-        max_tokens: 500
+    describe('Error handling and edge cases', () => {
+      it('should throw error for null input', () => {
+        expect(() => {
+          extract_api_payload(null);
+        }).toThrow('extract_api_payload: validatedData must be a non-null object');
       });
 
-      // Should not include undefined fields
-      expect(result).not.toHaveProperty('temperature');
-      // Should not include internal fields
-      expect(result).not.toHaveProperty('provider');
-      expect(result).not.toHaveProperty('apiKey');
-      // Should not include unknown fields
-      expect(result).not.toHaveProperty('unknownField');
+      it('should throw error for undefined input', () => {
+        expect(() => {
+          extract_api_payload(undefined);
+        }).toThrow('extract_api_payload: validatedData must be a non-null object');
+      });
+
+      it('should throw error for non-object input', () => {
+        expect(() => {
+          extract_api_payload('string');
+        }).toThrow('extract_api_payload: validatedData must be a non-null object');
+
+        expect(() => {
+          extract_api_payload(123);
+        }).toThrow('extract_api_payload: validatedData must be a non-null object');
+      });
+
+      it('should handle empty object input', () => {
+        const result = extract_api_payload({});
+        expect(result).toEqual({});
+      });
+
+      it('should handle null values in allowlisted fields', () => {
+        const inputData = {
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          temperature: null,
+          maxTokens: 100,
+          stop: null
+        };
+
+        const result = extract_api_payload(inputData);
+
+        expect(result).toEqual({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          max_tokens: 100
+        });
+
+        // Null values should be excluded
+        expect(result).not.toHaveProperty('temperature');
+        expect(result).not.toHaveProperty('stop');
+      });
     });
 
-    it('should handle future schema additions gracefully', () => {
-      const inputData = {
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Test' }],
-        provider: 'openai',
-        apiKey: 'test-key',
-        
-        // Simulate future internal fields that should be excluded
-        newInternalField: 'should not appear in API payload',
-        anotherInternalField: { complex: 'object' },
-        
-        // Simulate future API fields that need to be explicitly added to allowlist
-        futureApiField: 'would need to be added to allowlist'
-      };
+    describe('Field mapping verification', () => {
+      it('should correctly map all camelCase fields to snake_case', () => {
+        const inputData = {
+          model: 'test-model',
+          messages: [{ role: 'user', content: 'Test' }],
+          maxTokens: 100,
+          temperature: 0.7,
+          topP: 0.9,
+          stream: true,
+          stop: ['STOP'],
+          presencePenalty: 0.5,
+          frequencyPenalty: 0.3,
+          tools: [{ type: 'function' }],
+          responseFormat: { type: 'text' },
+          seed: 42
+        };
 
-      const result = extract_api_payload(inputData);
+        const result = extract_api_payload(inputData);
 
-      expect(result).toEqual({
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: 'Test' }]
+        // Verify each field mapping is correct
+        expect(result.model).toBe('test-model');
+        expect(result.messages).toEqual([{ role: 'user', content: 'Test' }]);
+        expect(result.max_tokens).toBe(100);
+        expect(result.temperature).toBe(0.7);
+        expect(result.top_p).toBe(0.9);
+        expect(result.stream).toBe(true);
+        expect(result.stop).toEqual(['STOP']);
+        expect(result.presence_penalty).toBe(0.5);
+        expect(result.frequency_penalty).toBe(0.3);
+        expect(result.tools).toEqual([{ type: 'function' }]);
+        expect(result.response_format).toEqual({ type: 'text' });
+        expect(result.seed).toBe(42);
+
+        // Verify no camelCase fields remain
+        expect(result).not.toHaveProperty('maxTokens');
+        expect(result).not.toHaveProperty('topP');
+        expect(result).not.toHaveProperty('presencePenalty');
+        expect(result).not.toHaveProperty('frequencyPenalty');
+        expect(result).not.toHaveProperty('responseFormat');
+      });
+    });
+
+    describe('Future-proofing tests', () => {
+      it('should handle future schema additions gracefully', () => {
+        const inputData = {
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          provider: 'openai',
+          apiKey: 'test-key',
+          
+          // Simulate future internal fields that should be excluded
+          newInternalField: 'should not appear in API payload',
+          anotherInternalField: { complex: 'object' },
+          
+          // Simulate future API fields that need to be explicitly added to allowlist
+          futureApiField: 'would need to be added to allowlist'
+        };
+
+        const result = extract_api_payload(inputData);
+
+        expect(result).toEqual({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }]
+        });
+
+        // Should not include any unknown fields (internal or API)
+        expect(result).not.toHaveProperty('newInternalField');
+        expect(result).not.toHaveProperty('anotherInternalField');
+        expect(result).not.toHaveProperty('futureApiField');
       });
 
-      // Should not include any unknown fields (internal or API)
-      expect(result).not.toHaveProperty('newInternalField');
-      expect(result).not.toHaveProperty('anotherInternalField');
-      expect(result).not.toHaveProperty('futureApiField');
+      it('should be secure by default - reject all unknown fields', () => {
+        const inputWithManyUnknownFields = {
+          // Known good fields
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }],
+          
+          // Many potential future/unknown fields
+          unknownField1: 'value1',
+          unknownField2: { nested: 'value' },
+          unknownField3: [1, 2, 3],
+          adminAccess: true,
+          secretKey: 'should-never-leak',
+          internalDebugInfo: { logs: ['error1', 'error2'] },
+          userCredentials: { username: 'admin', password: 'secret' }
+        };
+
+        const result = extract_api_payload(inputWithManyUnknownFields);
+
+        // Should only contain the two known allowlisted fields
+        expect(Object.keys(result)).toEqual(['model', 'messages']);
+        expect(Object.keys(result)).toHaveLength(2);
+        
+        expect(result).toEqual({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: 'Test' }]
+        });
+      });
     });
   });

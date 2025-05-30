@@ -227,19 +227,41 @@ const create_batch_jsonl = (requests) => {
  * Uses allowlist approach to include only API-relevant fields
  * Excludes internal fields like provider, apiKey, batch
  * Maps camelCase field names to snake_case API format
+ * 
  * @param {Object} validatedData - The validated input data
  * @returns {Object} Clean API payload with snake_case keys
+ * 
+ * @example
+ * const result = extract_api_payload({
+ *   model: 'gpt-4',
+ *   messages: [{role: 'user', content: 'Hello'}],
+ *   maxTokens: 1000,
+ *   provider: 'openai', // excluded from output
+ *   apiKey: 'sk-...'    // excluded from output
+ * });
+ * // Returns: { model: 'gpt-4', messages: [...], max_tokens: 1000 }
  */
 const extract_api_payload = (validatedData) => {
-  // Define mapping from camelCase internal fields to snake_case API fields
-  const fieldMapping = {
+  if (!validatedData || typeof validatedData !== 'object') {
+    throw new Error('extract_api_payload: validatedData must be a non-null object');
+  }
+
+  // Define comprehensive allowlist mapping from camelCase to snake_case
+  // This explicit allowlist approach prevents data leakage if new internal
+  // fields are added to the schema in the future
+  const API_FIELD_MAPPING = {
+    // Core required fields
     'model': 'model',
-    'messages': 'messages', 
+    'messages': 'messages',
+    
+    // Generation parameters
     'maxTokens': 'max_tokens',
     'temperature': 'temperature',
     'topP': 'top_p',
     'stream': 'stream',
     'stop': 'stop',
+    
+    // Advanced parameters  
     'presencePenalty': 'presence_penalty',
     'frequencyPenalty': 'frequency_penalty',
     'tools': 'tools',
@@ -247,11 +269,12 @@ const extract_api_payload = (validatedData) => {
     'seed': 'seed'
   };
   
-  // Extract and map fields from validated data
+  // Extract and map only allowlisted fields from validated data
   const apiPayload = {};
-  for (const [camelCaseField, snakeCaseField] of Object.entries(fieldMapping)) {
-    if (validatedData[camelCaseField] !== undefined) {
-      apiPayload[snakeCaseField] = validatedData[camelCaseField];
+  for (const [camelCaseField, snakeCaseField] of Object.entries(API_FIELD_MAPPING)) {
+    const value = validatedData[camelCaseField];
+    if (value !== undefined && value !== null) {
+      apiPayload[snakeCaseField] = value;
     }
   }
   
