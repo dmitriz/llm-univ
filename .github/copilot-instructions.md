@@ -2,15 +2,27 @@
 
 ## 🎯 Primary Research Strategy
 
-### Context7 MCP Server - ALWAYS FIRST CHOICE
-- **ALWAYS** use Context7 (MCP server) for documentation research BEFORE trying fetch tools
-- Context7 provides more comprehensive, up-to-date, and structured documentation
-- Only fallback to fetch tools if Context7 doesn't have the needed information
-- For technical documentation, Context7 has proven superior with extensive code examples
+### Comprehensive MCP Server Usage
+- **Use ALL available MCP servers** in parallel to gather comprehensive information
+- **Include Context7** for its extensive code examples and structured documentation
+- **Leverage unique strengths** of each MCP server:
+  - Memory MCP: For historical data and past findings
+  - Model Context MCP: For deep technical insights
+  - Compute MCP: For performance benchmarks
+  - Context7: For code examples and API documentation
+- **Cross-reference findings** across multiple MCP servers
+- Only use fetch tools if MCP servers lack needed information
 
 ### Research Priority Order:
-1. **Context7 MCP Server** (`f51_resolve-library-id` → `f51_get-library-docs`)
-2. **Other MCP Servers** (if available and relevant)  
+1. **Multiple MCP Servers in Parallel**:
+   - Context7 for code examples and API docs
+   - Memory MCP for historical context
+   - Model Context MCP for technical details
+   - Any other available MCP servers
+2. **Cross-Reference and Validate**:
+   - Compare information across MCP servers
+   - Identify and resolve any inconsistencies
+   - Document source of each finding
 3. **Fetch tools** (only as last resort due to frequent 403 errors from bot protection)
 
 ## 🔧 Project-Specific Guidelines
@@ -60,10 +72,12 @@
 ## 🚫 Common Mistakes to Avoid
 
 ### Research Mistakes
-- **DON'T** use fetch tools first - always try Context7 first
+- **DON'T** rely on a single MCP server - use all available servers in parallel
+- **DON'T** skip cross-referencing information across MCP servers
+- **DON'T** forget to document which MCP server provided which findings
 - **DON'T** skip Perplexity when researching major providers
 - **DON'T** ignore real-time/search capabilities in provider research
-- **DON'T** assume information is up-to-date without checking Context7
+- **DON'T** use fetch tools before exhausting all MCP servers
 
 ### Documentation Mistakes  
 - **DON'T** repeat "free tier available" everywhere - organize it cleanly
@@ -99,11 +113,24 @@
 ## 🔍 Research Workflow
 
 1. **Identify information need**
-2. **Use Context7 first**: `f51_resolve-library-id` → `f51_get-library-docs`
-3. **Check multiple MCP servers** if available
-4. **Only use fetch as fallback** for information not in Context7
-5. **Verify information recency** and accuracy
-6. **Cross-reference multiple sources** when possible
+2. **Query all MCP servers in parallel**:
+   - Context7: `f51_resolve-library-id` → `f51_get-library-docs`
+   - Memory MCP: For historical findings
+   - Model Context MCP: For technical insights
+   - Any other available MCP servers
+3. **Cross-reference and analyze**:
+   - Compare findings across MCP servers
+   - Note unique insights from each source
+   - Document source of each finding
+4. **Resolve conflicts**:
+   - If MCP servers provide different information
+   - Weight recent findings more heavily
+   - Document reasoning for chosen resolution
+5. **Only use fetch as fallback** if MCP servers lack information
+6. **Verify final information**:
+   - Check recency and accuracy
+   - Document verification process
+   - Note any uncertainties
 
 ## 📊 Quality Metrics
 

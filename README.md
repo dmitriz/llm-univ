@@ -46,66 +46,56 @@ Several providers offer batch processing capabilities that can significantly red
 
 ### 🏢 Supported Providers
 
-**🟢 OpenAI Batch API** *(✅ Recommended)*
+#### OpenAI Batch API ✅
 
-- **💰 Cost Savings**: 50% discount on eligible endpoints
-- **Method**: Upload JSONL file → Create batch → Monitor status → Download results
-- **Implementation**: Fully integrated via `create_batch_request` and `create_batch_jsonl`
+*Recommended Implementation*
 
-**🟢 Groq Batch API** *(✅ New Implementation)*
+- 💰 Cost Savings: 50% discount on eligible endpoints
+- Method: Upload JSONL file → Create batch → Monitor status → Download results
+- Implementation: Fully integrated via `create_batch_request` and `create_batch_jsonl`
+- Processing Window: 24 hours
+- Support: `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`
+- Format: JSONL file upload with custom IDs for tracking
+- Status: Generally available with comprehensive examples
 
-- **💰 Cost Savings**: 25% discount on eligible endpoints  
-- **Method**: Similar to OpenAI, uses file upload and batch creation
-- **Documentation**: <https://console.groq.com/docs/docs/batch>
-- **Implementation**: Added in May 30 update
+#### Anthropic Message Batches ✅
 
-**🟢 Anthropic Batch API**
+*Recommended Implementation*
 
-- **💰 Cost Savings**: 50% discount on eligible endpoints
-- **Method**: Uses `requests` array with multiple message sets
-- **Implementation**: Fully supported via `create_batch_request`
+- 💰 Cost Savings: 50% discount on Message Batches API
+- Processing Window: Typically under 1 hour
+- Support: All Claude models via `/v1/messages/batches`
+- Format: JSON array of requests with custom IDs
+- Status: Available in public beta with stable performance
+- Best For: Bulk analysis, content moderation, research applications
 
-**🟢 Together AI Batch API**
+#### Groq Batch Processing ⚠️
 
-- **Method**: Uses `requests` array with multiple completion requests
-- **Implementation**: Fully supported via `create_batch_request`
-- **⏱️ Processing Window**: 24 hours
-- **🎯 Support**: `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`
-- **📄 Format**: JSONL file upload with custom IDs for tracking
-- **📊 Status**: Generally available with comprehensive examples
+*Limited Availability*
 
-**🔵 Anthropic Message Batches** *(✅ Recommended)*
+- 💰 Cost Savings: 25% discount on batch requests
+- Processing Window: 24 hours to 7 days (variable based on queue)
+- Support: Limited model availability
+- Status: Check latest documentation for availability
+- Best For: Non-urgent bulk processing when extreme speed is not required
 
-- **💰 Cost Savings**: 50% discount on Message Batches API
-- **⏱️ Processing Window**: Typically under 1 hour
-- **🎯 Support**: All Claude models via `/v1/messages/batches`
-- **📄 Format**: JSON array of requests with custom IDs
-- **📊 Status**: Available in public beta
+### Batch Processing Benefits
 
-**🟡 Groq Batch Processing** *(⚠️ Limited)*
+- Cost Optimization: 25-50% savings on processing costs
+- Higher Throughput: Process thousands of requests efficiently
+- Rate Limit Bypass: Avoid individual request rate limits
+- Asynchronous Processing: Submit jobs and retrieve results later
+- Better Resource Planning: Predictable processing windows
 
-- **💰 Cost Savings**: 25% discount on batch requests  
-- **⏱️ Processing Window**: 24 hours to 7 days
-- **🎯 Support**: Limited model availability
-- **📊 Status**: Check latest documentation for availability
+### Implementation Strategy
 
-### 🎯 Batch Processing Benefits
+The universal wrapper supports batch processing through:
 
-• **💰 Cost Optimization**: 25-50% savings on processing costs  
-• **⚡ Higher Throughput**: Process thousands of requests efficiently  
-• **🚀 Rate Limit Bypass**: Avoid individual request rate limits  
-• **⏰ Asynchronous Processing**: Submit jobs and retrieve results later  
-• **📊 Better Resource Planning**: Predictable processing windows
-
-### 🛠️ Implementation Strategy
-
-The universal wrapper will support batch processing through:
-
-• **📝 Batch Schema Extension**: Additional batch-specific parameters  
-• **🔍 Provider Detection**: Automatic batch capability detection  
-• **🔄 Format Conversion**: Universal-to-provider batch format translation  
-• **📈 Status Monitoring**: Unified batch job status tracking  
-• **⚙️ Result Processing**: Automatic result file handling and parsing
+- Batch Schema Extension: Additional batch-specific parameters
+- Provider Detection: Automatic batch capability detection
+- Format Conversion: Universal-to-provider batch format translation
+- Status Monitoring: Unified batch job status tracking
+- Result Processing: Automatic result file handling and parsing
 
 ### 💻 Usage Example (Planned)
 
@@ -179,88 +169,103 @@ const batchRequest = {
 • **Enterprise Features**: Advanced security, compliance, and integration capabilities
 • **Best For**: Enterprise applications requiring compliance and integration with Microsoft ecosystem
 
-### 🏭 Batch Processing Cost Savings
+### 🏭 Batch Processing Cost & Performance
 
-**🟢 OpenAI Batch API** *(Recommended)*
-• **Cost Savings**: 50% discount on eligible endpoints
-• **Processing Time**: 24-hour completion window
-• **Supported Endpoints**: `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`
-• **Format**: JSONL file upload with custom request IDs for tracking
-• **Status**: Generally available with comprehensive documentation
-• **Best For**: Large-scale content processing, embeddings generation, bulk translations
+#### OpenAI
 
-**🔵 Anthropic Message Batches** *(Recommended)*
-• **Cost Savings**: 50% discount on Message Batches API
-• **Processing Time**: Typically under 1 hour (much faster than OpenAI)
-• **Support**: All Claude models via `/v1/messages/batches` endpoint
-• **Format**: JSON array of requests with custom IDs
-• **Status**: Available in public beta with stable performance
-• **Best For**: Bulk analysis, content moderation, research applications
+*✅ Recommended - 50% Cost Savings*
 
-**🟡 Groq Batch Processing** *(Limited Availability)*
-• **Cost Savings**: 25% discount on batch requests
-• **Processing Time**: 24 hours to 7 days (variable based on queue)
-• **Limitations**: Limited model availability and capacity
-• **Status**: Check latest documentation for current availability
-• **Best For**: Non-urgent bulk processing when extreme speed is not required
+- Processing Time: 24-hour completion window
+- Endpoints: `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`
+- Format: JSONL file upload with custom request IDs for tracking
+- Status: Generally available with comprehensive documentation
+- Best For: Large-scale content processing, embeddings generation, bulk translations
 
-### 🚀 Additional Cost Optimization Strategies
+#### Anthropic
 
-**📊 Rate Limit Management**
-• **Smart Queuing**: Implement request queuing to stay within free tier limits
-• **Request Batching**: Combine multiple requests to reduce API call overhead
-• **Caching**: Cache responses for repeated queries to minimize API usage
-• **Load Balancing**: Distribute requests across multiple providers based on cost and availability
+*✅ Recommended - 50% Cost Savings*
 
-**⚡ Performance Optimization**
-• **Model Selection**: Choose the most cost-effective model for your specific use case
-• **Token Optimization**: Minimize input/output tokens through efficient prompting
-• **Streaming**: Use streaming responses to reduce perceived latency and improve UX
-• **Regional Deployment**: Choose regions with lower costs or better performance
+- Processing Time: Typically under 1 hour (much faster than OpenAI)
+- Support: All Claude models via `/v1/messages/batches` endpoint
+- Format: JSON array of requests with custom IDs
+- Status: Available in public beta with stable performance
+- Best For: Bulk analysis, content moderation, research applications
 
-**🔄 Hybrid Approaches**
-• **Development vs Production**: Use free tiers for development, paid services for production
-• **Fallback Strategies**: Implement provider fallbacks based on cost and availability
-• **Local + Cloud**: Use Ollama for development and testing, cloud providers for production scale
+#### Groq
 
-### 🎯 Provider-Specific Batch Support
+*⚠️ Limited - 25% Cost Savings*
 
-**✅ Full Batch Support Available**
-• **OpenAI**: Complete batch API with 50% cost savings, 24h processing, JSONL format
-• **Anthropic**: Message Batches API with 50% cost savings, <1h processing, JSON format
+- Processing Time: 24 hours to 7 days (variable based on queue)
+- Support: Limited model availability and capacity
+- Status: Check latest documentation for current availability
+- Best For: Non-urgent bulk processing when extreme speed is not required
 
-**⚠️ Limited Batch Support**  
-• **Groq**: 25% cost savings available but limited model selection and longer processing times
+### Cost Optimization Strategies
 
-**📤 Individual Requests Only**
-• **Google (Gemini)**: No batch processing currently available
-• **Grok (X.AI)**: Individual requests only
-• **OpenRouter**: Individual requests only  
-• **Perplexity**: Individual requests only (but 2000 RPM standard rate limits)
-• **Hugging Face**: Individual requests only (community inference)
-• **Together AI**: Individual requests only
-• **Qwen (Alibaba)**: Individual requests only
-• **Ollama**: Local processing only (unlimited by design)
-• **GitHub Models**: Individual requests only
+#### Rate Limit Management
 
-### ⚠️ Cost Transparency Considerations
+- Smart Queuing: Implement request queuing to stay within free tier limits
+- Request Batching: Combine multiple requests to reduce API call overhead
+- Caching: Cache responses for repeated queries to minimize API usage
+- Load Balancing: Distribute requests across multiple providers based on cost
 
-**🔍 Clear Pricing Providers**
-• **OpenAI**: Transparent per-token pricing with batch discounts clearly documented
-• **Anthropic**: Clear pricing structure with batch savings well-documented
-• **Azure OpenAI**: Enterprise pricing with detailed cost control mechanisms
+#### Performance Optimization
 
-**⚪ Limited Pricing Transparency**
-• **Grok (X.AI)**: Pricing information requires X Premium subscription context
-• **GitHub Models**: Free tier limits not clearly specified in public documentation
-• **OpenRouter**: Aggregates multiple providers with varying pricing structures
+- Model Selection: Choose the most cost-effective model for your specific use case
+- Token Optimization: Minimize input/output tokens through efficient prompting
+- Streaming: Use streaming responses to reduce perceived latency and improve UX
+- Regional Deployment: Choose regions with lower costs or better performance
 
-**💡 Cost Planning Recommendations**
-• **Start Free**: Begin with Ollama (local) or GitHub Models for development
-• **Scale Gradually**: Move to free tiers of major providers as needs grow
-• **Batch When Possible**: Use batch processing for any bulk operations (50% savings)
-• **Monitor Usage**: Implement usage tracking and alerts for cost control
-• **Plan for Growth**: Design applications to easily switch between providers based on cost and performance needs
+#### Hybrid Approaches
+
+- Development vs Production: Use free tiers for development, paid services for production
+- Fallback Strategies: Implement provider fallbacks based on cost and availability
+- Local + Cloud: Use Ollama for development and testing, cloud providers for production
+
+### Provider-Specific Batch Support
+
+#### Full Batch Support
+
+- OpenAI: Complete batch API with 50% cost savings, 24h processing, JSONL format
+- Anthropic: Message Batches API with 50% cost savings, <1h processing, JSON format
+
+#### Limited Batch Support
+
+- Groq: 25% cost savings available but limited model selection and longer processing times
+
+#### Individual Requests Only
+
+- Google (Gemini): No batch processing currently available
+- Grok (X.AI): Individual requests only
+- OpenRouter: Individual requests only
+- Perplexity: Individual requests only (but 2000 RPM standard rate limits)
+- Hugging Face: Individual requests only (community inference)
+- Together AI: Individual requests only
+- Qwen (Alibaba): Individual requests only
+- Ollama: Local processing only (unlimited by design)
+- GitHub Models: Individual requests only
+
+### Cost Transparency
+
+#### Clear Pricing Providers
+
+- OpenAI: Transparent per-token pricing with batch discounts clearly documented
+- Anthropic: Clear pricing structure with batch savings well-documented
+- Azure OpenAI: Enterprise pricing with detailed cost control mechanisms
+
+#### Limited Pricing Transparency
+
+- Grok (X.AI): Pricing information requires X Premium subscription context
+- GitHub Models: Free tier limits not clearly specified in public documentation
+- OpenRouter: Aggregates multiple providers with varying pricing structures
+
+#### Cost Planning Guide
+
+- Start Free: Begin with Ollama (local) or GitHub Models for development
+- Scale Gradually: Move to free tiers of major providers as needs grow
+- Batch When Possible: Use batch processing for any bulk operations (50% savings)
+- Monitor Usage: Implement usage tracking and alerts for cost control
+- Plan for Growth: Design applications to easily switch between providers based on cost
 
 ## Usage
 
