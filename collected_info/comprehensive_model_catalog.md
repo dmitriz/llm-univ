@@ -42,6 +42,7 @@ OpenRouter provides access to a wide variety of models from different providers 
 #### Top Models with Detailed Specifications
 
 **🔥 DeepSeek-R1-0528 Series (Latest Reasoning Models)**
+
 - **`deepseek/deepseek-r1-0528:free`**
   - Context: 163,840 tokens
   - Pricing: FREE ($0 all tokens)
@@ -64,12 +65,14 @@ OpenRouter provides access to a wide variety of models from different providers 
   - Description: Premium 8B distilled version with priority access
 
 **🧠 Google Gemma Series**
+
 - **`google/gemma-2b-it`**
   - Context: 8,192 tokens
   - Pricing: $0.0000001 prompt / $0.0000001 completion
   - Description: 2B parameter instruction-tuned model for text generation
 
 **🌍 Sarvam-M (Multilingual Indian Languages)**
+
 - **`sarvamai/sarvam-m:free`**
   - Context: 32,768 tokens
   - Pricing: FREE ($0 all tokens)
@@ -81,6 +84,7 @@ OpenRouter provides access to a wide variety of models from different providers 
   - Description: Premium version with priority access and higher rate limits
 
 #### Pricing Structure
+
 - **Free Tier Models**: Multiple models with $0 per token (rate limited)
 - **Ultra-Affordable**: Starting from $0.00000006 per prompt token
 - **Context Range**: 8K to 163K tokens (industry-leading)
@@ -93,6 +97,7 @@ Hugging Face provides access to open-source models through their inference API, 
 #### Featured Models from Collected Data
 
 **🚀 DeepSeek Models**
+
 - **`deepseek-ai/DeepSeek-R1-0528`**
   - Downloads: 4,556
   - Likes: 1,309
@@ -106,6 +111,7 @@ Hugging Face provides access to open-source models through their inference API, 
   - Library: transformers
 
 **🎯 Specialized Models**
+
 - **`ByteDance-Seed/BAGEL-7B-MoT`**
   - Downloads: 6,759
   - Likes: 848
@@ -125,6 +131,7 @@ Hugging Face provides access to open-source models through their inference API, 
   - Specialization: Development and coding tasks
 
 #### Access Model
+
 - **API**: Free tier with community inference
 - **Authentication**: Optional for higher limits and priority
 - **Direct Download**: All models available for local deployment
@@ -137,6 +144,7 @@ GitHub's model hosting service providing free access to state-of-the-art models 
 #### Enterprise-Grade Models Available
 
 **🤖 AI21 Labs**
+
 - **`AI21-Jamba-Instruct`**
   - Architecture: Hybrid Mamba-Transformer (world's first production-grade Mamba-based LLM)
   - Publisher: AI21 Labs
@@ -146,6 +154,7 @@ GitHub's model hosting service providing free access to state-of-the-art models 
   - Unique: 1 Transformer layer per 8 total layers ratio
 
 **🎯 Cohere Command Series**
+
 - **`Cohere-command-r`**
   - Publisher: Cohere
   - Task: chat-completion
@@ -161,6 +170,7 @@ GitHub's model hosting service providing free access to state-of-the-art models 
   - Tags: RAG, multilingual
 
 **🔍 Cohere Embedding Models**
+
 - **`Cohere-embed-v3-english`**
   - Task: embeddings
   - Specialization: Semantic search, RAG, classification, clustering
@@ -174,6 +184,7 @@ GitHub's model hosting service providing free access to state-of-the-art models 
   - Use Cases: Cross-language semantic search and RAG
 
 #### Access Information
+
 - **Free Tier**: Available for prototyping without API key requirement
 - **Authentication**: Optional for higher rate limits
 - **Integration**: Native GitHub ecosystem integration
@@ -184,11 +195,13 @@ GitHub's model hosting service providing free access to state-of-the-art models 
 Alibaba Cloud's Qwen model family with Chinese and English language capabilities.
 
 #### Available Models
+
 - Qwen series models with various parameter sizes
 - Multi-language support (Chinese/English)
 - DashScope platform integration
 
 #### Access Method
+
 - **Endpoint**: `https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions`
 - **Platform**: Alibaba Cloud DashScope
 - **Billing**: Alibaba Cloud billing required for production usage
@@ -198,12 +211,14 @@ Alibaba Cloud's Qwen model family with Chinese and English language capabilities
 Claude model family from Anthropic, discovered through documentation scraping.
 
 #### Available Models from Collection
+
 - **`claude haiku 3.5`** - Latest small model
 - **`claude haiku 3`** - Previous generation
 - **`claude/prompt-caching#1-hour-cache-duration-beta`** - Beta caching features
 - **`claude haiku 3.5`** - Alternative variant
 
 #### Special Features
+
 - **Prompt Caching**: Beta feature with 1-hour cache duration
 - **Advanced Reasoning**: Constitutional AI training
 - **Safety-Focused**: Built-in safety guardrails
@@ -213,6 +228,7 @@ Claude model family from Anthropic, discovered through documentation scraping.
 Local LLM runtime platform for self-hosted deployment.
 
 #### Model Information
+
 - **`ollama`** - Latest runtime version
 - **Local Deployment**: No API costs, hardware-limited performance
 - **Model Library**: Access to 100+ models including Llama, Mistral, CodeLlama
@@ -227,18 +243,22 @@ Local LLM runtime platform for self-hosted deployment.
 Several providers offer real-time search and web access capabilities:
 
 #### Perplexity
+
 - **Capabilities**: Real-time search, web search, search-augmented generation
 - **Evidence**: Known for real-time search capabilities
 
 #### Grok
+
 - **Capabilities**: Live web access, real-time search, X platform integration
 - **Evidence**: Live web access through X platform
 
 #### Google
+
 - **Capabilities**: Grounding with Search, real-time data
 - **Evidence**: Google Gemini has Grounding with Search feature
 
 #### OpenAI
+
 - **Capabilities**: Web browsing
 - **Evidence**: GPT models have web browsing capabilities in ChatGPT
 
@@ -249,23 +269,28 @@ Several providers offer real-time search and web access capabilities:
 ### Context Length Distribution
 
 **Ultra-Long Context (>100K tokens)**
+
 - DeepSeek-R1-0528:free (163,840 tokens)
 - DeepSeek-R1-0528-qwen3-8b:free (131,072 tokens)
 
 **Long Context (32K-100K tokens)**
+
 - Multiple models in 64K-128K range
 
 **Standard Context (8K-32K tokens)**
+
 - Most common range for general-purpose models
 
 ### Pricing Tiers
 
 **Free Tier Models**
+
 - OpenRouter free models: $0 per token
 - Hugging Face: Free tier with rate limits
 - GitHub Models: Free prototyping tier
 
 **Premium Models**
+
 - Starting from $0.00000006 per prompt token
 - Variable completion token pricing
 - Request-based pricing for some models
@@ -303,17 +328,20 @@ All cataloged models can be accessed through the LLM Universal Wrapper's unified
 This catalog was compiled using multiple research approaches:
 
 ### Primary Data Sources
+
 1. **Public API Endpoints**: Direct API calls to publicly accessible model listing endpoints
 2. **Context7 MCP Server**: Official documentation and API references  
 3. **Memory MCP Server**: Historical data and cached findings
 4. **Web Scraping**: Documentation parsing when APIs were unavailable
 
 ### Data Validation
+
 - **Math Validation**: ✅ PASSED (Calculated: 408, Reported: 408)
 - **Cross-Reference Checking**: Multiple source verification
 - **Freshness Indicators**: Timestamp validation for recent data
 
 ### Quality Assurance
+
 - Duplicate removal across providers
 - Standardized model information format
 - Pricing and capability verification
