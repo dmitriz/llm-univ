@@ -1,3 +1,5 @@
+# 🔎 Grok Live Search Prompting Strategies
+
 Based on the search results about Grok's Live Search API capabilities and prompt engineering best practices, I'll design transparent prompting strategies for optimal real-time information retrieval.
 
 ## **Prompting Styles for Clear, Relevant Real-Time Outputs**
@@ -7,16 +9,6 @@ Based on the search results about Grok's Live Search API capabilities and prompt
 The most effective approach combines temporal specificity with source hierarchy instructions[8][17]:
 
 ```
-```
-has the problem reported:
-<compileError>
-MD031/blanks-around-fences: Fenced code blocks should be surrounded by blank lines
-</compileError>
-<userPrompt>
-Please find a fix for my code so that the result is without any errors.
-MD031/blanks-around-fences: Fenced code blocks should be surrounded by blank lines
-
-</userPrompt> 
 Search for [specific topic] with these parameters:
 - Time frame: [last 24 hours/current week/since date]
 - Primary sources: [X posts, news articles, official announcements]
