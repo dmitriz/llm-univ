@@ -1,5 +1,3 @@
-# 🧠 Grok Live Search Prompt Engineering Strategies
-
 Based on the search results about Grok's Live Search API capabilities and prompt engineering best practices, I'll design transparent prompting strategies for optimal real-time information retrieval.
 
 ## **Prompting Styles for Clear, Relevant Real-Time Outputs**
@@ -141,7 +139,7 @@ Initial broad search: [general topic parameters]
 
 **Conversational Search Strategy**
 
-Leveraging Grok's contextual memory[2], drawing on recent research<sup>[24]</sup>:
+Leveraging Grok's contextual memory[2][24]:
 
 ```
 Step 1: "Search for recent developments about [topic]. Identify the 3 most significant trends."
@@ -234,9 +232,9 @@ Citations:
 [21] <https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php>
 [22] <https://arxiv.org/html/2402.17721v2>
 [23] <https://aclanthology.org/2023.acl-long.274.pdf>
-[24]: <https://cointelegraph.com/learn/articles/grok-3-vs-chatgpt-vs-deepseek-vs-claude-vs-gemini>
-[25]: <https://latitude-blog.ghost.io/blog/common-llm-prompt-engineering-challenges-and-solutions/>
-[26]: <https://docs.x.ai/docs/guides/live-search>
+[24] <https://cointelegraph.com/learn/articles/grok-3-vs-chatgpt-vs-deepseek-vs-claude-vs-gemini>
+[25] <https://latitude-blog.ghost.io/blog/common-llm-prompt-engineering-challenges-and-solutions/>
+[26] <https://docs.x.ai/docs/guides/live-search>
 [27] <https://twitter.com/xai?lang=th>
 [28] <https://latenode.com/blog/what-is-grok-on-x-twitters-artificial-intelligence>
 [29] <https://opollo.com/blog/optimizing-your-website-for-grok-ai-search-a-fun-no-fluff-guide/>
