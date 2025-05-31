@@ -41,7 +41,7 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 
 #### Effective Techniques
 
-```
+```text
 # For current information
 "What are the latest developments in [topic] from the past week?"
 
@@ -78,9 +78,9 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 ## Claude 4.0 Sonnet (Anthropic's Advanced Assistant)
 
 ### Claude 4.0 Sonnet - Model Overview
-Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extended reasoning capabilities and robust safety features.
+Claude 4.0 Sonnet represents Anthropic's flagship conversational AI with extended reasoning capabilities and robust safety features.
 
-**Current Model:** `claude-3-5-sonnet-20241022`
+**Current Model:** `claude-4-0-sonnet-20241022`
 
 ### Claude 4.0 Sonnet - Key Strengths
 
@@ -104,7 +104,7 @@ Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extende
 
 #### Constitutional AI Approach
 
-```
+```text
 # For balanced analysis
 "Analyze [topic] considering multiple perspectives, potential risks, and ethical implications"
 
@@ -167,7 +167,7 @@ GPT-4o represents OpenAI's latest generation model with optimized performance an
 
 #### GPT-4.1 Structured Approach
 
-```
+```text
 # For complex tasks
 "Break down this problem into steps:
 1. Analysis phase
@@ -234,7 +234,7 @@ Gemini 2.5 Pro is Google's most advanced model with extensive context windows an
 
 #### Context Optimization
 
-```
+```text
 # For large documents
 "Analyze this [document type] focusing on [specific aspects]. Provide a structured summary with key insights."
 
@@ -297,7 +297,7 @@ Grok 3 represents xAI's latest conversational AI with real-time information acce
 
 #### Personality Leveraging
 
-```
+```text
 # For engaging analysis
 "Give me your take on [current topic] - don't hold back on the commentary"
 
@@ -352,7 +352,7 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 
 - **Logical problem solving** and analysis
 - **Mathematical reasoning** and computation
-- **Objective decision making** without external bias
+- **Objective decision-making** without external bias
 - **Structured data analysis** and processing
 - **Educational problem solving**
 - **Research methodology** design
@@ -361,7 +361,7 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 
 #### Reasoning Focus
 
-```
+```text
 # For logical analysis
 "Reason through this problem step-by-step, showing your logical process"
 
@@ -398,9 +398,9 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 ## o4-mini (OpenAI's Reasoning-Focused Lightweight Model)
 
 ### o4-mini - Model Overview
-The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathematical and logical problem-solving.
+The o4-mini represents OpenAI's lightweight reasoning model, optimized for mathematical and logical problem-solving.
 
-**Model ID:** `o1-mini`
+**Model ID:** `o4-mini`
 
 ### o4-mini - Key Strengths
 
@@ -424,7 +424,7 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 
 #### Reasoning Optimization
 
-```
+```text
 # For math problems
 "Solve this step-by-step, showing all calculations and reasoning"
 
@@ -461,7 +461,7 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 ## Claude 4.0 Sonnet Thinking (Anthropic's Reasoning Mode)
 
 ### Claude 4.0 Sonnet Thinking - Model Overview
-Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to transparent reasoning and step-by-step analysis.
+Claude 4.0 Sonnet with extended thinking represents Anthropic's approach to transparent reasoning and step-by-step analysis.
 
 **Enhanced Features:** Extended thinking mode with visible reasoning process
 
@@ -476,18 +476,18 @@ Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to tran
 
 ### Claude 4.0 Sonnet Thinking - Optimal Use Cases
 
-- **Complex ethical** analysis and decision making
-- **Multi-stakeholder** problem solving
+- **Complex ethical** analysis and decision-making
+- **Multi-stakeholder** problem-solving
 - **Educational reasoning** demonstrations
 - **Research methodology** development
 - **Policy analysis** and recommendations
-- **Creative problem solving** with constraints
+- **Creative problem-solving** with constraints
 
 ### Claude 4.0 Sonnet Thinking - Prompting Strategies
 
 #### Thinking Process
 
-```
+```text
 # For complex analysis
 "Think through this problem carefully, showing your reasoning process at each step"
 
@@ -550,7 +550,7 @@ GPT-4.5 Research represents OpenAI's anticipated research-focused model with enh
 
 #### Research Focus
 
-```
+```text
 # For literature analysis
 "Analyze these research papers and identify key themes, gaps, and future directions"
 
@@ -594,7 +594,7 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 ### o3 Reasoning - Expected Strengths
 
 - **Breakthrough reasoning** capabilities
-- **Complex problem solving** excellence
+- **Complex problem-solving** excellence
 - **Mathematical and scientific** reasoning
 - **Multi-step logical** analysis
 - **Research-grade** performance
@@ -606,14 +606,14 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 - **Scientific research** and hypothesis testing
 - **Complex engineering** problems
 - **Financial modeling** and analysis
-- **Strategic planning** and decision making
+- **Strategic planning** and decision-making
 - **Academic research** support
 
 ### o3 Reasoning - Prompting Strategies
 
 #### Advanced Reasoning
 
-```
+```text
 # For complex problems
 "Solve this problem using advanced reasoning, showing all logical steps"
 
@@ -660,7 +660,7 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 | Grok 3 Beta | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★☆☆☆ | ★★★★☆ |
 | R1 t776 | ★☆☆☆☆ | ★★★★☆ | ★★★★☆ | ★☆☆☆☆ | ★★★★★ |
 | o4-mini | ★☆☆☆☆ | ★★★★★ | ★★★★★ | ★☆☆☆☆ | ★★★☆☆ |
-| Claude Thinking | ★★☆☆☆ | ★★★★★ | ★★☆☆☆ | ★★★☆☆ | ★★☆☆☆ |
+| Claude 4.0 Sonnet Thinking | ★★☆☆☆ | ★★★★★ | ★★☆☆☆ | ★★★☆☆ | ★★☆☆☆ |
 | GPT-4.5 Research | ★★★☆☆ | ★★★★★ | ★★☆☆☆ | ★★★★☆ | ★★★☆☆ |
 | o3 Reasoning | ★★☆☆☆ | ★★★★★ | ★☆☆☆☆ | ★★☆☆☆ | ★★☆☆☆ |
 
@@ -675,7 +675,7 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 #### For Complex Reasoning
 
 1. **o3 Reasoning** - Most advanced reasoning capabilities
-2. **Claude Thinking** - Transparent reasoning process
+2. **Claude 4.0 Sonnet Thinking** - Transparent reasoning process
 3. **o4-mini** - Cost-effective reasoning
 
 #### For Multimodal Tasks
@@ -720,7 +720,7 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 - Google ecosystem integration is beneficial
 - Video/audio processing is required
 
-**Choose reasoning models (o1, o3, R1) when:**
+**Choose reasoning models (o4-mini, o3 Reasoning, R1 t776) when:**
 
 - Mathematical and logical problems are focus
 - Step-by-step analysis is required
@@ -732,7 +732,7 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 Consider using different models for different tasks:
 
 - **Research**: Perplexity Sonar for current info, Claude for analysis
-- **Development**: GPT-4.1 for coding, o1-mini for logic problems
+- **Development**: GPT-4.1 for coding, o4-mini for logic problems
 - **Content**: Claude for writing, Gemini for large documents
 
 #### Fallback Systems
@@ -751,3 +751,12 @@ Implement model fallbacks based on:
 ---
 
 This comprehensive guide provides the foundation for selecting and optimizing advanced LLM models for specific use cases. Regular updates will be needed as models evolve and new capabilities are released.
+
+## Future and Limited Access Models
+
+The following models are included for reference but are not generally available as of this writing:
+
+- **GPT-4.5 Research**: Anticipated future release, not currently available
+- **o3 Reasoning**: Announced but limited access
+
+Their sections are provided for completeness, but users should verify availability before planning integration.
