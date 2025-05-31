@@ -1,0 +1,12 @@
+# GPT-4 Validation Task (Conversation Already Provided)
+
+The full pull request conversation has already been pasted in the previous prompt. Your task is to review the conversation as if you were performing a second-opinion QA after another model (Claude Sonnet) already acted on the feedback.
+
+You are to:
+
+✅ Verify that all **actionable reviewer suggestions** were properly addressed  
+✅ Identify if any **important comments were missed or misinterpreted**  
+✅ Judge whether inserted TODOs are **sufficient or need expansion**  
+✅ Flag anything that still blocks **merge-readiness**  
+
+Do *not* summarize the conversation. Just act as a high-context PR reviewer giving your QA-grade feedback.

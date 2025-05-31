@@ -1,0 +1,10 @@
+# RESUME COPILOT TASK (Claude Sonnet 4)
+
+You were processing a GitHub pull request conversation for actionable feedback and implementation. You’ve already begun and paused mid-way.
+
+Please resume from where you left off:
+
+- ✅ Continue scanning through the **entire pull request conversation**
+- ✅ Apply any remaining **low-effort, high-impact suggestions**
+- 🔁 For complex ones, annotate with `TODO:` or `FIXME:` in the code
+- 🚫 Do not ask for my confirmation — continue working autonomously
