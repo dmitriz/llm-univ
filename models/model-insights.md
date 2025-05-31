@@ -2,22 +2,26 @@
 
 A comprehensive guide to 10 advanced language models, their capabilities, optimal use cases, limitations, and prompting strategies for maximum effectiveness.
 
-**Last Updated: May 31, 2025**
+## Document Information
+
+Last Updated: May 31, 2025
 
 ---
 
 ## 1. Perplexity Sonar (Fast Web-Focused Model)
 
-### Model Overview
+### Perplexity Sonar - Model Overview
 Perplexity's Sonar is a real-time search-augmented AI model designed for web-focused queries and current information retrieval.
 
 **Available Variants:**
+
 - `sonar` - Base model with web search
 - `sonar-pro` - Enhanced version with better reasoning
 - `sonar-reasoning` - Focused on logical reasoning with search
 - `sonar-reasoning-pro` - Premium reasoning with comprehensive search
 
-### Key Strengths
+### Perplexity Sonar - Key Strengths
+
 - **Real-time web search integration** with current information access
 - **Date filtering capabilities** for temporal queries
 - **Domain-specific filtering** for targeted research
@@ -25,16 +29,18 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 - **Structured output support** for consistent formatting
 - **Image search and processing** (Pro versions)
 
-### Optimal Use Cases
+### Perplexity Sonar - Optimal Use Cases
+
 - **Breaking news and current events** research
 - **Market analysis** and competitive intelligence
 - **Academic research** with recent publications
 - **Fact-checking** and verification tasks
 - **Time-sensitive business intelligence**
 
-### Prompting Strategies
+### Perplexity Sonar - Prompting Strategies
 
 #### Effective Techniques
+
 ```
 # For current information
 "What are the latest developments in [topic] from the past week?"
@@ -47,19 +53,20 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 ```
 
 #### Search Optimization
+
 - Use **specific date ranges** with `search_after_date_filter`
 - Apply **domain filters** for authoritative sources
 - Request **citation-rich responses** for verification
 - Leverage **recency filters** for time-sensitive queries
 
-### Limitations
+### Perplexity Sonar - Limitations
 
 - **Cost considerations** for high-volume usage (2000 RPM limit)
 - **Search quality dependent** on web content availability
 - **Regional bias** in search results
 - **Rate limiting** may affect real-time applications
 
-### Integration Notes
+### Perplexity Sonar - Integration Notes
 
 - Excellent for **research pipelines** and fact-checking systems
 - Ideal for **news aggregation** and monitoring applications
@@ -70,12 +77,13 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 
 ## 2. Claude 4.0 Sonnet (Anthropic's Advanced Assistant)
 
-### Model Overview
+### Claude 4.0 Sonnet - Model Overview
 Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extended reasoning capabilities and robust safety features.
 
 **Current Model:** `claude-3-5-sonnet-20241022`
 
-### Key Strengths
+### Claude 4.0 Sonnet - Key Strengths
+
 - **Extended context windows** (up to 200K tokens)
 - **Constitutional AI safety** with built-in ethical guidelines
 - **Advanced tool use** and function calling capabilities
@@ -83,7 +91,8 @@ Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extende
 - **Nuanced conversation** with strong contextual awareness
 - **Creative and analytical** balance in responses
 
-### Optimal Use Cases
+### Claude 4.0 Sonnet - Optimal Use Cases
+
 - **Complex reasoning tasks** requiring multi-step analysis
 - **Creative writing** and content generation
 - **Code review** and software development assistance
@@ -91,9 +100,10 @@ Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extende
 - **Educational tutoring** with adaptive explanations
 - **Ethical AI applications** requiring safety considerations
 
-### Prompting Strategies
+### Claude 4.0 Sonnet - Prompting Strategies
 
 #### Constitutional AI Approach
+
 ```
 # For balanced analysis
 "Analyze [topic] considering multiple perspectives, potential risks, and ethical implications"
@@ -106,18 +116,21 @@ Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extende
 ```
 
 #### Advanced Techniques
+
 - **Chain-of-thought prompting** for complex problems
 - **Role-based prompting** for specialized expertise
 - **System prompts** for consistent behavior
 - **Tool integration** for enhanced capabilities
 
-### Limitations
+### Claude 4.0 Sonnet - Limitations
+
 - **Higher cost** compared to smaller models ($3.00/1M input tokens)
 - **Processing time** for complex reasoning tasks
 - **Conservative responses** due to safety filters
 - **Limited real-time information** without search integration
 
-### Integration Notes
+### Claude 4.0 Sonnet - Integration Notes
+
 - Excellent for **enterprise applications** requiring safety
 - Strong **API compatibility** with OpenAI-style interfaces
 - Robust **error handling** and consistent responses
@@ -127,12 +140,13 @@ Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extende
 
 ## 3. GPT-4.1 (OpenAI's Advanced Model)
 
-### Model Overview
+### GPT-4.1 - Model Overview
 GPT-4o represents OpenAI's latest generation model with optimized performance and multimodal capabilities.
 
 **Current Model:** `gpt-4o` (GPT-4 Omni)
 
-### Key Strengths
+### GPT-4.1 - Key Strengths
+
 - **Multimodal processing** (text, images, audio)
 - **Function calling** with structured outputs
 - **Advanced reasoning** with o1-series reasoning patterns
@@ -140,7 +154,8 @@ GPT-4o represents OpenAI's latest generation model with optimized performance an
 - **Code generation** and debugging excellence
 - **Real-time processing** for interactive applications
 
-### Optimal Use Cases
+### GPT-4.1 - Optimal Use Cases
+
 - **Software development** and code assistance
 - **Data analysis** and visualization
 - **Multimodal content** creation and processing
@@ -148,9 +163,10 @@ GPT-4o represents OpenAI's latest generation model with optimized performance an
 - **Creative problem solving** with structured approaches
 - **Educational content** and tutorial generation
 
-### Prompting Strategies
+### GPT-4.1 - Prompting Strategies
 
-#### Structured Approach
+#### GPT-4.1 Structured Approach
+
 ```
 # For complex tasks
 "Break down this problem into steps:
@@ -167,18 +183,21 @@ GPT-4o represents OpenAI's latest generation model with optimized performance an
 ```
 
 #### Function Calling Optimization
+
 - **Schema validation** with Zod or similar libraries
 - **Error handling** for robust applications
 - **Streaming responses** for real-time UX
 - **Tool chaining** for complex workflows
 
-### Limitations
+### GPT-4.1 - Limitations
+
 - **Token costs** for multimodal inputs
 - **Rate limiting** on advanced features
 - **Hallucination potential** without verification
 - **Context length** constraints for very long documents
 
-### Integration Notes
+### GPT-4.1 - Integration Notes
+
 - **Industry standard** API compatibility
 - **Extensive ecosystem** of tools and integrations
 - **Production-ready** reliability and performance
@@ -188,12 +207,13 @@ GPT-4o represents OpenAI's latest generation model with optimized performance an
 
 ## 4. Gemini 2.5 Pro (Google's Flagship Model)
 
-### Model Overview
+### Gemini 2.5 Pro - Model Overview
 Gemini 2.5 Pro is Google's most advanced model with extensive context windows and integrated search capabilities.
 
 **Current Model:** `gemini-2.5-pro-exp` (Experimental)
 
-### Key Strengths
+### Gemini 2.5 Pro - Key Strengths
+
 - **Massive context windows** (up to 2M tokens)
 - **Google Search integration** with grounding
 - **Code execution** capabilities
@@ -201,7 +221,8 @@ Gemini 2.5 Pro is Google's most advanced model with extensive context windows an
 - **Function calling** and tool integration
 - **Real-time information** access
 
-### Optimal Use Cases
+### Gemini 2.5 Pro - Optimal Use Cases
+
 - **Large document analysis** and processing
 - **Research with verification** using Google Search
 - **Complex data analysis** with code execution
@@ -209,9 +230,10 @@ Gemini 2.5 Pro is Google's most advanced model with extensive context windows an
 - **Long-form content** generation and editing
 - **Scientific and technical** analysis
 
-### Prompting Strategies
+### Gemini 2.5 Pro - Prompting Strategies
 
 #### Context Optimization
+
 ```
 # For large documents
 "Analyze this [document type] focusing on [specific aspects]. Provide a structured summary with key insights."
@@ -224,18 +246,21 @@ Gemini 2.5 Pro is Google's most advanced model with extensive context windows an
 ```
 
 #### Grounding Techniques
+
 - **Search grounding** for current information
 - **Source verification** for fact-checking
 - **Long context** utilization for comprehensive analysis
 - **Multimodal integration** for rich content
 
-### Limitations
+### Gemini 2.5 Pro - Limitations
+
 - **Experimental status** with potential instability
 - **Variable performance** during beta phase
 - **Cost considerations** for large context usage
 - **Limited availability** in some regions
 
-### Integration Notes
+### Gemini 2.5 Pro - Integration Notes
+
 - **Cutting-edge capabilities** for advanced use cases
 - **Google ecosystem** integration advantages
 - **Powerful for research** and analysis applications
@@ -245,12 +270,13 @@ Gemini 2.5 Pro is Google's most advanced model with extensive context windows an
 
 ## 5. Grok 3 Beta (xAI's Conversational Model)
 
-### Model Overview
+### Grok 3 Beta - Model Overview
 Grok 3 represents xAI's latest conversational AI with real-time information access and a distinctive personality.
 
 **Access:** Browser-based with API access via unofficial clients
 
-### Key Strengths
+### Grok 3 Beta - Key Strengths
+
 - **Real-time web access** and current information
 - **Conversational personality** with humor and wit
 - **Current events expertise** and news analysis
@@ -258,7 +284,8 @@ Grok 3 represents xAI's latest conversational AI with real-time information acce
 - **Twitter/X integration** for social media insights
 - **Live data processing** capabilities
 
-### Optimal Use Cases
+### Grok 3 Beta - Optimal Use Cases
+
 - **Social media analysis** and trend monitoring
 - **Current events** discussion and analysis
 - **Creative conversations** with personality
@@ -266,9 +293,10 @@ Grok 3 represents xAI's latest conversational AI with real-time information acce
 - **Entertainment** and engaging interactions
 - **News commentary** and opinion synthesis
 
-### Prompting Strategies
+### Grok 3 Beta - Prompting Strategies
 
 #### Personality Leveraging
+
 ```
 # For engaging analysis
 "Give me your take on [current topic] - don't hold back on the commentary"
@@ -281,19 +309,22 @@ Grok 3 represents xAI's latest conversational AI with real-time information acce
 ```
 
 #### Real-time Optimization
+
 - **Current events** focus for best performance
 - **Social media** context for relevant insights
 - **Conversational tone** for natural interactions
 - **Trend analysis** for forward-looking perspectives
 
-### Limitations
+### Grok 3 Beta - Limitations
+
 - **API access limitations** (unofficial clients required)
 - **Authentication complexity** with browser cookies
 - **Rate limiting** and access restrictions
 - **Potential bias** toward certain viewpoints
 - **Limited enterprise** support
 
-### Integration Notes
+### Grok 3 Beta - Integration Notes
+
 - **Experimental integration** options available
 - **Cookie-based authentication** required
 - **Best for prototyping** and research use
@@ -303,12 +334,13 @@ Grok 3 represents xAI's latest conversational AI with real-time information acce
 
 ## 6. R1 t776 (Perplexity's Unbiased Reasoning Engine)
 
-### Model Overview
+### R1 t776 - Model Overview
 R1-1776 is Perplexity's dedicated reasoning model designed for objective analysis without web search bias.
 
 **Model ID:** `r1-1776`
 
-### Key Strengths
+### R1 t776 - Key Strengths
+
 - **Offline reasoning** without search dependencies
 - **Unbiased analysis** through isolated processing
 - **Structured outputs** for consistent formatting
@@ -316,7 +348,8 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 - **Fast processing** without search overhead
 - **Cost-effective** for reasoning tasks
 
-### Optimal Use Cases
+### R1 t776 - Optimal Use Cases
+
 - **Logical problem solving** and analysis
 - **Mathematical reasoning** and computation
 - **Objective decision making** without external bias
@@ -324,9 +357,10 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 - **Educational problem solving**
 - **Research methodology** design
 
-### Prompting Strategies
+### R1 t776 - Prompting Strategies
 
 #### Reasoning Focus
+
 ```
 # For logical analysis
 "Reason through this problem step-by-step, showing your logical process"
@@ -339,18 +373,21 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 ```
 
 #### Objective Optimization
+
 - **Clear problem definition** for focused reasoning
 - **Step-by-step breakdown** for complex issues
 - **Logical constraints** specification
 - **Structured output** requests
 
-### Limitations
+### R1 t776 - Limitations
+
 - **No web search** access for current information
 - **Limited general knowledge** compared to search-enabled models
 - **Focused scope** on reasoning tasks
 - **Less creative** output compared to general models
 
-### Integration Notes
+### R1 t776 - Integration Notes
+
 - **Excellent for analysis** pipelines
 - **Cost-effective** for reasoning-heavy workloads
 - **Reliable performance** without search variability
@@ -360,12 +397,13 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 
 ## 7. o4-mini (OpenAI's Reasoning-Focused Lightweight Model)
 
-### Model Overview
+### o4-mini - Model Overview
 The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathematical and logical problem-solving.
 
 **Model ID:** `o1-mini`
 
-### Key Strengths
+### o4-mini - Key Strengths
+
 - **Advanced reasoning** capabilities
 - **Mathematical excellence** and problem-solving
 - **Cost-effective** operation ($3.00/1M input tokens)
@@ -373,7 +411,8 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 - **Structured thinking** process
 - **Educational applications** strength
 
-### Optimal Use Cases
+### o4-mini - Optimal Use Cases
+
 - **Mathematical problem solving** and calculations
 - **Logic puzzles** and reasoning challenges
 - **Educational content** generation
@@ -381,9 +420,10 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 - **Cost-sensitive** reasoning applications
 - **Prototype development** for reasoning systems
 
-### Prompting Strategies
+### o4-mini - Prompting Strategies
 
 #### Reasoning Optimization
+
 ```
 # For math problems
 "Solve this step-by-step, showing all calculations and reasoning"
@@ -395,19 +435,22 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 "Explain this concept with clear examples and step-by-step breakdown"
 ```
 
-#### Structured Approach
+#### o4-mini Structured Approach
+
 - **Clear problem framing** for optimal performance
 - **Step-by-step requests** for detailed reasoning
 - **Mathematical notation** for precise communication
 - **Verification steps** for accuracy
 
-### Limitations
+### o4-mini - Limitations
+
 - **Narrow focus** on reasoning tasks
 - **Limited general conversation** capabilities
 - **Slower processing** for complex reasoning
 - **Less creative** compared to general models
 
-### Integration Notes
+### o4-mini - Integration Notes
+
 - **Ideal for education** platforms and tutoring
 - **Cost-effective** for reasoning-heavy applications
 - **Reliable mathematical** processing
@@ -417,12 +460,13 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 
 ## 8. Claude 4.0 Sonnet Thinking (Anthropic's Reasoning Mode)
 
-### Model Overview
+### Claude 4.0 Sonnet Thinking - Model Overview
 Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to transparent reasoning and step-by-step analysis.
 
 **Enhanced Features:** Extended thinking mode with visible reasoning process
 
-### Key Strengths
+### Claude 4.0 Sonnet Thinking - Key Strengths
+
 - **Transparent reasoning** with visible thought process
 - **Extended analysis** capabilities
 - **Ethical reasoning** integration
@@ -430,7 +474,8 @@ Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to tran
 - **Creative and analytical** balance
 - **Safety-conscious** decision making
 
-### Optimal Use Cases
+### Claude 4.0 Sonnet Thinking - Optimal Use Cases
+
 - **Complex ethical** analysis and decision making
 - **Multi-stakeholder** problem solving
 - **Educational reasoning** demonstrations
@@ -438,9 +483,10 @@ Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to tran
 - **Policy analysis** and recommendations
 - **Creative problem solving** with constraints
 
-### Prompting Strategies
+### Claude 4.0 Sonnet Thinking - Prompting Strategies
 
 #### Thinking Process
+
 ```
 # For complex analysis
 "Think through this problem carefully, showing your reasoning process at each step"
@@ -453,18 +499,21 @@ Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to tran
 ```
 
 #### Extended Reasoning
+
 - **Encourage thinking steps** to be shown
 - **Multi-perspective** analysis requests
 - **Ethical considerations** integration
 - **Creative exploration** with reasoning
 
-### Limitations
+### Claude 4.0 Sonnet Thinking - Limitations
+
 - **Longer response times** for complex thinking
 - **Higher token usage** for extended reasoning
 - **Conservative approach** in some scenarios
 - **Limited availability** of thinking mode
 
-### Integration Notes
+### Claude 4.0 Sonnet Thinking - Integration Notes
+
 - **Educational applications** benefit greatly
 - **Research and analysis** use cases
 - **Transparent AI** requirements
@@ -474,12 +523,13 @@ Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to tran
 
 ## 9. GPT-4.5 Research (OpenAI's Research-Grade Assistant)
 
-### Model Overview
+### GPT-4.5 Research - Model Overview
 GPT-4.5 Research represents OpenAI's anticipated research-focused model with enhanced analytical capabilities.
 
 **Status:** Anticipated future release based on research directions
 
-### Expected Strengths
+### GPT-4.5 Research - Expected Strengths
+
 - **Advanced research** capabilities
 - **Scientific reasoning** and analysis
 - **Large-scale data** processing
@@ -487,7 +537,8 @@ GPT-4.5 Research represents OpenAI's anticipated research-focused model with enh
 - **Methodology development**
 - **Citation and verification**
 
-### Anticipated Use Cases
+### GPT-4.5 Research - Anticipated Use Cases
+
 - **Academic research** and paper writing
 - **Scientific analysis** and hypothesis generation
 - **Literature review** and synthesis
@@ -495,9 +546,10 @@ GPT-4.5 Research represents OpenAI's anticipated research-focused model with enh
 - **Data interpretation** and visualization
 - **Research collaboration** support
 
-### Prompting Strategies
+### GPT-4.5 Research - Prompting Strategies
 
 #### Research Focus
+
 ```
 # For literature analysis
 "Analyze these research papers and identify key themes, gaps, and future directions"
@@ -510,18 +562,21 @@ GPT-4.5 Research represents OpenAI's anticipated research-focused model with enh
 ```
 
 #### Academic Optimization
+
 - **Clear research questions** formulation
 - **Methodological rigor** requirements
 - **Citation standards** specification
 - **Peer review** preparation
 
-### Limitations
+### GPT-4.5 Research - Limitations
+
 - **Future release** - not currently available
 - **Anticipated cost** likely higher than standard models
 - **Specialized focus** may limit general use
 - **Academic access** may be prioritized
 
-### Integration Notes
+### GPT-4.5 Research - Integration Notes
+
 - **Watch for release** announcements
 - **Prepare research workflows** for integration
 - **Academic partnerships** may be beneficial
@@ -531,12 +586,13 @@ GPT-4.5 Research represents OpenAI's anticipated research-focused model with enh
 
 ## 10. o3 Reasoning (OpenAI's Reasoning LLM)
 
-### Model Overview
+### o3 Reasoning - Model Overview
 O3 represents OpenAI's most advanced reasoning model, designed for complex logical and mathematical problem-solving.
 
 **Status:** Announced but limited access, successor to o1 series
 
-### Expected Strengths
+### o3 Reasoning - Expected Strengths
+
 - **Breakthrough reasoning** capabilities
 - **Complex problem solving** excellence
 - **Mathematical and scientific** reasoning
@@ -544,7 +600,8 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 - **Research-grade** performance
 - **Verification and validation**
 
-### Anticipated Use Cases
+### o3 Reasoning - Anticipated Use Cases
+
 - **Advanced mathematics** and proofs
 - **Scientific research** and hypothesis testing
 - **Complex engineering** problems
@@ -552,9 +609,10 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 - **Strategic planning** and decision making
 - **Academic research** support
 
-### Prompting Strategies
+### o3 Reasoning - Prompting Strategies
 
 #### Advanced Reasoning
+
 ```
 # For complex problems
 "Solve this problem using advanced reasoning, showing all logical steps"
@@ -567,18 +625,21 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 ```
 
 #### Research Optimization
+
 - **Complex problem** formulation
 - **Multi-step reasoning** requests
 - **Verification and validation** emphasis
 - **Academic rigor** requirements
 
-### Limitations
+### o3 Reasoning - Limitations
+
 - **Limited availability** currently
 - **High computational** requirements
 - **Slower processing** for complex reasoning
 - **Premium pricing** expected
 
-### Integration Notes
+### o3 Reasoning - Integration Notes
+
 - **Research applications** prioritized
 - **Academic partnerships** for access
 - **Monitor availability** announcements
@@ -606,21 +667,25 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 ### Best Use Case Recommendations
 
 #### For Real-time Information
+
 1. **Perplexity Sonar Pro** - Best overall real-time capabilities
 2. **Grok 3 Beta** - Social media and current events
 3. **Gemini 2.5 Pro** - Google Search integration
 
 #### For Complex Reasoning
+
 1. **o3 Reasoning** - Most advanced reasoning capabilities
 2. **Claude Thinking** - Transparent reasoning process
 3. **o4-mini** - Cost-effective reasoning
 
 #### For Multimodal Tasks
+
 1. **GPT-4.1** - Best overall multimodal performance
 2. **Gemini 2.5 Pro** - Video and audio processing
 3. **Perplexity Sonar Pro** - Image search integration
 
 #### For Cost-Sensitive Applications
+
 1. **o4-mini** - Best reasoning per dollar
 2. **R1 t776** - Efficient offline reasoning
 3. **Grok 3 Beta** - Current events on budget
@@ -632,26 +697,31 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 ### Selection Criteria
 
 **Choose Perplexity Sonar when:**
+
 - Real-time information is critical
 - Research and fact-checking are primary use cases
 - Current events and news analysis are needed
 
 **Choose Claude 4.0 Sonnet when:**
+
 - Safety and ethics are paramount
 - Long-form content generation is required
 - Creative and analytical balance is needed
 
 **Choose GPT-4.1 when:**
+
 - Multimodal capabilities are essential
 - API compatibility and ecosystem matter
 - General-purpose performance is required
 
 **Choose Gemini 2.5 Pro when:**
+
 - Large context windows are needed
 - Google ecosystem integration is beneficial
 - Video/audio processing is required
 
 **Choose reasoning models (o1, o3, R1) when:**
+
 - Mathematical and logical problems are focus
 - Step-by-step analysis is required
 - Educational applications are primary use case
@@ -660,17 +730,20 @@ O3 represents OpenAI's most advanced reasoning model, designed for complex logic
 
 #### Multi-Model Approach
 Consider using different models for different tasks:
+
 - **Research**: Perplexity Sonar for current info, Claude for analysis
 - **Development**: GPT-4.1 for coding, o1-mini for logic problems
 - **Content**: Claude for writing, Gemini for large documents
 
 #### Fallback Systems
 Implement model fallbacks based on:
+
 - **Availability** - Handle model downtime
 - **Cost limits** - Switch to cheaper alternatives
 - **Performance requirements** - Scale based on complexity
 
 #### Quality Assurance
+
 - **Cross-validation** using multiple models for critical tasks
 - **Human review** for high-stakes applications
 - **Continuous monitoring** of model performance
