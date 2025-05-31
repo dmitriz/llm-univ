@@ -8,7 +8,6 @@
 2. CHECKING FOR ALL WARNINGS, ERRORS, AND VIOLATIONS
 3. REVIEWING ALL PROBLEM REPORTS
 4. FIXING ANY IDENTIFIED ISSUES
-5. VERIFYING FIXES WITH A SECOND TEST RUN
 
 ### 🚫 ABSOLUTELY FORBIDDEN:
 
@@ -20,29 +19,53 @@
 
 ## 🚨 CRITICAL - TERMINAL MANAGEMENT REQUIREMENTS 🚨
 
-### ❗️NEVER BLOCK THE TERMINAL:
+### ❗️🚫 NEVER BLOCK THE TERMINAL 🚫❗️
 
-1. **NEVER USE COMMANDS THAT BLOCK THE TERMINAL** (like `git log --oneline --graph --all --decorate`)
-2. **USE MCP SERVERS FOR RESEARCH** instead of terminal commands when possible
-3. **USE QUICK, NON-BLOCKING COMMANDS** for git operations
-4. **CHECK CURRENT STATE WITH SIMPLE COMMANDS** like `git branch` or `git status`
-5. **PRIORITIZE MCP SERVERS FOR ALL RESEARCH AND INFORMATION GATHERING**
+**Avoid commands that block, wait for input, or output massive amounts of text**
 
-### ✅ REQUIRED TERMINAL WORKFLOW:
+### 🚫 BANNED COMMANDS (WILL BLOCK TERMINAL):
 
-1. **USE MCP SERVERS FIRST** for any research or information gathering
-2. **USE ONLY ESSENTIAL TERMINAL COMMANDS** that execute quickly
-3. **NEVER USE BLOCKING OR LONG-RUNNING COMMANDS**
-4. **VERIFY COMMANDS WILL NOT BLOCK** before execution
+- `git log`, `git show`, `git diff` (without output limits)
+- `less`, `more`, `cat` (on large files) 
+- Any command that opens a pager or waits for user input
+- Any interactive or long-running command
 
-### 🚫 ABSOLUTELY FORBIDDEN TERMINAL ACTIONS:
+### ✅ TERMINAL BEST PRACTICES:
 
-- USING COMMANDS THAT BLOCK THE TERMINAL
-- IGNORING MCP SERVERS IN FAVOR OF TERMINAL RESEARCH
-- RUNNING COMPLEX GIT COMMANDS THAT HANG
-- BLOCKING USER WORKFLOW WITH SLOW COMMANDS
+1. **NPM SCRIPTS**: Run `npm test`, `npm start`, `npm run <script>` directly from current location
+2. **NO CD COMMANDS**: Never use `cd` before running npm scripts
+3. **USE MCP SERVERS**: For file contents, git history, research, and status information
+4. **PREFER NON-BLOCKING**: Choose commands that complete quickly and predictably
 
-**This is MANDATORY for ALL operations. NEVER BLOCK THE TERMINAL.**
+### 🚨 PREFERRED - USE MCP SERVERS FOR GIT OPERATIONS 🚨
+
+**❗️ ALWAYS TRY MCP SERVERS FIRST FOR GIT OPERATIONS ❗️**
+
+**PREFERRED MCP TOOLS FOR GIT OPERATIONS:**
+- `f51_git_status` - Check repository status (prefer over `git status`)
+- `f51_git_add` - Stage files (prefer over `git add`)
+- `f51_git_commit` - Commit changes (prefer over `git commit`)
+- `f51_git_create_branch` - Create branches (prefer over `git checkout -b`)
+- `f51_git_checkout` - Switch branches (prefer over `git checkout`)
+- `f51_git_diff` - View differences (prefer over `git diff`)
+- `f51_git_log` - View commit history (prefer over `git log`)
+
+**FALLBACK STRATEGY:**
+If MCP tools fail or are unavailable:
+1. **Try MCP server first** - Always attempt MCP git tools initially
+2. **Use simple git commands if needed** - Fall back to basic `git status`, `git add`, `git commit` only
+3. **AVOID BLOCKING COMMANDS** - Never use `git log`, `git show`, `git diff` without limits
+4. **Document the fallback** - Note when and why terminal commands were used
+
+**PREFERRED TOOLS (use first):**
+- File contents: `read_file` tool
+- Git operations: MCP git tools (f51_git_*) - fallback to simple terminal commands if needed
+- Research: Context7, Memory MCP, etc.
+- Status information: Available MCP tools
+
+**ACCEPTABLE FALLBACKS:**
+- Simple git commands (`git status`, `git add`, `git commit`) if MCP fails
+- Basic terminal commands that don't block or require interaction
 
 ## 🚫 CRITICAL - GIT BRANCH MANAGEMENT REQUIREMENTS 🚫
 
@@ -56,10 +79,10 @@
 
 ### ✅ REQUIRED GIT WORKFLOW FOR EVERY TASK:
 
-1. **CHECK CURRENT BRANCH**: `git branch` or `git status`
-2. **CREATE FEATURE BRANCH**: `git checkout -b feature/task-name`
+1. **CHECK CURRENT BRANCH**: Try `f51_git_status` first, fallback to `git status` if needed
+2. **CREATE FEATURE BRANCH**: Try `f51_git_create_branch` first, fallback to `git checkout -b` if needed
 3. **MAKE ALL CHANGES ON FEATURE BRANCH**
-4. **COMMIT TO FEATURE BRANCH ONLY**: `git add . && git commit -m "message"`
+4. **COMMIT TO FEATURE BRANCH ONLY**: Try `f51_git_add` + `f51_git_commit`, fallback to `git add . && git commit -m` if needed
 5. **NEVER USE `git checkout main` DURING ACTIVE DEVELOPMENT**
 
 ### 🚫 ABSOLUTELY FORBIDDEN GIT ACTIONS:

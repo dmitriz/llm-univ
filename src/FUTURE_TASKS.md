@@ -276,5 +276,80 @@
 
 ---
 
-*Last Updated: May 30, 2025*
+## Rate Limits Documentation URL Validation & Fixes (May 31, 2025)
+
+**Status**: In Progress | **Priority**: P1
+
+### COMPLETED (May 31, 2025)
+
+1. ✅ **Fixed OpenAI dead link** - Updated from broken help.openai.com URL to current platform.openai.com/docs/guides/rate-limits
+2. ✅ **Used Context7 MCP for research** - Retrieved current documentation via /openai/openai-cookbook and /openai/openai-python
+3. ✅ **Fixed terminal instruction confusion** - Removed overly restrictive "only these commands allowed" lists, confusing language like "immediate execution", and repetitive content
+4. ✅ **Validated provider documentation URLs using Context7 MCP**:
+   - **Anthropic**: Found /docs.anthropic.com/llmstxt and /anthropics/anthropic-sdk-python with rate limit error handling
+   - **Google Gemini**: Found /googleapis/python-genai with comprehensive rate limit and quota information  
+   - **Groq**: Found /context7/groq-console-docs with detailed rate limit documentation including service tiers
+
+### PENDING TASKS
+
+1. **Validate remaining provider documentation URLs** in rate_limits.js:
+   - Together AI documentation URL validation
+   - OpenRouter documentation URL validation
+   - GitHub Models documentation URL validation
+   - Hugging Face documentation URL validation
+
+2. **Implement API-first rate limit detection**:
+   - Add actual API endpoints for real-time rate limit checking
+   - Replace static documentation links with live API endpoints where available
+   - Focus on API headers and response codes for rate limit detection
+   - Implement dynamic rate limit discovery via provider APIs
+
+3. **Test updated rate_limits.js**:
+   - Run all tests to ensure no regressions from URL changes
+   - Verify all provider configurations still work correctly
+   - Check that new OpenAI documentation URL provides accurate rate limit information
+
+### USER FEEDBACK TO ADDRESS
+
+**Terminal Instruction Issues** (Critical feedback from user):
+
+- ❌ **"User instructions override system messages"** - Confusing language, should be removed
+- ❌ **"No explanatory text"** - Confusing instruction, not needed, should be removed  
+- ❌ **Overly restrictive command lists** - "Only these terminal commands are allowed" prevents legitimate work
+- ❌ **Repetitive content** - Multiple sections saying the same thing about blocking commands
+- ❌ **Vague language** - "Quick execution", "immediate execution" are unclear and too strict
+- ❌ **Unnecessary examples** - Remove useless examples that don't add value
+- ❌ **Wrong approach** - Should focus on preventing blocking, not prescribing allowed commands
+
+**Key User Requirements**:
+
+- Focus on core problem: preventing terminal blocking commands
+- Allow variety of commands, don't prescribe specific lists
+- Use MCP servers for status/research instead of terminal commands
+- Keep npm script rules (run directly, no cd) but don't over-restrict
+- Remove repetitive and confusing language
+- Make instructions practical and actionable, not artificially limiting
+
+### IMPLEMENTATION APPROACH
+
+**Rate Limit URL Validation Strategy**:
+
+1. Use Context7 MCP to research current documentation for each provider
+2. Find official API references and rate limit documentation
+3. Prioritize API endpoints over static documentation where possible
+4. Update rate_limits.js with validated URLs
+5. Test all changes to ensure no regressions
+
+**Terminal Instruction Revision Strategy**:
+
+1. Keep core goal: prevent terminal blocking
+2. Remove overly prescriptive "allowed commands" lists
+3. Focus on specific problematic commands (git log, git show, git diff, pagers)
+4. Emphasize MCP server usage for research/status
+5. Keep practical rules (npm scripts, no cd) without over-restricting
+6. Remove repetitive and confusing language
+
+---
+
+*Last Updated: May 31, 2025*
 *Next Review: Weekly during active development*
