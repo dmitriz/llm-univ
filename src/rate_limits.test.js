@@ -37,7 +37,7 @@ describe('Rate Limits Module', () => {
         
         // Check that each tier has valid rate limits
         Object.entries(config).forEach(([tier, limits]) => {
-          if (tier !== 'documentation' && tier !== 'headers') {
+          if (tier !== 'documentation' && tier !== 'rateLimitHeaders' && tier !== 'rateLimitEndpoint' && tier !== 'quotaEndpoint' && tier !== 'errorPatterns') {
             expect(typeof limits).toBe('object');
           }
         });

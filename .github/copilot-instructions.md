@@ -8,7 +8,6 @@
 2. CHECKING FOR ALL WARNINGS, ERRORS, AND VIOLATIONS
 3. REVIEWING ALL PROBLEM REPORTS
 4. FIXING ANY IDENTIFIED ISSUES
-5. VERIFYING FIXES WITH A SECOND TEST RUN
 
 ### 🚫 ABSOLUTELY FORBIDDEN:
 
@@ -20,29 +19,31 @@
 
 ## 🚨 CRITICAL - TERMINAL MANAGEMENT REQUIREMENTS 🚨
 
-### ❗️NEVER BLOCK THE TERMINAL:
+### ❗️🚫 NEVER BLOCK THE TERMINAL 🚫❗️
 
-1. **NEVER USE COMMANDS THAT BLOCK THE TERMINAL** (like `git log --oneline --graph --all --decorate`)
-2. **USE MCP SERVERS FOR RESEARCH** instead of terminal commands when possible
-3. **USE QUICK, NON-BLOCKING COMMANDS** for git operations
-4. **CHECK CURRENT STATE WITH SIMPLE COMMANDS** like `git branch` or `git status`
-5. **PRIORITIZE MCP SERVERS FOR ALL RESEARCH AND INFORMATION GATHERING**
+**Avoid commands that block, wait for input, or output massive amounts of text**
 
-### ✅ REQUIRED TERMINAL WORKFLOW:
+### 🚫 BANNED COMMANDS (WILL BLOCK TERMINAL):
 
-1. **USE MCP SERVERS FIRST** for any research or information gathering
-2. **USE ONLY ESSENTIAL TERMINAL COMMANDS** that execute quickly
-3. **NEVER USE BLOCKING OR LONG-RUNNING COMMANDS**
-4. **VERIFY COMMANDS WILL NOT BLOCK** before execution
+- `git log`, `git show`, `git diff` (without output limits)
+- `less`, `more`, `cat` (on large files) 
+- Any command that opens a pager or waits for user input
+- Any interactive or long-running command
 
-### 🚫 ABSOLUTELY FORBIDDEN TERMINAL ACTIONS:
+### ✅ TERMINAL BEST PRACTICES:
 
-- USING COMMANDS THAT BLOCK THE TERMINAL
-- IGNORING MCP SERVERS IN FAVOR OF TERMINAL RESEARCH
-- RUNNING COMPLEX GIT COMMANDS THAT HANG
-- BLOCKING USER WORKFLOW WITH SLOW COMMANDS
+1. **NPM SCRIPTS**: Run `npm test`, `npm start`, `npm run <script>` directly from current location
+2. **NO CD COMMANDS**: Never use `cd` before running npm scripts
+3. **USE MCP SERVERS**: For file contents, git history, research, and status information
+4. **PREFER NON-BLOCKING**: Choose commands that complete quickly and predictably
 
-**This is MANDATORY for ALL operations. NEVER BLOCK THE TERMINAL.**
+### 🚨 USE MCP SERVERS FOR RESEARCH:
+
+**Use tools instead of terminal commands for:**
+- File contents: `read_file` tool
+- Git information: MCP servers or `git status` only
+- Research: Context7, Memory MCP, etc.
+- Status information: Available MCP tools
 
 ## 🚫 CRITICAL - GIT BRANCH MANAGEMENT REQUIREMENTS 🚫
 
