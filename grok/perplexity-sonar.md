@@ -1,4 +1,4 @@
-### Perplexity Sonar
+# Perplexity Sonar
 
 **Key Differentiators**
 

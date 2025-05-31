@@ -1,3 +1,5 @@
+# 🧠 Grok Live Search Prompt Engineering Strategies
+
 Based on the search results about Grok's Live Search API capabilities and prompt engineering best practices, I'll design transparent prompting strategies for optimal real-time information retrieval.
 
 ## **Prompting Styles for Clear, Relevant Real-Time Outputs**
