@@ -92,4 +92,3 @@ Citations:
 [37] https://www.reddit.com/r/perplexity_ai/comments/1gz0ge4/perplexity_is_fraudulently_using_chatgpt_35_to/
 
 ---
-Answer from Perplexity: pplx.ai/share

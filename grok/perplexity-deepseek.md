@@ -131,6 +131,3 @@ Citations:
 [28]: https://www.shopify.com/blog/langchain-prompt-template
 [29]: https://www.qwak.com/post/prompt-management
 [30]: https://developers.liveperson.com/trustworthy-generative-ai-prompt-library-best-practices.html
-
----
-Answer from Perplexity: pplx.ai/share

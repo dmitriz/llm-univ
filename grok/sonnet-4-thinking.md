@@ -253,6 +253,3 @@ Citations:
 [40] <https://team-gpt.com/blog/chatgpt-ptompts-for-social-media/>
 [41] <https://www.jesseyao.com/Algorithmic_Targeting.pdf>
 [42] <https://www.linkedin.com/pulse/20141126005504-34768479-twitter-sentiment-algos-benchmarking-precision-recall-f-measures>
-
----
-Answer from Perplexity: pplx.ai/share
