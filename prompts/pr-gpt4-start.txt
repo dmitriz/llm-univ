@@ -1,0 +1,35 @@
+# Copilot Task: Analyze and Act on Pull Request Conversation
+
+The following content is a full **GitHub pull request conversation page**, including:
+
+- Reviewer comments and summaries
+- UI/menu artifacts and platform noise
+- Auto-generated summaries (CodeRabbit, Gemini, etc.)
+- Context about the repo, changed files, and PR metadata
+
+## 🔧 Your Mission:
+
+1. **Ignore all irrelevant GitHub UI content** — menus, avatars, timestamps, etc.
+2. Focus only on **reviewer and bot comments**, including summaries and suggestions.
+3. Extract only **clear, actionable, and helpful feedback**.
+
+## 🚀 What to Do:
+
+- ✅ Automatically apply all low-effort, high-value suggestions (under 5 minutes work).
+- ❌ Do NOT ask for permission to apply them.
+- ❗If a suggestion is **vague, unclear, or major work**, then:
+   - Do NOT implement it now.
+   - Instead, insert a TODO or FIXME comment describing the task for future review.
+
+## 📜 Special Rules:
+
+- 🧠 Use your own judgment — you are authorized to filter out noise.
+- 📘 Use bot summaries (CodeRabbit, Gemini, etc.) as context, but trust only where clear.
+- 📌 Ensure you scan and consider all comments until the very end.
+- 🛠 If a suggestion involves multiple steps, only implement the simplest portion and defer the rest as future work.
+
+## 🔄 Output:
+
+Make improvements directly where possible. Add `TODO:` markers for tasks that need further work, but don’t block on anything.
+
+⏬ Full conversation dump starts below:
