@@ -94,10 +94,6 @@ const PROVIDER_RATE_LIMITS = {
       notes: "$1000+ paid, 30+ days"
     },
     documentation: 'https://platform.openai.com/docs/guides/rate-limits',
-    auth: {
-      type: 'bearer',
-      headerName: 'Authorization'
-    },
     // Real-time detection via API headers
     rateLimitHeaders: {
       requestsLimit: 'x-ratelimit-limit-requests',
@@ -165,16 +161,11 @@ const PROVIDER_RATE_LIMITS = {
     auth: {
       type: 'api-key',
       headerName: 'x-api-key'
-    },
-    auth: {
-      type: 'bearer',
-      headerName: 'Authorization'
     }
   },
 
-  // Google Gemini rate limits - Documentation endpoint accessible
+  // Google Gemini rate limits - Some endpoints blocked
   // NOTE: Rate limit values below are from documentation research, NOT from API calls
-  // API endpoint accessibility: VERIFIED - Documentation endpoint accessible (200 status in collected_info)
   // Models endpoint: BLOCKED (403 error in collected_info)
   // Pricing endpoint: BLOCKED (301 redirect in collected_info)
   google: {
@@ -209,10 +200,6 @@ const PROVIDER_RATE_LIMITS = {
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
     documentation: 'https://ai.google.dev/gemini-api/docs/quota',
-    auth: {
-      type: 'bearer',
-      headerName: 'Authorization'
-    },
     auth: {
       type: 'bearer',
       headerName: 'Authorization'
@@ -253,22 +240,10 @@ const PROVIDER_RATE_LIMITS = {
     auth: {
       type: 'bearer',
       headerName: 'Authorization'
-    },
-    auth: {
-      type: 'bearer',
-      headerName: 'Authorization'
     }
   },
 
-  // Together AI rate limits - Pricing and documentation endpoints accessible
-  // NOTE: Rate limit values below are from documentation research, NOT from API calls
-  // API endpoint accessibility: VERIFIED - Pricing (200) and documentation (200) endpoints accessible (collected_info)
-  // Models endpoint: BLOCKED (401 - requires auth key in collected_info)
   together: {
-    free: {
-      [RATE_LIMIT_TYPES.RPM]: 60,
-      [RATE_LIMIT_TYPES.TPM]: 60000
-    },
     tier1: {
       [RATE_LIMIT_TYPES.RPM]: 600,
       [RATE_LIMIT_TYPES.TPM]: 180000
@@ -295,22 +270,15 @@ const PROVIDER_RATE_LIMITS = {
     auth: {
       type: 'bearer',
       headerName: 'Authorization'
-    },
-    auth: {
-      type: 'bearer',
-      headerName: 'Authorization'
     }
   },
 
   // OpenRouter rate limits - Models verified via API calls
-  // NOTE: Rate limit values below are from documentation research, NOT from API calls
-  // API endpoint accessibility: VERIFIED - Models endpoint accessible, found 322 models (collected_info/all_providers_2025-05-30.json)
-  // Pricing and documentation endpoints: NOT TESTED in collected_info
   openrouter: {
     free: {
       [RATE_LIMIT_TYPES.RPM]: 20,
-      [RATE_LIMIT_TYPES.RPD]: 50,
-      notes: "For :free models and <$10 credits"
+      [RATE_LIMIT_TYPES.RPD]: 100,
+      notes: "Default free tier"
     },
     paid: {
       [RATE_LIMIT_TYPES.RPM]: null, // Model-dependent
@@ -333,62 +301,49 @@ const PROVIDER_RATE_LIMITS = {
     auth: {
       type: 'bearer',
       headerName: 'Authorization'
-    },
-    auth: {
-      type: 'bearer',
-      headerName: 'Authorization'
     }
   },
 
   // GitHub Models rate limits - Models and endpoint accessibility verified
   // NOTE: Rate limit values below are from documentation research, NOT from API calls
   // API endpoint accessibility: VERIFIED - Models endpoint accessible, found 24 models (collected_info/all_providers_2025-05-30.json)
-  // Multiple endpoints accessible (2 out of 3 in collected_info)
-  'gh-models': {
-    free: {
-      [RATE_LIMIT_TYPES.RPM]: 60,
-      [RATE_LIMIT_TYPES.RPD]: null,
-      notes: "Unauthenticated requests"
-    },
+  "gh-models": {
     authenticated: {
-      [RATE_LIMIT_TYPES.RPM]: 5000,
+      [RATE_LIMIT_TYPES.RPM]: 60,
       [RATE_LIMIT_TYPES.RPD]: null,
       notes: "With personal access token"
     },
     // Real-time detection via API headers
     rateLimitHeaders: {
       limit: 'x-ratelimit-limit',
-      remaining: 'x-ratelimit-remaining', 
+      remaining: 'x-ratelimit-remaining',
       reset: 'x-ratelimit-reset',
       retryAfter: 'retry-after'
     },
     errorPatterns: {
-      rateLimitExceeded: /API rate limit exceeded/
+      rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
     documentation: 'https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api',
     auth: {
       type: 'bearer',
       headerName: 'Authorization'
-    },
-    auth: {
-      type: 'api-key',
-      headerName: 'x-api-key'
     }
   },
 
   // Hugging Face rate limits - Models and endpoints verified
   // NOTE: Rate limit values below are from documentation research, NOT from API calls
-  // API endpoint accessibility: VERIFIED - All endpoints accessible, found 50 models (collected_info/all_providers_2025-05-30.json)
-  // Best endpoint accessibility: 3 out of 4 endpoints working (collected_info)
+  // API endpoint accessibility: VERIFIED - Models endpoint accessible, found models (collected_info/all_providers_2025-05-30.json)
   huggingface: {
     free: {
-      [RATE_LIMIT_TYPES.RPM]: 1000,
-      [RATE_LIMIT_TYPES.TPM]: 100000
+      [RATE_LIMIT_TYPES.RPM]: 60,
+      [RATE_LIMIT_TYPES.RPD]: 1000,
+      notes: "Free tier with model loading"
     },
-    pro: {
-      [RATE_LIMIT_TYPES.RPM]: 10000,
-      [RATE_LIMIT_TYPES.TPM]: 1000000
+    paid: {
+      [RATE_LIMIT_TYPES.RPM]: 1000,
+      [RATE_LIMIT_TYPES.RPD]: 10000,
+      notes: "Dedicated endpoints"
     },
     // Real-time detection via API headers
     rateLimitHeaders: {
@@ -582,8 +537,6 @@ class RateLimitTracker {
         day: [],
         tokens: { minute: 0, day: 0 }
       });
-    } else if (this.usage.has(provider)) {
-      const usage = this.usage.get(provider);
     }
 
     const usage = this.usage.get(provider);
@@ -970,41 +923,31 @@ async function monitorRateLimitsViaTestRequest(provider, apiKey, options = {}) {
   }
 
   try {
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
-    // Add provider-specific authentication
-    if (provider === 'openai' || provider === 'google') {
-      headers['Authorization'] = `Bearer ${apiKey}`;
-    } else {
-      headers['x-api-key'] = apiKey;
-    }
+    const headers = getAuthHeaders(provider, apiKey);
 
     const response = await fetch(endpoint, {
       method: 'GET',
       headers
     });
 
-    // Parse rate limit headers regardless of response status
+    // Parse rate limit headers from response
     const rateLimitInfo = parseRateLimitHeaders(response.headers, provider);
-    
+
     return {
       provider,
-      timestamp: new Date().toISOString(),
       endpoint,
       status: response.status,
       rateLimitInfo,
-      headers: Object.fromEntries(response.headers.entries())
+      success: response.ok
     };
 
   } catch (error) {
     return {
       provider,
-      timestamp: new Date().toISOString(),
       endpoint,
       error: error.message,
-      rateLimitInfo: null
+      rateLimitInfo: null,
+      success: false
     };
   }
 }
