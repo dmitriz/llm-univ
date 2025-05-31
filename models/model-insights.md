@@ -2,7 +2,7 @@
 
 A comprehensive guide to 10 advanced language models, their capabilities, optimal use cases, limitations, and prompting strategies for maximum effectiveness.
 
-*Last Updated: May 31, 2025*
+**Last Updated: May 31, 2025**
 
 ---
 
@@ -53,12 +53,14 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 - Leverage **recency filters** for time-sensitive queries
 
 ### Limitations
+
 - **Cost considerations** for high-volume usage (2000 RPM limit)
 - **Search quality dependent** on web content availability
 - **Regional bias** in search results
 - **Rate limiting** may affect real-time applications
 
 ### Integration Notes
+
 - Excellent for **research pipelines** and fact-checking systems
 - Ideal for **news aggregation** and monitoring applications
 - Compatible with **structured output** requirements
