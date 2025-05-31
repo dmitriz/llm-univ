@@ -185,7 +185,7 @@ const PROVIDER_RATE_LIMITS = {
     rateLimitEndpoint: 'https://generativelanguage.googleapis.com/v1beta/models:countTokens',
     quotaEndpoint: 'https://generativelanguage.googleapis.com/v1beta/models',
     // Current quota endpoint
-    quotaEndpoint: '/v1beta/models:quota',
+    modelQuotaEndpoint: '/v1beta/models:quota',
     // Extract from 429 error responses
     errorPatterns: {
       quotaExceeded: /Quota exceeded/,
@@ -770,11 +770,27 @@ async function fetchCurrentRateLimits(provider, apiKey) {
     // Try rate limit endpoint first
     if (config.rateLimitEndpoint) {
       try {
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        
+        // Apply authentication based on provider configuration
+        const authConfig = config.auth || {
+          type: provider === 'openai' || provider === 'google' || provider === 'groq' || 
+          provider === 'anthropic' || provider === 'together' ? 'bearer' : 'api-key',
+          headerName: provider === 'openai' || provider === 'google' || provider === 'groq' || 
+                provider === 'anthropic' || provider === 'together' ? 'Authorization' : 'x-api-key'
+        };
+        
+        // Apply the appropriate authentication header
+        if (authConfig.type === 'bearer') {
+          headers[authConfig.headerName] = `Bearer ${apiKey}`;
+        } else {
+          headers[authConfig.headerName] = apiKey;
+        }
+        
         const response = await fetch(config.rateLimitEndpoint, {
-          headers: {
-            'Authorization': provider === 'openai' ? `Bearer ${apiKey}` : `x-api-key: ${apiKey}`,
-            'Content-Type': 'application/json'
-          }
+          headers: headers
         });
 
         if (response.ok) {
@@ -782,7 +798,7 @@ async function fetchCurrentRateLimits(provider, apiKey) {
           
           // Parse rate limit headers if present
           if (config.rateLimitHeaders) {
-            const headers = parseRateLimitHeaders(response.headers, config.rateLimitHeaders);
+            const headers = parseRateLimitHeaders(response.headers, provider);
             if (headers) {
               result.limits = headers.limits;
               result.remaining = headers.remaining;
@@ -803,18 +819,25 @@ async function fetchCurrentRateLimits(provider, apiKey) {
     // Try quota endpoint if available
     if (config.quotaEndpoint) {
       try {
-        const response = await fetch(config.quotaEndpoint, {
-          headers: {
-            'Authorization': provider === 'openai' ? `Bearer ${apiKey}` : `x-api-key: ${apiKey}`,
-            'Content-Type': 'application/json'
-          }
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        
+        if (provider === 'openai' || provider === 'google') {
+          headers['Authorization'] = `Bearer ${apiKey}`;
+        } else {
+          headers['x-api-key'] = apiKey;
+        }
+        
+        const quotaResponse = await fetch(config.quotaEndpoint, {
+          headers: headers
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (quotaResponse.ok) {
+          const data = await quotaResponse.json();
           result.quotaInfo = data;
         } else {
-          result.errors.push(`Quota endpoint returned ${response.status}: ${response.statusText}`);
+          result.errors.push(`Quota endpoint returned ${quotaResponse.status}: ${quotaResponse.statusText}`);
         }
       } catch (error) {
         result.errors.push(`Quota endpoint error: ${error.message}`);
@@ -870,12 +893,10 @@ async function monitorRateLimitsViaTestRequest(provider, apiKey, options = {}) {
     };
 
     // Add provider-specific authentication
-    if (provider === 'openai' || provider === 'groq' || provider === 'together' || provider === 'openrouter') {
+    if (provider === 'openai' || provider === 'google') {
       headers['Authorization'] = `Bearer ${apiKey}`;
-    } else if (provider === 'anthropic') {
+    } else {
       headers['x-api-key'] = apiKey;
-    } else if (provider === 'google') {
-      headers['Authorization'] = `Bearer ${apiKey}`;
     }
 
     const response = await fetch(endpoint, {
