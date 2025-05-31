@@ -1,4 +1,5 @@
-# Grok Live Search API: Prompt Engineering Guide for Twitter & Web  
+# Grok Live Search API: Prompt Engineering Guide for Twitter & Web
+
 **File:** `/phase-1/research/prompts/gpt4-grok-search.md`  
 **Analyst:** GPT-4.1  
 **Last Updated:** 2025-05-31
@@ -11,20 +12,20 @@ This document provides **optimized prompt strategies** for leveraging the Grok L
 
 ---
 
-## 1. Meta-Observations on Grok Prompting
+## Meta-Observations on Grok Prompting
 
 - **Explicit Signal Targeting:** Grok is tuned for *high-signal, real-time* results; prompts specifying engagement, virality, or recency outperform generic queries.
-- **Time Window Control:** Timeframes (e.g., "past 2 hours") dramatically refine social trend and event detection.
-- **Social Context Cues:** Prompts using "according to experts," "most shared," or "top discussions" yield richer, more curated snippets.
-- **Sentiment & Actor Filtering:** Including stance ("positive about...", "critical of...") or account type ("industry insiders," "verified profiles") sharpens results.
-- **Credibility/Source Bias:** Grok can prioritize or exclude sources (e.g., "excluding memes, only verified journalists").
+- **Time Window Control:** Timeframes (e.g., “past 2 hours”) dramatically refine social trend and event detection.
+- **Social Context Cues:** Prompts using “according to experts,” “most shared,” or “top discussions” yield richer, more curated snippets.
+- **Sentiment & Actor Filtering:** Including stance (“positive about...”, “critical of...”) or account type (“industry insiders,” “verified profiles”) sharpens results.
+- **Credibility/Source Bias:** Grok can prioritize or exclude sources (e.g., “excluding memes, only verified journalists”).
 - **Citation Anchoring:** For agent workflows, prompts should request direct source links or post IDs for auditability.
 
 ---
 
-## 2. Example Prompts by Use Case
+## Example Prompts by Use Case
 
-### A. **Trend Detection**
+### Trend Detection
 
 **Goal:** Surface emerging topics, memes, or events in near-real time.
 
@@ -38,7 +39,7 @@ What are the most shared or rapidly growing hashtags related to [EVENT] on Twitt
 
 ---
 
-### B. **Credibility Screening**
+### Credibility Screening
 
 **Goal:** Filter credible information, surface expert or authoritative sources.
 
@@ -52,12 +53,12 @@ Retrieve real-time posts about [ISSUE] from journalists or official news sources
 
 ---
 
-### C. **Persona Mining**
+### Persona Mining
 
 **Goal:** Profile influential actors, communities, or sentiment clusters.
 
 ```plaintext
-Identify the most influential accounts driving conversation about [TOPIC] on Twitter in the last 7 days. Summarize each persona's main stance, follower count, and most viral post (with link).
+Identify the most influential accounts driving conversation about [TOPIC] on Twitter in the last 7 days. Summarize each persona’s main stance, follower count, and most viral post (with link).
 ```
 
 ```plaintext
@@ -66,7 +67,7 @@ Map out key opinion clusters around [CONTROVERSY] on Twitter. Group by sentiment
 
 ---
 
-### D. **Citation Harvesting**
+### Citation Harvesting
 
 **Goal:** Extract reference-quality links or primary sources for downstream agent consumption.
 
@@ -80,31 +81,31 @@ Aggregate high-authority open web articles cited by experts in Twitter threads a
 
 ---
 
-## 3. LLM Integration & Agent Workflow Tips
+## LLM Integration & Agent Workflow Tips
 
-* **Chaining:** Use Grok to retrieve and *rank* raw results; pipe output through LLM for aggregation, summarization, or action (e.g., alerting, fact-checking).
-* **Parameterization:** Explicitly pass timeframe, min engagement, account type as structured parameters in agent prompts to maximize relevance.
-* **Post-Processing:** LLMs can filter, de-duplicate, or cluster Grok results, e.g., to build a citation graph or persona map for downstream tasks.
-* **Feedback Loop:** Design agent chains that assess result quality ("Is this trending post credible? Harvest 3 corroborating sources using Grok").
-
----
-
-## 4. Comparative Notes: Grok vs. Traditional Search
-
-* **Temporal Precision:** Grok is superior for *live* events and spike detection (Google and Sonar lag in ultra-fresh contexts).
-* **Signal Bias:** Grok can rank by engagement or virality natively; traditional search prioritizes authority/SEO.
-* **Social Web Native:** Grok is optimized for short-form, high-noise environments; expects filtering for sentiment, source, and actor more than classic search APIs.
+- **Chaining:** Use Grok to retrieve and *rank* raw results; pipe output through LLM for aggregation, summarization, or action (e.g., alerting, fact-checking).
+- **Parameterization:** Explicitly pass timeframe, min engagement, account type as structured parameters in agent prompts to maximize relevance.
+- **Post-Processing:** LLMs can filter, de-duplicate, or cluster Grok results, e.g., to build a citation graph or persona map for downstream tasks.
+- **Feedback Loop:** Design agent chains that assess result quality (“Is this trending post credible? Harvest 3 corroborating sources using Grok”).
 
 ---
 
-## 5. Reference Patterns (for Prompt Writers)
+## Comparative Notes: Grok vs. Traditional Search
 
-* Always anchor timeframe: `"in the last [X] hours/days"`
-* Specify platform: `"from Twitter"` or `"open web sites"`
-* Target post attributes: `"most shared"`, `"original reporting"`, `"by experts"`
-* Require links/IDs: `"provide post IDs and URLs"`
-* Use role cues: `"excluding jokes or memes"`, `"from journalists or verified accounts"`
+- **Temporal Precision:** Grok is superior for *live* events and spike detection (Google and Sonar lag in ultra-fresh contexts).
+- **Signal Bias:** Grok can rank by engagement or virality natively; traditional search prioritizes authority/SEO.
+- **Social Web Native:** Grok is optimized for short-form, high-noise environments; expects filtering for sentiment, source, and actor more than classic search APIs.
 
 ---
 
-**End of file**
+## Reference Patterns (for Prompt Writers)
+
+- Always anchor timeframe: "in the last [X] hours/days"
+- Specify platform: "from Twitter" or "open web sites"
+- Target post attributes: "most shared", "original reporting", "by experts"
+- Require links/IDs: "provide post IDs and URLs"
+- Use role cues: "excluding jokes or memes", "from journalists or verified accounts"
+
+---
+
+### End of file
