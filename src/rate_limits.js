@@ -94,6 +94,10 @@ const PROVIDER_RATE_LIMITS = {
       notes: "$1000+ paid, 30+ days"
     },
     documentation: 'https://platform.openai.com/docs/guides/rate-limits',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    },
     // Real-time detection via API headers
     rateLimitHeaders: {
       requestsLimit: 'x-ratelimit-limit-requests',
@@ -110,6 +114,10 @@ const PROVIDER_RATE_LIMITS = {
     errorPatterns: {
       rateLimitExceeded: /Rate limit exceeded/,
       quotaExceeded: /You exceeded your current quota/
+    },
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
     }
   },
 
@@ -153,7 +161,15 @@ const PROVIDER_RATE_LIMITS = {
       quotaExceeded: /Your credit balance is too low/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://docs.anthropic.com/en/api/rate-limits'
+    documentation: 'https://docs.anthropic.com/en/api/rate-limits',
+    auth: {
+      type: 'api-key',
+      headerName: 'x-api-key'
+    },
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // Google Gemini rate limits - Documentation endpoint accessible
@@ -192,7 +208,15 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://ai.google.dev/gemini-api/docs/quota'
+    documentation: 'https://ai.google.dev/gemini-api/docs/quota',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    },
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // Groq rate limits - Pricing and documentation endpoints accessible
@@ -225,7 +249,15 @@ const PROVIDER_RATE_LIMITS = {
       quotaExceeded: /Quota exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://console.groq.com/docs/rate-limits'
+    documentation: 'https://console.groq.com/docs/rate-limits',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    },
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // Together AI rate limits - Pricing and documentation endpoints accessible
@@ -259,7 +291,15 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://docs.together.ai/docs/rate-limits'
+    documentation: 'https://docs.together.ai/docs/rate-limits',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    },
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // OpenRouter rate limits - Models verified via API calls
@@ -289,7 +329,15 @@ const PROVIDER_RATE_LIMITS = {
       quotaExceeded: /Insufficient credits/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://openrouter.ai/docs/limits'
+    documentation: 'https://openrouter.ai/docs/limits',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    },
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // GitHub Models rate limits - Models and endpoint accessibility verified
@@ -318,7 +366,15 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /API rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api'
+    documentation: 'https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    },
+    auth: {
+      type: 'api-key',
+      headerName: 'x-api-key'
+    }
   },
 
   // Hugging Face rate limits - Models and endpoints verified
@@ -345,7 +401,11 @@ const PROVIDER_RATE_LIMITS = {
       quotaExceeded: /Rate limit reached/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://huggingface.co/docs/api-inference/en/rate-limits'
+    documentation: 'https://huggingface.co/docs/api-inference/en/rate-limits',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // DeepSeek rate limits - All endpoints blocked
@@ -374,7 +434,11 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://platform.deepseek.com/api-docs'
+    documentation: 'https://platform.deepseek.com/api-docs',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // Qwen (Alibaba Cloud) rate limits - Models verified via API calls
@@ -402,7 +466,11 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://help.aliyun.com/zh/dashscope/developer-reference/api-details'
+    documentation: 'https://help.aliyun.com/zh/dashscope/developer-reference/api-details',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // SiliconFlow rate limits - Limited endpoint accessibility
@@ -430,7 +498,11 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://siliconflow.cn/zh-cn/siliconcloud'
+    documentation: 'https://siliconflow.cn/zh-cn/siliconcloud',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // Grok (X.AI) rate limits - All endpoints blocked
@@ -459,7 +531,11 @@ const PROVIDER_RATE_LIMITS = {
       rateLimitExceeded: /Rate limit exceeded/
     },
     // Documentation URLs (WARNING: May become outdated - use API headers for real-time data)
-    documentation: 'https://docs.x.ai/api'
+    documentation: 'https://docs.x.ai/api',
+    auth: {
+      type: 'bearer',
+      headerName: 'Authorization'
+    }
   },
 
   // Ollama rate limits - Local deployment verified
@@ -738,6 +814,37 @@ function getRecommendedTier(provider, requirements) {
   return tiers[tiers.length - 1] || 'unknown'; // Return highest tier if none meet requirements
 }
 
+/**
+ * Get authentication headers for a provider
+ * @param {string} provider - Provider name
+ * @param {string} apiKey - API key
+ * @returns {Object} - Authentication headers
+ */
+function getAuthHeaders(provider, apiKey) {
+  const config = PROVIDER_RATE_LIMITS[provider];
+  if (!config) {
+    throw new Error(`Unsupported provider: ${provider}`);
+  }
+
+  // Use provider-specific auth config or fall back to defaults
+  const authConfig = config.auth || {
+    type: 'api-key',
+    headerName: 'x-api-key'
+  };
+
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+
+  if (authConfig.type === 'bearer') {
+    headers[authConfig.headerName] = `Bearer ${apiKey}`;
+  } else {
+    headers[authConfig.headerName] = apiKey;
+  }
+
+  return headers;
+}
+
 // Create a global rate limit tracker instance
 const globalRateLimitTracker = new RateLimitTracker();
 
@@ -776,13 +883,16 @@ async function fetchCurrentRateLimits(provider, apiKey) {
         
         // Apply authentication based on provider configuration
         const authConfig = config.auth || {
-          type: provider === 'openai' || provider === 'google' || provider === 'groq' || 
-          provider === 'anthropic' || provider === 'together' ? 'bearer' : 'api-key',
-          headerName: provider === 'openai' || provider === 'google' || provider === 'groq' || 
-                provider === 'anthropic' || provider === 'together' ? 'Authorization' : 'x-api-key'
+          type: 'api-key',
+          headerName: 'x-api-key'
         };
-        
-        // Apply the appropriate authentication header
+
+        // For providers using Bearer token authentication (most common)
+        if (provider === 'openai' || provider === 'google' || provider === 'groq' || 
+            provider === 'anthropic' || provider === 'together') {
+          authConfig.type = 'bearer';
+          authConfig.headerName = 'Authorization';
+        }
         if (authConfig.type === 'bearer') {
           headers[authConfig.headerName] = `Bearer ${apiKey}`;
         } else {
@@ -798,11 +908,11 @@ async function fetchCurrentRateLimits(provider, apiKey) {
           
           // Parse rate limit headers if present
           if (config.rateLimitHeaders) {
-            const headers = parseRateLimitHeaders(response.headers, provider);
-            if (headers) {
-              result.limits = headers.limits;
-              result.remaining = headers.remaining;
-              result.usage = headers.usage;
+            const rateLimitHeaders = parseRateLimitHeaders(response.headers, provider);
+            if (rateLimitHeaders) {
+              result.limits = rateLimitHeaders.limits;
+              result.remaining = rateLimitHeaders.remaining;
+              result.usage = rateLimitHeaders.usage;
             }
           }
 
@@ -937,5 +1047,6 @@ module.exports = {
   getProviderDocumentation,
   getRecommendedTier,
   fetchCurrentRateLimits,
-  monitorRateLimitsViaTestRequest
+  monitorRateLimitsViaTestRequest,
+  getAuthHeaders
 };
