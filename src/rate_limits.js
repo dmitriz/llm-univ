@@ -877,27 +877,7 @@ async function fetchCurrentRateLimits(provider, apiKey) {
     // Try rate limit endpoint first
     if (config.rateLimitEndpoint) {
       try {
-        const headers = {
-          'Content-Type': 'application/json'
-        };
-        
-        // Apply authentication based on provider configuration
-        const authConfig = config.auth || {
-          type: 'api-key',
-          headerName: 'x-api-key'
-        };
-
-        // For providers using Bearer token authentication (most common)
-        if (provider === 'openai' || provider === 'google' || provider === 'groq' || 
-            provider === 'anthropic' || provider === 'together') {
-          authConfig.type = 'bearer';
-          authConfig.headerName = 'Authorization';
-        }
-        if (authConfig.type === 'bearer') {
-          headers[authConfig.headerName] = `Bearer ${apiKey}`;
-        } else {
-          headers[authConfig.headerName] = apiKey;
-        }
+        const headers = getAuthHeaders(provider, apiKey);
         
         const response = await fetch(config.rateLimitEndpoint, {
           headers: headers
@@ -929,15 +909,7 @@ async function fetchCurrentRateLimits(provider, apiKey) {
     // Try quota endpoint if available
     if (config.quotaEndpoint) {
       try {
-        const headers = {
-          'Content-Type': 'application/json'
-        };
-        
-        if (provider === 'openai' || provider === 'google') {
-          headers['Authorization'] = `Bearer ${apiKey}`;
-        } else {
-          headers['x-api-key'] = apiKey;
-        }
+        const headers = getAuthHeaders(provider, apiKey);
         
         const quotaResponse = await fetch(config.quotaEndpoint, {
           headers: headers
@@ -1015,7 +987,7 @@ async function monitorRateLimitsViaTestRequest(provider, apiKey, options = {}) {
     });
 
     // Parse rate limit headers regardless of response status
-    const rateLimitInfo = parseRateLimitHeaders(response.headers, config.rateLimitHeaders);
+    const rateLimitInfo = parseRateLimitHeaders(response.headers, provider);
     
     return {
       provider,
