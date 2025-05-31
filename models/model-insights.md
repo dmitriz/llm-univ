@@ -8,7 +8,7 @@ Last Updated: May 31, 2025
 
 ---
 
-## 1. Perplexity Sonar (Fast Web-Focused Model)
+## Perplexity Sonar (Fast Web-Focused Model)
 
 ### Perplexity Sonar - Model Overview
 Perplexity's Sonar is a real-time search-augmented AI model designed for web-focused queries and current information retrieval.
@@ -75,7 +75,7 @@ Perplexity's Sonar is a real-time search-augmented AI model designed for web-foc
 
 ---
 
-## 2. Claude 4.0 Sonnet (Anthropic's Advanced Assistant)
+## Claude 4.0 Sonnet (Anthropic's Advanced Assistant)
 
 ### Claude 4.0 Sonnet - Model Overview
 Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extended reasoning capabilities and robust safety features.
@@ -138,7 +138,7 @@ Claude 3.5 Sonnet represents Anthropic's flagship conversational AI with extende
 
 ---
 
-## 3. GPT-4.1 (OpenAI's Advanced Model)
+## GPT-4.1 (OpenAI's Advanced Model)
 
 ### GPT-4.1 - Model Overview
 GPT-4o represents OpenAI's latest generation model with optimized performance and multimodal capabilities.
@@ -205,7 +205,7 @@ GPT-4o represents OpenAI's latest generation model with optimized performance an
 
 ---
 
-## 4. Gemini 2.5 Pro (Google's Flagship Model)
+## Gemini 2.5 Pro (Google's Flagship Model)
 
 ### Gemini 2.5 Pro - Model Overview
 Gemini 2.5 Pro is Google's most advanced model with extensive context windows and integrated search capabilities.
@@ -268,7 +268,7 @@ Gemini 2.5 Pro is Google's most advanced model with extensive context windows an
 
 ---
 
-## 5. Grok 3 Beta (xAI's Conversational Model)
+## Grok 3 Beta (xAI's Conversational Model)
 
 ### Grok 3 Beta - Model Overview
 Grok 3 represents xAI's latest conversational AI with real-time information access and a distinctive personality.
@@ -332,7 +332,7 @@ Grok 3 represents xAI's latest conversational AI with real-time information acce
 
 ---
 
-## 6. R1 t776 (Perplexity's Unbiased Reasoning Engine)
+## R1 t776 (Perplexity's Unbiased Reasoning Engine)
 
 ### R1 t776 - Model Overview
 R1-1776 is Perplexity's dedicated reasoning model designed for objective analysis without web search bias.
@@ -395,7 +395,7 @@ R1-1776 is Perplexity's dedicated reasoning model designed for objective analysi
 
 ---
 
-## 7. o4-mini (OpenAI's Reasoning-Focused Lightweight Model)
+## o4-mini (OpenAI's Reasoning-Focused Lightweight Model)
 
 ### o4-mini - Model Overview
 The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathematical and logical problem-solving.
@@ -458,7 +458,7 @@ The o1-mini represents OpenAI's lightweight reasoning model, optimized for mathe
 
 ---
 
-## 8. Claude 4.0 Sonnet Thinking (Anthropic's Reasoning Mode)
+## Claude 4.0 Sonnet Thinking (Anthropic's Reasoning Mode)
 
 ### Claude 4.0 Sonnet Thinking - Model Overview
 Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to transparent reasoning and step-by-step analysis.
@@ -521,7 +521,7 @@ Claude 3.7 Sonnet with extended thinking represents Anthropic's approach to tran
 
 ---
 
-## 9. GPT-4.5 Research (OpenAI's Research-Grade Assistant)
+## GPT-4.5 Research (OpenAI's Research-Grade Assistant)
 
 ### GPT-4.5 Research - Model Overview
 GPT-4.5 Research represents OpenAI's anticipated research-focused model with enhanced analytical capabilities.
@@ -584,7 +584,7 @@ GPT-4.5 Research represents OpenAI's anticipated research-focused model with enh
 
 ---
 
-## 10. o3 Reasoning (OpenAI's Reasoning LLM)
+## o3 Reasoning (OpenAI's Reasoning LLM)
 
 ### o3 Reasoning - Model Overview
 O3 represents OpenAI's most advanced reasoning model, designed for complex logical and mathematical problem-solving.
