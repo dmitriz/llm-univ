@@ -1,14 +1,17 @@
+<!--
+NOTE: This guide overlaps with `sonnet-4-thinking.md`. If both are present, clarify which is canonical or merge unique content to avoid confusion. See PR review for details.
+-->
 # 🔎 Grok Live Search Prompting Strategies
 
-Based on the search results about Grok's Live Search API capabilities and prompt engineering best practices, I'll design transparent prompting strategies for optimal real-time information retrieval.
+Grok Live Search prompt engineering strategies are summarized here in a formal, third-person style, based on current best practices and research. This document provides actionable guidance for real-time information retrieval and prompt design.
 
-## **Prompting Styles for Clear, Relevant Real-Time Outputs**
+## Prompting Styles for Clear, Relevant Real-Time Outputs
 
-**Contextual Prompt Architecture**
+### Contextual Prompt Architecture
 
 The most effective approach combines temporal specificity with source hierarchy instructions[8][17]:
 
-```
+```text
 Search for [specific topic] with these parameters:
 - Time frame: [last 24 hours/current week/since date]
 - Primary sources: [X posts, news articles, official announcements]
@@ -18,21 +21,21 @@ Search for [specific topic] with these parameters:
 Synthesize findings into: [brief summary, key trends, source breakdown]
 ```
 
-**Intent-Driven Prompting**
+### Intent-Driven Prompting
 
 Since Grok can autonomously decide when to search[4][5], structuring prompts around clear search intent improves relevance:
 
-- **Monitoring prompts**: "Track real-time sentiment about [topic] on X, prioritizing verified accounts and news sources"
-- **Discovery prompts**: "Find emerging discussions about [topic] that haven't reached mainstream news yet"
-- **Verification prompts**: "Cross-reference this claim against current X posts and recent news articles"
+- Monitoring prompts: "Track real-time sentiment about [topic] on X, prioritizing verified accounts and news sources"
+- Discovery prompts: "Find emerging discussions about [topic] that haven't reached mainstream news yet"
+- Verification prompts: "Cross-reference this claim against current X posts and recent news articles"
 
-## **Balancing Recall vs Precision in Social Media Queries**
+## Balancing Recall vs Precision in Social Media Queries
 
-**Precision-First Strategy**
+### Precision-First Strategy
 
 For high-accuracy needs, use constrained prompting[19]:
 
-```
+```text
 Search X for [topic] using these filters:
 - Verified accounts only
 - Minimum 1000 followers
@@ -43,11 +46,11 @@ Search X for [topic] using these filters:
 Rank results by: engagement quality > follower count > recency
 ```
 
-**Recall-Optimized Strategy**
+### Recall-Optimized Strategy
 
 For comprehensive coverage, employ expansion techniques[19]:
 
-```
+```text
 Conduct broad search for [topic] including:
 - Alternative terms: [synonyms, hashtags, related concepts]
 - Account types: [experts, institutions, affected parties]
@@ -57,13 +60,13 @@ Conduct broad search for [topic] including:
 Group findings by: [source credibility, topic clusters, temporal patterns]
 ```
 
-## **Source Citation and Grouping Prompts**
+## Source Citation and Grouping Prompts
 
-**Citation-Enforced Framework**
+### Citation-Enforced Framework
 
 Based on Grok's citation guidelines[8], structure prompts to ensure proper attribution:
 
-```
+```text
 Research [topic] and present findings with strict citation protocol:
 
 For each claim, provide:
@@ -75,15 +78,15 @@ For each claim, provide:
 Organization: [verified facts] → [emerging trends] → [unconfirmed reports]
 ```
 
-**Grouped Analysis Template**
+### Grouped Analysis Template
 
-```
+```text
 Analyze [topic] across multiple dimensions:
 
-1. **Official Sources**: Government, institutional announcements
-2. **Expert Commentary**: Industry leaders, academic perspectives  
-3. **Public Sentiment**: X user reactions, trending hashtags
-4. **Media Coverage**: News articles, investigative reports
+1. Official Sources: Government, institutional announcements
+2. Expert Commentary: Industry leaders, academic perspectives  
+3. Public Sentiment: X user reactions, trending hashtags
+4. Media Coverage: News articles, investigative reports
 
 For each group:
 - Summarize key points
@@ -92,14 +95,14 @@ For each group:
 - Cite specific sources using appropriate format
 ```
 
-## **Challenges in Live Search Prompt Design**
+## Challenges in Live Search Prompt Design
 
-**Information Velocity Challenge**
+### Information Velocity Challenge
 
 Real-time information changes rapidly, creating prompt design issues[4][21]:
 
 **Solution - Temporal Anchoring**:
-```
+```text
 Search for [topic] developments in the last [X hours/days]:
 - Note timestamp of each source
 - Flag if information has been updated/corrected
@@ -107,12 +110,12 @@ Search for [topic] developments in the last [X hours/days]:
 - Indicate when sources conflict due to timing
 ```
 
-**Source Reliability Challenge**
+### Source Reliability Challenge
 
 X posts can contain "false or uncertain claims"[8], requiring careful prompt structure:
 
 **Solution - Credibility Layering**:
-```
+```text
 Evaluate [topic] information using credibility hierarchy:
 
 Tier 1: Official accounts, verified experts, established media
@@ -122,25 +125,25 @@ Tier 3: General user posts (note as "unverified social media reports")
 Always indicate source tier and cross-reference claims across tiers.
 ```
 
-**Context Overwhelm Challenge**
+### Context Overwhelm Challenge
 
 Too much context can confuse the model[11][25]:
 
 **Solution - Progressive Refinement**:
-```
+```text
 Initial broad search: [general topic parameters]
 → Identify key themes and gaps
 → Refined search: [specific aspects needing deeper investigation]  
 → Final synthesis: [consolidated findings with source breakdown]
 ```
 
-## **Multi-Step Query Planning and Reformulation**
+## Multi-Step Query Planning and Reformulation
 
-**Conversational Search Strategy**
+### Conversational Search Strategy
 
 Leveraging Grok's contextual memory[2][24]:
 
-```
+```text
 Step 1: "Search for recent developments about [topic]. Identify the 3 most significant trends."
 
 Step 2: "For each trend identified, find supporting evidence from both X and web sources."
@@ -150,11 +153,11 @@ Step 3: "Look for contradictory information or alternative perspectives on these
 Step 4: "Synthesize into comprehensive report with confidence levels for each finding."
 ```
 
-**Adaptive Query Reformulation**
+### Adaptive Query Reformulation
 
 Based on automated query reformulation research[16][23]:
 
-```
+```text
 Initial Query: [user's original question]
 → Analyze search results quality
 → If insufficient: "Expand search to include [related terms, timeframe, source types]"
@@ -162,9 +165,9 @@ Initial Query: [user's original question]
 → If contradictory: "Search for authoritative sources to resolve conflicts"
 ```
 
-**Meta-Search Planning Template**
+### Meta-Search Planning Template
 
-```
+```text
 Plan multi-source investigation of [topic]:
 
 Phase 1: Current State Analysis
@@ -185,18 +188,18 @@ Phase 3: Future Implications
 Synthesize with clear source attribution and confidence indicators.
 ```
 
-## **Best Practices for Implementation**
+## Best Practices for Implementation
 
-**Transparency Markers**
+### Transparency Markers
 
 Include explicit reasoning visibility[3]:
 - "Show your search decision process"
 - "Explain why you prioritized certain sources"
 - "Note information gaps or uncertainties"
 
-**Quality Assurance Prompts**
+### Quality Assurance Prompts
 
-```
+```text
 Before finalizing response:
 - Cross-check facts across multiple source types
 - Flag any information that seems inconsistent
@@ -251,4 +254,4 @@ Citations:
 [42] <https://www.linkedin.com/pulse/20141126005504-34768479-twitter-sentiment-algos-benchmarking-precision-recall-f-measures>
 
 ---
-Answer from Perplexity: pplx.ai/share
+<!-- Removed Perplexity footer per review: "Answer from Perplexity: pplx.ai/share" -->
