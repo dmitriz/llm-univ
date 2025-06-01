@@ -1,6 +1,7 @@
 # Ollama Models for Semantic Content Management - Comprehensive Guide
 
-**Research Date**: June 1, 2025  
+**Research Date**: June 1, 2025,  
+# TODO: Verify if this date should reflect actual research completion or anticipated model availability. If forward-looking, clarify in the text.
 **Target Infrastructure**: 64GB RAM, Intel Iris Xe Graphics, 13th Gen Intel i7-1365U  
 **Size Requirements**: Under 5GB, ideally ~2GB  
 **Status**: ✅ COMPREHENSIVE RESEARCH COMPLETE
@@ -13,7 +14,7 @@ This guide provides comprehensive recommendations for running Ollama models opti
 
 ### System Specifications
 - **RAM**: 64GB (Excellent - no memory constraints)
-- **Graphics**: Intel Iris Xe Graphics (128MB VRAM)
+- **Graphics**: Intel Iris Xe Graphics (Primarily uses shared system RAM; may report a small dedicated segment like 128MB)
 - **Storage**: 1.86TB (371GB used, plenty of space)
 - **Processor**: 13th Gen Intel i7-1365U @ 1.80GHz
 
@@ -120,7 +121,7 @@ ollama pull llama3.2:1b
 
 ### Category 3: Enhanced Analysis Models (Complex Tasks)
 
-#### **llama3.2:3b** 🎖️ BEST OVERALL UNDER 5GB
+#### **llama3.2:3b** 🎖️ Best Overall Model Under 5GB
 ```bash
 ollama pull llama3.2:3b
 ```
@@ -166,7 +167,7 @@ ollama create llama3.2:3b-q4_k_m --quantize q4_K_M llama3.2:3b
 ollama create phi4-mini:q4_k_m --quantize q4_K_M phi4-mini
 
 # Verify quantization
-ollama list | grep q4_k_m
+ollama list | grep q4_K_M
 ```
 
 ### Expected Size Reductions
@@ -358,18 +359,24 @@ ollama ps
 ollama stop [unused-model]
 
 # Check system resources
+# On **Windows**:
 wmic memorychip get size,speed
+# On **Linux**:
+free -h
+# On **macOS**:
+vm_stat
 ```
 
 #### Issue: Poor Performance on Intel GPU
 ```bash
 # Ensure quantized models are being used
-ollama list | grep q4
+ollama list | grep q4_K_M
 
 # Create quantized version if not available
 ollama create [model]:q4_k_m --quantize q4_K_M [model]
 
 # Set Intel GPU environment variable (if using IPEX-LLM)
+# TODO: Clarify if OLLAMA_INTEL_GPU=1 is official Ollama or IPEX-LLM-specific; add reference if possible.
 export OLLAMA_INTEL_GPU=1
 ```
 
@@ -399,8 +406,8 @@ curl http://localhost:11434/api/embed -d '{"model": "nomic-embed-text", "input":
 | **tinyllama** | 638MB | 1.1B | 2K | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Quick analysis |
 | **gemma3:1b** | 815MB | 1B | 32K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Multilingual |
 | **llama3.2:1b** | 1.3GB | 1B | 128K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Long documents |
-| **llama3.2:3b-q4** | ~1.5GB | 3B | 128K | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Complex analysis |
-| **phi4-mini:q4** | ~1.9GB | 3.8B | 4K | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Reasoning tasks |
+| **llama3.2:3b-q4_K_M** | ~1.5GB | 3B | 128K | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Complex analysis |
+| **phi4-mini:q4_K_M** | ~1.9GB | 3.8B | 4K | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Reasoning tasks |
 | **mxbai-embed-large** | 670MB | 335M | 512 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | SOTA embeddings |
 
 ## Future Considerations and Upgrades
@@ -424,7 +431,7 @@ If you need more performance:
 ### Immediate Implementation (Start Today)
 
 ```bash
-# Essential semantic toolkit (~1.2GB total)
+# Essential semantic toolkit (~2.2GB total)
 ollama pull nomic-embed-text    # 274MB - Primary embeddings
 ollama pull tinyllama           # 638MB - Quick analysis
 ollama pull llama3.2:1b         # 1.3GB - Long context analysis
