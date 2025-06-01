@@ -43,46 +43,26 @@
 
 **PREFERRED MCP TOOLS FOR GIT OPERATIONS:**
 - `f51_git_status` - Check repository status (prefer over `git status`)
-- `f51_git_add` - Stage files (prefer over `git add`)
-- `f51_git_commit` - Commit changes (prefer over `git commit`)
-- `f51_git_create_branch` - Create branches (prefer over `git checkout -b`)
-- `f51_git_checkout` - Switch branches (prefer over `git checkout`)
 - `f51_git_diff` - View differences (prefer over `git diff`)
 - `f51_git_log` - View commit history (prefer over `git log`)
 
 **FALLBACK STRATEGY:**
 If MCP tools fail or are unavailable:
 1. **Try MCP server first** - Always attempt MCP git tools initially
-2. **Use simple git commands if needed** - Fall back to basic `git status`, `git add`, `git commit` only
 3. **AVOID BLOCKING COMMANDS** - Never use `git log`, `git show`, `git diff` without limits
 4. **Document the fallback** - Note when and why terminal commands were used
 
 **PREFERRED TOOLS (use first):**
-- File contents: `read_file` tool
-- Git operations: MCP git tools (f51_git_*) - fallback to simple terminal commands if needed
 - Research: Context7, Memory MCP, etc.
 - Status information: Available MCP tools
-
-**ACCEPTABLE FALLBACKS:**
-- Simple git commands (`git status`, `git add`, `git commit`) if MCP fails
-- Basic terminal commands that don't block or require interaction
 
 ## 🚫 CRITICAL - GIT BRANCH MANAGEMENT REQUIREMENTS 🚫
 
 ### ❗️NEVER COMMIT TO MAIN BRANCH:
 
-1. **ALWAYS CREATE A FEATURE BRANCH BEFORE ANY CHANGES**
 2. **NEVER COMMIT DIRECTLY TO MAIN/MASTER BRANCH**
 3. **CHECK CURRENT BRANCH BEFORE MAKING ANY COMMITS**
-4. **CREATE FEATURE BRANCH WITH DESCRIPTIVE NAME**
-5. **COMMIT ALL CHANGES TO FEATURE BRANCH ONLY**
 
-### ✅ REQUIRED GIT WORKFLOW FOR EVERY TASK:
-
-1. **CHECK CURRENT BRANCH**: Try `f51_git_status` first, fallback to `git status` if needed
-2. **CREATE FEATURE BRANCH**: Try `f51_git_create_branch` first, fallback to `git checkout -b` if needed
-3. **MAKE ALL CHANGES ON FEATURE BRANCH**
-4. **COMMIT TO FEATURE BRANCH ONLY**: Try `f51_git_add` + `f51_git_commit`, fallback to `git add . && git commit -m` if needed
 5. **NEVER USE `git checkout main` DURING ACTIVE DEVELOPMENT**
 
 ### 🚫 ABSOLUTELY FORBIDDEN GIT ACTIONS:
@@ -166,7 +146,7 @@ If MCP tools fail or are unavailable:
 ## 🚫 Common Mistakes to Avoid
 
 ### Research Mistakes
-- **DON'T** rely on a single MCP server - use all available servers in parallel
+- **DON'T** rely on a single search - use all available search tools in parallel
 - **DON'T** skip cross-referencing information across MCP servers
 - **DON'T** forget to document which MCP server provided which findings
 - **DON'T** skip Perplexity when researching major providers
