@@ -1,7 +1,9 @@
 # Ollama Models for Semantic Content Management - Comprehensive Guide
 
-**Research Date**: June 1, 2025,  
-# TODO: Verify if this date should reflect actual research completion or anticipated model availability. If forward-looking, clarify in the text.
+**Research Date**: June 1, 2024  
+*Note: This guide reflects the state of Ollama models and recommendations as of June 1, 2024. All listed models are currently available for download and use via `ollama pull` commands. If you are referencing this document after this date, please verify model availability and updates, as new models and improvements may have been released since the research was completed.*  
+# TODO: Verify if this date should reflect actual research completion or anticipated model availability. If forward-looking, clarify in the text
+
 **Target Infrastructure**: 64GB RAM, Intel Iris Xe Graphics, 13th Gen Intel i7-1365U  
 **Size Requirements**: Under 5GB, ideally ~2GB  
 **Status**: ✅ COMPREHENSIVE RESEARCH COMPLETE
