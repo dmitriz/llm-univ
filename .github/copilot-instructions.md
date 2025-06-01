@@ -58,7 +58,6 @@ If MCP tools fail or are unavailable:
 4. **Document the fallback** - Note when and why terminal commands were used
 
 **PREFERRED TOOLS (use first):**
-- File contents: `read_file` tool
 - Git operations: MCP git tools (f51_git_*) - fallback to simple terminal commands if needed
 - Research: Context7, Memory MCP, etc.
 - Status information: Available MCP tools
@@ -71,11 +70,8 @@ If MCP tools fail or are unavailable:
 
 ### ❗️NEVER COMMIT TO MAIN BRANCH:
 
-1. **ALWAYS CREATE A FEATURE BRANCH BEFORE ANY CHANGES**
 2. **NEVER COMMIT DIRECTLY TO MAIN/MASTER BRANCH**
 3. **CHECK CURRENT BRANCH BEFORE MAKING ANY COMMITS**
-4. **CREATE FEATURE BRANCH WITH DESCRIPTIVE NAME**
-5. **COMMIT ALL CHANGES TO FEATURE BRANCH ONLY**
 
 ### ✅ REQUIRED GIT WORKFLOW FOR EVERY TASK:
 
@@ -166,7 +162,7 @@ If MCP tools fail or are unavailable:
 ## 🚫 Common Mistakes to Avoid
 
 ### Research Mistakes
-- **DON'T** rely on a single MCP server - use all available servers in parallel
+- **DON'T** rely on a single search - use all available search tools in parallel
 - **DON'T** skip cross-referencing information across MCP servers
 - **DON'T** forget to document which MCP server provided which findings
 - **DON'T** skip Perplexity when researching major providers
