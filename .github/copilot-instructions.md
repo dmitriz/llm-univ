@@ -49,7 +49,6 @@
 **FALLBACK STRATEGY:**
 If MCP tools fail or are unavailable:
 1. **Try MCP server first** - Always attempt MCP git tools initially
-2. **Use simple git commands if needed** - Fall back to basic `git status`, `git add`, `git commit` only
 3. **AVOID BLOCKING COMMANDS** - Never use `git log`, `git show`, `git diff` without limits
 4. **Document the fallback** - Note when and why terminal commands were used
 
