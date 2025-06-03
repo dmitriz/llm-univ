@@ -199,7 +199,7 @@ const create_batch_request = (data) => {
   }
 
   // Provider-specific validation for required batch fields
-  const requiresInputFileId = ['siliconflow', 'openai', 'groq'];
+  const requiresInputFileId = ['siliconflow', 'openai', 'groq', 'fireworks'];
   if (requiresInputFileId.includes(data.provider) && data.batch && !data.batch.inputFileId) {
     // Capitalize first letter for better error message formatting
     const providerName = data.provider.charAt(0).toUpperCase() + data.provider.slice(1);
@@ -210,6 +210,7 @@ const create_batch_request = (data) => {
     case 'openai':
     case 'groq':
     case 'siliconflow':
+    case 'fireworks':
       return create_openai_compatible_batch(data, data.provider);
 
     case 'anthropic':

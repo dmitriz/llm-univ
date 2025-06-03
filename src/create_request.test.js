@@ -512,6 +512,63 @@ describe('create_request', () => {
       });
     });
 
+    it('should create Fireworks AI batch request', () => {
+      const requestConfig = create_request(llm_input_schema, {
+        ...baseWithApiKey,
+        provider: 'fireworks',
+        model: 'anthropic/claude-3-opus',
+        apiKey: 'fw-api-key-123',
+        batch: {
+          enabled: true,
+          inputFileId: 'file-fireworks-123',
+          completionWindow: '24h',
+          metadata: { project: 'test-project' }
+        }
+      });
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.fireworks.ai/inference/v1/batches',
+        data: {
+          input_file_id: 'file-fireworks-123',
+          endpoint: 'https://api.fireworks.ai/inference/v1/chat/completions',
+          completion_window: '24h',
+          metadata: { project: 'test-project' }
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer fw-api-key-123'
+        }
+      });
+    });
+
+    it('should create Fireworks AI batch request with minimal parameters', () => {
+      const requestConfig = create_request(llm_input_schema, {
+        ...baseWithApiKey,
+        provider: 'fireworks',
+        model: 'meta-llama/Llama-3-70b-chat',
+        apiKey: 'fw-api-key-456',
+        batch: {
+          enabled: true,
+          inputFileId: 'file-fireworks-minimal'
+        }
+      });
+
+      expect(requestConfig).toEqual({
+        method: 'POST',
+        url: 'https://api.fireworks.ai/inference/v1/batches',
+        data: {
+          input_file_id: 'file-fireworks-minimal',
+          endpoint: 'https://api.fireworks.ai/inference/v1/chat/completions',
+          completion_window: '24h'
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer fw-api-key-456'
+        }
+      });
+    });
+
     it('should create Together AI batch request', () => {
       const requestConfig = create_request(llm_input_schema, {
         ...baseWithApiKey,
