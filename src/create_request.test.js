@@ -775,6 +775,25 @@ describe('create_request', () => {
       }).toThrow('Siliconflow batch processing requires inputFileId');
     });
 
+    it('should throw error when Fireworks AI batch lacks inputFileId', () => {
+      const inputData = {
+        provider: 'fireworks',
+        apiKey: 'fw-api-key-123',
+        model: 'anthropic/claude-3-opus',
+        messages: [{ role: 'user', content: 'Hello' }],
+        batch: {
+          enabled: true
+          // Missing inputFileId
+        }
+      };
+
+      const options = { url: 'https://api.fireworks.ai/inference/v1/batches' };
+
+      expect(() => {
+        create_request(llm_input_schema, inputData, options);
+      }).toThrow('Fireworks batch processing requires inputFileId');
+    });
+
     it('should throw error when OpenAI batch lacks inputFileId', () => {
       const inputData = {
         provider: 'openai',

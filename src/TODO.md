@@ -11,42 +11,42 @@ The following providers need implementation in `create_request.js`:
 
 #### SiliconFlow
 
-- [ ] Complete API documentation research
-- [ ] Add batch processing support
+- [x] Complete API documentation research
+- [x] Add batch processing support
 - [ ] Update rate limiting information
 
 #### Fireworks AI
 
-- [ ] Verify batch API endpoint: `https://api.fireworks.ai/v1/batches`
-- [ ] Research JSONL format requirements
-- [ ] Document rate limits and pricing
+- [x] Verify batch API endpoint: `https://api.fireworks.ai/inference/v1/batches`
+- [x] Research JSONL format requirements
+- [x] Document rate limits and pricing
 
 #### Mistral AI
 
-- [ ] Verify batch API endpoint: `https://api.mistral.ai/v1/batches`
-- [ ] Research function calling capabilities
-- [ ] Document rate limits
+- [x] Verify batch API endpoint: `https://api.mistral.ai/v1/batch/jobs`
+- [x] Research function calling capabilities  
+- [x] Document rate limits and 50% cost savings
 
 ### Research Required Providers
 
 #### Replicate
 
-- [ ] Research complete API structure
-- [ ] Investigate batch processing compatibility
-- [ ] Document unique pricing model
-- [ ] Determine universal schema compatibility
+- [x] Research complete API structure - No batch processing support
+- [x] Investigate batch processing compatibility - Not available
+- [x] Document unique pricing model - Standard prediction-based
+- [x] Determine universal schema compatibility - Compatible for standard requests
 
 #### Cohere
 
-- [ ] Research API endpoint structure
-- [ ] Investigate batch processing support
-- [ ] Document authentication requirements
+- [x] Research API endpoint structure - Standard chat API
+- [x] Investigate batch processing support - Embeddings only, no chat batch
+- [x] Document authentication requirements - Bearer token
 
 #### AI21 Labs
 
-- [ ] Research API structure for Jurassic models
-- [ ] Document model capabilities
-- [ ] Investigate batch processing possibilities
+- [x] Research API structure for Jamba models - Standard REST API
+- [x] Document model capabilities - Enterprise long-context models
+- [x] Investigate batch processing possibilities - Not available
 
 ### Common Tasks for All Providers
 
