@@ -133,6 +133,7 @@ const create_provider_headers = (data) => {
     case 'deepseek':
     case 'qwen':
     case 'siliconflow':
+    case 'fireworks':
     case 'groq':
     case 'grok':
     case 'openrouter':
