@@ -1,7 +1,11 @@
 const { z } = require('zod');
 
 /**
- * Universal LLM input schema that works across different providers
+ * Universal LLM input    * - Grok: Subscription-based access through X Premium
+   *   Reference: https://console.x.ai/docs/authentication
+   * - Perplexity: Limited free tier, subscription for higher usage
+   * - Fireworks AI: Pay-per-use pricing, requires API key
+   *   Reference: https://docs.fireworks.ai/api-reference/authenticationema that works across different providers
  * This schema defines the common interface for OpenAI, Anthropic, Google, GitHub Models, etc.
  */
 const llm_input_schema = z.object({
@@ -24,7 +28,7 @@ const llm_input_schema = z.object({
    * - OpenRouter: https://openrouter.ai/docs/api-reference (Complete REST API Reference - Multi-provider gateway)
    * - Ollama: https://github.com/ollama/ollama/blob/main/docs/api.md (Complete API Reference - Local deployment)
    */
-  provider: z.enum(['openai', 'anthropic', 'google', 'gh-models', 'huggingface', 'together', 'perplexity', 'deepseek', 'qwen', 'siliconflow', 'grok', 'groq', 'openrouter', 'ollama']),
+  provider: z.enum(['openai', 'anthropic', 'google', 'gh-models', 'huggingface', 'together', 'perplexity', 'deepseek', 'qwen', 'siliconflow', 'fireworks', 'grok', 'groq', 'openrouter', 'ollama']),
   
   /**
    * API Key for authentication with the LLM provider
@@ -79,6 +83,7 @@ const llm_input_schema = z.object({
    * - Together AI: https://docs.together.ai/docs/inference-models (Open source models)
    * - Perplexity: https://docs.perplexity.ai/docs/model-cards (Search-augmented models)
    * - Grok: https://console.x.ai/docs/models (Grok models with live web search)
+   * - Fireworks AI: https://docs.fireworks.ai/api-reference/models (Fast inference for various models)
    * 
    * Real-time Search Capabilities:
    * - Grok (X.AI): Built-in live web search and real-time data access

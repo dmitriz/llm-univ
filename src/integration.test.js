@@ -226,17 +226,21 @@ describe('Integration Tests', () => {
         apiKey: 'invalid-key'
       };
 
-      // Override URL to point to non-existent endpoint
-      const options = { url: 'https://nonexistent-api.example.com/v1/chat/completions' };
+      // Override URL to point to non-existent endpoint and disable retries
+      const options = {
+        url: 'https://nonexistent-api.example.com/v1/chat/completions',
+        retry: { maxRetries: 0 }
+      };
 
       try {
         await execute_request(llm_input_schema, invalidInput, options);
         fail('Should have thrown an error');
       } catch (error) {
-        // Our error handling now sanitizes network errors
-        expect(error.message).toBe('Network error: Unable to reach the API endpoint');
+        // Our error handling now creates structured errors
+        expect(error.name).toBe('NetworkError');
+        expect(error.provider).toBe('openai');
       }
-    });
+    }, 10000);
 
     it('should handle 401 authentication errors', async () => {
       const invalidInput = {
@@ -246,11 +250,17 @@ describe('Integration Tests', () => {
         apiKey: 'invalid-key-12345'
       };
 
+      // Disable retries for faster test
+      const options = { retry: { maxRetries: 0 } };
+
       try {
-        await execute_request(llm_input_schema, invalidInput);
+        await execute_request(llm_input_schema, invalidInput, options);
         fail('Should have thrown an authentication error');
       } catch (error) {
-        expect(error.response?.status).toBe(401);
+        // Debug the actual error
+        console.log('Actual error:', error.name, error.message, error.constructor.name);
+        expect(error.name).toBe('AuthenticationError');
+        expect(error.statusCode).toBe(401);
       }
     }, 15000);
 
@@ -263,9 +273,12 @@ describe('Integration Tests', () => {
         maxTokens: 1
       };
 
+      // Disable retries for faster test
+      const options = { retry: { maxRetries: 0 } };
+
       // Make multiple rapid requests to potentially trigger rate limiting
       const requests = Array(5).fill().map(() =>
-        execute_request(llm_input_schema, testInput).catch(err => err)
+        execute_request(llm_input_schema, testInput, options).catch(err => err)
       );
 
       const results = await Promise.all(requests);
@@ -273,9 +286,11 @@ describe('Integration Tests', () => {
       // At least one should succeed or return a proper error (including auth errors)
       const hasValidResponse = results.some(result =>
         result.status === 200 ||
-        result.response?.status === 401 ||
-        result.response?.status === 429 ||
-        result.response?.status === 503
+        result.statusCode === 401 ||
+        result.statusCode === 429 ||
+        result.statusCode === 503 ||
+        result.name === 'AuthenticationError' ||
+        result.name === 'RateLimitError'
       );
 
       expect(hasValidResponse).toBe(true);

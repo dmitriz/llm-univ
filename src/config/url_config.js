@@ -17,6 +17,7 @@ const BASE_URLS = {
   deepseek: 'https://api.deepseek.com',
   qwen: 'https://dashscope.aliyuncs.com',
   siliconflow: 'https://api.siliconflow.cn',
+  fireworks: 'https://api.fireworks.ai',
   grok: 'https://api.x.ai',
   groq: 'https://api.groq.com',
   openrouter: 'https://openrouter.ai',
@@ -35,6 +36,7 @@ const CHAT_ENDPOINTS = {
   deepseek: '/chat/completions',
   qwen: '/compatible-mode/v1/chat/completions',
   siliconflow: '/v1/chat/completions',
+  fireworks: '/inference/v1/chat/completions',
   grok: '/v1/chat/completions',
   groq: '/openai/v1/chat/completions',
   openrouter: '/api/v1/chat/completions',
@@ -53,6 +55,7 @@ const MODEL_ENDPOINTS = {
   deepseek: '/models',
   qwen: '/compatible-mode/v1/models',
   siliconflow: '/v1/models',
+  fireworks: '/inference/v1/models',
   grok: '/v1/models',
   groq: '/openai/v1/models',
   openrouter: '/api/v1/models',
@@ -66,6 +69,7 @@ const BATCH_ENDPOINTS = {
   together: '/v1/batches',
   groq: '/openai/v1/batches',
   siliconflow: '/v1/batches',
+  fireworks: '/inference/v1/batches',
 };
 
 // Public info endpoints that don't require API keys
@@ -111,6 +115,10 @@ const PUBLIC_ENDPOINTS = {
   siliconflow: {
     pricing: 'https://siliconflow.cn/pricing',
     documentation: 'https://docs.siliconflow.cn/'
+  },
+  fireworks: {
+    pricing: 'https://fireworks.ai/pricing',
+    documentation: 'https://docs.fireworks.ai/api-reference/introduction'
   },
   grok: {
     pricing: 'https://x.ai/pricing',

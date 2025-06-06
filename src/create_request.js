@@ -9,6 +9,27 @@ const {
   getHuggingFaceUrl,
   getBatchEndpoint
 } = require('./config/url_config');
+const {
+  getProviderTimeout,
+  calculateRetryDelay,
+  shouldRetry,
+  getRetryAfterDelay,
+  createAxiosConfig,
+  RETRY_CONFIG
+} = require('./config/request_config');
+const {
+  createErrorFromResponse,
+  isRetryableError,
+  TimeoutError,
+  NetworkError
+} = require('./errors');
+const {
+  logRequestStart,
+  logRequestSuccess,
+  logRequestError,
+  logRetryAttempt,
+  createTimer
+} = require('./logger');
 
 // API version constants for maintainability
 const API_VERSIONS = {
@@ -68,7 +89,7 @@ const validateUrl = (url) => {
         hostname === '127.0.0.1' ||
         hostname.startsWith('192.168.') ||
         hostname.startsWith('10.') ||
-        hostname.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) && 
+        hostname.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) &&
         !url.includes('localhost:11434')) {
       throw new Error('Private IP addresses are not allowed');
     }
@@ -133,6 +154,7 @@ const create_provider_headers = (data) => {
     case 'deepseek':
     case 'qwen':
     case 'siliconflow':
+    case 'fireworks':
     case 'groq':
     case 'grok':
     case 'openrouter':
@@ -198,7 +220,7 @@ const create_batch_request = (data) => {
   }
 
   // Provider-specific validation for required batch fields
-  const requiresInputFileId = ['siliconflow', 'openai', 'groq'];
+  const requiresInputFileId = ['siliconflow', 'openai', 'groq', 'fireworks'];
   if (requiresInputFileId.includes(data.provider) && data.batch && !data.batch.inputFileId) {
     // Capitalize first letter for better error message formatting
     const providerName = data.provider.charAt(0).toUpperCase() + data.provider.slice(1);
@@ -209,6 +231,7 @@ const create_batch_request = (data) => {
     case 'openai':
     case 'groq':
     case 'siliconflow':
+    case 'fireworks':
       return create_openai_compatible_batch(data, data.provider);
 
     case 'anthropic':
@@ -404,43 +427,92 @@ const create_request = (schema, data, options = {}) => {
 };
 
 /**
- * Creates and executes an axios request from a schema with proper error handling
+ * Creates and executes an axios request from a schema with retry logic and proper error handling
  * @param {z.ZodSchema} schema - The Zod schema to validate input against
  * @param {Object} data - The input data to validate and convert
  * @param {Object} options - Request options (url, method, headers, etc.)
+ * @param {Object} options.retry - Retry configuration override
+ * @param {number} options.timeout - Request timeout override
  * @returns {Promise} Axios response promise
- * @throws {Error} Sanitized error messages that don't leak sensitive information
+ * @throws {LLMError} Structured error with provider information
  */
 const execute_request = async (schema, data, options = {}) => {
-  try {
-    const requestConfig = create_request(schema, data, options);
-    return await axios(requestConfig);
-  } catch (error) {
-    // Sanitize error messages to prevent information leakage
-    if (error.response) {
-      // HTTP error response - preserve status and basic info, sanitize details
-      const sanitizedError = new Error(`HTTP ${error.response.status}: Request failed`);
-      sanitizedError.response = {
-        status: error.response.status,
-        statusText: error.response.statusText,
-        data: error.response.data,
-        headers: error.response.headers
-      };
-      throw sanitizedError;
-    } else if (error.request) {
-      // Network error - don't expose internal network details
-      throw new Error('Network error: Unable to reach the API endpoint');
-    } else if (error.name === 'ZodError') {
-      // Schema validation error - safe to expose
-      throw error;
-    } else if (error.code && ['ECONNREFUSED', 'ENOTFOUND', 'ETIMEDOUT'].includes(error.code)) {
-      // Network-related errors
-      throw new Error('Network error: Unable to reach the API endpoint');
-    } else {
-      // Other errors - sanitize message
-      throw new Error(`Request failed: ${error.message}`);
+  const validatedData = schema.parse(data);
+  const { provider, model } = validatedData;
+
+  // Start timing and logging
+  const timer = createTimer();
+  logRequestStart(provider, model, {
+    requestSize: JSON.stringify(validatedData).length,
+    hasApiKey: !!validatedData.apiKey
+  });
+
+  // Create base request configuration
+  const requestConfig = create_request(schema, data, options);
+
+  // Add timeout and connection pooling
+  const axiosConfig = createAxiosConfig(provider, options);
+  const finalConfig = { ...requestConfig, ...axiosConfig };
+
+  // Retry configuration
+  const retryConfig = { ...RETRY_CONFIG, ...options.retry };
+  let lastError;
+
+  for (let attempt = 0; attempt <= retryConfig.maxRetries; attempt++) {
+    try {
+      const response = await axios(finalConfig);
+
+      // Log successful request
+      const duration = timer.stop();
+      const usage = response.data?.usage || {};
+      logRequestSuccess(provider, model, duration, usage, {
+        statusCode: response.status,
+        attempt: attempt + 1
+      });
+
+      return response;
+
+    } catch (error) {
+      lastError = error;
+      const duration = timer.stop();
+
+      // Create structured error
+      const structuredError = createErrorFromResponse(error, provider);
+
+      // Log the error
+      logRequestError(provider, model, structuredError, duration, attempt + 1);
+
+      // Check if we should retry
+      if (attempt < retryConfig.maxRetries && isRetryableError(structuredError)) {
+        // Calculate delay
+        let delay;
+
+        // Use Retry-After header if available for rate limits
+        if (structuredError.name === 'RateLimitError') {
+          const retryAfterDelay = getRetryAfterDelay(error.response?.headers || {});
+          delay = retryAfterDelay || calculateRetryDelay(attempt);
+        } else {
+          delay = calculateRetryDelay(attempt);
+        }
+
+        // Log retry attempt
+        logRetryAttempt(provider, model, attempt + 1, delay, structuredError.message);
+
+        // Wait before retry
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        // Reset timer for next attempt
+        timer.startTime = Date.now();
+        continue;
+      }
+
+      // No more retries or non-retryable error
+      throw structuredError;
     }
   }
+
+  // This should never be reached, but just in case
+  throw createErrorFromResponse(lastError, provider);
 };
 
 module.exports = {
