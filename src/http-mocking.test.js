@@ -159,14 +159,10 @@ describe('HTTP Mocking Tests', () => {
       };
 
       await expect(execute_request(llm_input_schema, input)).rejects.toMatchObject({
-        response: {
-          status: 401,
-          data: {
-            error: {
-              code: 'invalid_api_key'
-            }
-          }
-        }
+        name: 'AuthenticationError',
+        provider: 'openai',
+        statusCode: 401,
+        message: 'Invalid API key provided'
       });
     });
 
@@ -196,15 +192,16 @@ describe('HTTP Mocking Tests', () => {
         apiKey: 'test-key'
       };
 
-      await expect(execute_request(llm_input_schema, input)).rejects.toMatchObject({
-        response: {
-          status: 429,
-          headers: expect.objectContaining({
-            'retry-after': '60'
-          })
-        }
+      // Disable retries for this test to avoid long waits
+      const options = { retry: { maxRetries: 0 } };
+
+      await expect(execute_request(llm_input_schema, input, options)).rejects.toMatchObject({
+        name: 'RateLimitError',
+        provider: 'openai',
+        statusCode: 429,
+        retryAfter: '60'
       });
-    });
+    }, 10000);
 
     it('should handle 500 server errors', async () => {
       const mockError = {
@@ -228,12 +225,15 @@ describe('HTTP Mocking Tests', () => {
         apiKey: 'test-key'
       };
 
-      await expect(execute_request(llm_input_schema, input)).rejects.toMatchObject({
-        response: {
-          status: 500
-        }
+      // Disable retries for this test to avoid long waits
+      const options = { retry: { maxRetries: 0 } };
+
+      await expect(execute_request(llm_input_schema, input, options)).rejects.toMatchObject({
+        name: 'ServiceError',
+        provider: 'openai',
+        statusCode: 500
       });
-    });
+    }, 10000);
 
     it('should handle network errors', async () => {
       const networkError = new Error('Network Error');
@@ -248,8 +248,15 @@ describe('HTTP Mocking Tests', () => {
         apiKey: 'test-key'
       };
 
-      await expect(execute_request(llm_input_schema, input)).rejects.toThrow('Network error: Unable to reach the API endpoint');
-    });
+      // Disable retries for this test to avoid long waits
+      const options = { retry: { maxRetries: 0 } };
+
+      await expect(execute_request(llm_input_schema, input, options)).rejects.toMatchObject({
+        name: 'NetworkError',
+        provider: 'openai',
+        message: 'Network Error'
+      });
+    }, 10000);
   });
 
   describe('Batch Processing Mocking', () => {
